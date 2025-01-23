@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wetterdatenanalyse</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+        .input-box {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Input Section -->
+        <div class="col-md-4">
+            <div class="input-box">
+                <h5>Einstellungen</h5>
+                <form id="station-form">
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Ort der Station</label>
+                        <input type="text" id="location" class="form-control" placeholder="z.B. Kalifornien">
+                    </div>
+                    <div class="mb-3">
+                        <label for="radius" class="form-label">Reichweite der Suche (km)</label>
+                        <input type="number" id="radius" class="form-control" placeholder="z.B. 30">
+                    </div>
+                    <div class="mb-3">
+                        <label for="time-period" class="form-label">Zeitraum</label>
+                        <input type="text" id="time-period" class="form-control" placeholder="z.B. 2020 bis 2024">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Suchen</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="col-md-8">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <h5>Gefundene Stationen</h5>
+            <ul class="list-group" id="station-list">
+                <!-- Example of a station -->
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>Station: Kalifornien (123.234.233)</span>
+                        <button class="btn btn-sm btn-link" onclick="toggleDetails(this)">Details anzeigen</button>
+                    </div>
+                    <div class="details" style="display: none; margin-top: 10px;">
+                        <canvas id="chart-1" style="max-width: 500px;"></canvas>
+                        <table class="table table-striped mt-3">
+                            <thead>
+                            <tr>
+                                <th>Jahr</th>
+                                <th>Mittelwert Min</th>
+                                <th>Mittelwert Max</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>2020</td>
+                                <td>-5</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>2021</td>
+                                <td>-3</td>
+                                <td>18</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="mockup.js"></script>
+</body>
+</html>
