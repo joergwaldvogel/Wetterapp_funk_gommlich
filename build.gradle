@@ -3,6 +3,9 @@ plugins {
     id("org.springframework.boot") version "3.4.2"
     id("io.spring.dependency-management") version "1.1.7"
 }
+tasks.named('bootJar') {
+    mainClass = 'WeatherAPIEssentials'
+}
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
