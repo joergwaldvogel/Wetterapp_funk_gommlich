@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/weather")
-public class weather_reading {
+public class weatherReading {
 
     private static final String NOAA_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/all/";
 
