@@ -1,0 +1,87 @@
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.*;
+import java.util.zip.GZIPInputStream;
+
+public class fetchingData {
+    private static final String BASE_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/by_station/";
+
+    public static void main(String[] args) {
+        String stationId = "AE000041196"; // beispieldaten zum direkt testen
+        int startYear = 1949;
+        int endYear = 2000;
+        fetchAndProcessWeatherData(stationId, startYear, endYear);
+    }
+
+    public static void fetchAndProcessWeatherData(String stationId, int startYear, int endYear) {
+        String fileUrl = BASE_URL + stationId + ".csv.gz"; // GZIP-Datei
+        Map<Integer, List<Double>> minTempsByYear = new HashMap<>();
+        Map<Integer, List<Double>> maxTempsByYear = new HashMap<>();
+
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(fileUrl).openConnection();
+            connection.setRequestMethod("GET");
+
+            InputStream gzipStream = new GZIPInputStream(connection.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(gzipStream));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(","); // CSV-Datei ist komma-separiert
+                if (parts.length < 4) continue;
+
+                // Debugging: Rohdaten ausgeben
+                System.out.println("Zeile gelesen: " + line);
+
+                try {
+                    int year = Integer.parseInt(parts[1].substring(0, 4)); // Jahr aus Datum extrahieren
+                    if (year < startYear || year > endYear) continue;
+
+                    String recordType = parts[2]; // Temperaturtyp (TMIN oder TMAX)
+                    double tempValue = Double.parseDouble(parts[3]) / 10.0; // Temperatur umrechnen
+
+                    // Debugging: Prüfen, ob Werte wirklich in die Listen geschrieben werden
+                    System.out.println("Jahr: " + year + ", Typ: " + recordType + ", Wert: " + tempValue);
+
+                    if (recordType.equals("TMIN")) {
+                        minTempsByYear.computeIfAbsent(year, k -> new ArrayList<>()).add(tempValue);
+                    } else if (recordType.equals("TMAX")) {
+                        maxTempsByYear.computeIfAbsent(year, k -> new ArrayList<>()).add(tempValue);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Fehler beim Parsen von: " + line);
+                    e.printStackTrace();
+                }
+            }
+            reader.close();
+
+            saveToFile(stationId, startYear, endYear, minTempsByYear, maxTempsByYear);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void saveToFile(String stationId, int startYear, int endYear,
+                                   Map<Integer, List<Double>> minTempsByYear,
+                                   Map<Integer, List<Double>> maxTempsByYear) {
+        try (FileWriter writer = new FileWriter("weather_data.txt")) {
+            writer.write("Station: " + stationId + "\n");
+            writer.write("Zeitraum: " + startYear + "-" + endYear + "\n\n");
+
+            for (int year = startYear; year <= endYear; year++) {
+                double avgMin = minTempsByYear.getOrDefault(year, Collections.emptyList())
+                        .stream().mapToDouble(Double::doubleValue).average().orElse(Double.NaN);
+                double avgMax = maxTempsByYear.getOrDefault(year, Collections.emptyList())
+                        .stream().mapToDouble(Double::doubleValue).average().orElse(Double.NaN);
+
+                writer.write("Jahr: " + year + "\n");
+                writer.write("Durchschnittliche Mindesttemperatur: " + avgMin + "°C\n");
+                writer.write("Durchschnittliche Höchsttemperatur: " + avgMax + "°C\n\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

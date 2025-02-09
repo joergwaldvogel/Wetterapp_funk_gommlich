@@ -1,0 +1,211 @@
+Station: AE000041196
+Zeitraum: 1949-2000
+
+Jahr: 1949
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1950
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1951
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1952
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1953
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1954
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1955
+Durchschnittliche Mindesttemperatur: 20.255649717514125°C
+Durchschnittliche Höchsttemperatur: 31.86060606060606°C
+
+Jahr: 1956
+Durchschnittliche Mindesttemperatur: 20.133236994219654°C
+Durchschnittliche Höchsttemperatur: 31.83005464480874°C
+
+Jahr: 1957
+Durchschnittliche Mindesttemperatur: 20.383045977011495°C
+Durchschnittliche Höchsttemperatur: 31.218767507002802°C
+
+Jahr: 1958
+Durchschnittliche Mindesttemperatur: 20.366760563380282°C
+Durchschnittliche Höchsttemperatur: 31.887878787878787°C
+
+Jahr: 1959
+Durchschnittliche Mindesttemperatur: 20.55641791044776°C
+Durchschnittliche Höchsttemperatur: 31.194957983193277°C
+
+Jahr: 1960
+Durchschnittliche Mindesttemperatur: 20.23472222222222°C
+Durchschnittliche Höchsttemperatur: 31.727197802197804°C
+
+Jahr: 1961
+Durchschnittliche Mindesttemperatur: 18.18857142857143°C
+Durchschnittliche Höchsttemperatur: 29.24585635359116°C
+
+Jahr: 1962
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1963
+Durchschnittliche Mindesttemperatur: 21.290277777777778°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1964
+Durchschnittliche Mindesttemperatur: 19.510915492957746°C
+Durchschnittliche Höchsttemperatur: 27.233333333333334°C
+
+Jahr: 1965
+Durchschnittliche Mindesttemperatur: 21.64814814814815°C
+Durchschnittliche Höchsttemperatur: 31.928571428571427°C
+
+Jahr: 1966
+Durchschnittliche Mindesttemperatur: 19.950595238095236°C
+Durchschnittliche Höchsttemperatur: 31.21914893617021°C
+
+Jahr: 1967
+Durchschnittliche Mindesttemperatur: 20.556444444444445°C
+Durchschnittliche Höchsttemperatur: 31.983333333333334°C
+
+Jahr: 1968
+Durchschnittliche Mindesttemperatur: 20.04488888888889°C
+Durchschnittliche Höchsttemperatur: 34.8°C
+
+Jahr: 1969
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1970
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1971
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1972
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1973
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1974
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1975
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1976
+Durchschnittliche Mindesttemperatur: NaN°C
+Durchschnittliche Höchsttemperatur: NaN°C
+
+Jahr: 1977
+Durchschnittliche Mindesttemperatur: 18.11111111111111°C
+Durchschnittliche Höchsttemperatur: 34.38636363636363°C
+
+Jahr: 1978
+Durchschnittliche Mindesttemperatur: 18.77310924369748°C
+Durchschnittliche Höchsttemperatur: 34.99857142857143°C
+
+Jahr: 1979
+Durchschnittliche Mindesttemperatur: 25.0°C
+Durchschnittliche Höchsttemperatur: 35.21951219512195°C
+
+Jahr: 1980
+Durchschnittliche Mindesttemperatur: 19.0°C
+Durchschnittliche Höchsttemperatur: 34.982089552238804°C
+
+Jahr: 1981
+Durchschnittliche Mindesttemperatur: 23.75°C
+Durchschnittliche Höchsttemperatur: 34.636655948553056°C
+
+Jahr: 1982
+Durchschnittliche Mindesttemperatur: 19.676106194690266°C
+Durchschnittliche Höchsttemperatur: 33.0736220472441°C
+
+Jahr: 1983
+Durchschnittliche Mindesttemperatur: 19.39082125603865°C
+Durchschnittliche Höchsttemperatur: 34.05670103092783°C
+
+Jahr: 1984
+Durchschnittliche Mindesttemperatur: 18.389558232931726°C
+Durchschnittliche Höchsttemperatur: 34.125856697819316°C
+
+Jahr: 1985
+Durchschnittliche Mindesttemperatur: 19.54469026548673°C
+Durchschnittliche Höchsttemperatur: 34.16366366366366°C
+
+Jahr: 1986
+Durchschnittliche Mindesttemperatur: 19.88869565217391°C
+Durchschnittliche Höchsttemperatur: 33.72369230769231°C
+
+Jahr: 1987
+Durchschnittliche Mindesttemperatur: 18.82101167315175°C
+Durchschnittliche Höchsttemperatur: 34.24390243902439°C
+
+Jahr: 1988
+Durchschnittliche Mindesttemperatur: 19.686936936936938°C
+Durchschnittliche Höchsttemperatur: 34.087106918238995°C
+
+Jahr: 1989
+Durchschnittliche Mindesttemperatur: 18.65870646766169°C
+Durchschnittliche Höchsttemperatur: 33.62433333333333°C
+
+Jahr: 1990
+Durchschnittliche Mindesttemperatur: 19.444660194174755°C
+Durchschnittliche Höchsttemperatur: 34.67326732673267°C
+
+Jahr: 1991
+Durchschnittliche Mindesttemperatur: 18.994117647058825°C
+Durchschnittliche Höchsttemperatur: 33.37269736842105°C
+
+Jahr: 1992
+Durchschnittliche Mindesttemperatur: 18.89371727748691°C
+Durchschnittliche Höchsttemperatur: 32.84448051948052°C
+
+Jahr: 1993
+Durchschnittliche Mindesttemperatur: 20.0°C
+Durchschnittliche Höchsttemperatur: 34.351020408163265°C
+
+Jahr: 1994
+Durchschnittliche Mindesttemperatur: 19.92232142857143°C
+Durchschnittliche Höchsttemperatur: 35.28070739549839°C
+
+Jahr: 1995
+Durchschnittliche Mindesttemperatur: 19.297975708502026°C
+Durchschnittliche Höchsttemperatur: 33.771646341463416°C
+
+Jahr: 1996
+Durchschnittliche Mindesttemperatur: 19.673191489361702°C
+Durchschnittliche Höchsttemperatur: 34.73201219512195°C
+
+Jahr: 1997
+Durchschnittliche Mindesttemperatur: 20.023188405797104°C
+Durchschnittliche Höchsttemperatur: 33.138275862068966°C
+
+Jahr: 1998
+Durchschnittliche Mindesttemperatur: 21.018141592920355°C
+Durchschnittliche Höchsttemperatur: 36.57736486486486°C
+
+Jahr: 1999
+Durchschnittliche Mindesttemperatur: 21.74761904761905°C
+Durchschnittliche Höchsttemperatur: 36.920481927710846°C
+
+Jahr: 2000
+Durchschnittliche Mindesttemperatur: 20.359493670886074°C
+Durchschnittliche Höchsttemperatur: 35.814935064935064°C
+
