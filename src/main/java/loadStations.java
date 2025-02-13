@@ -5,34 +5,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class loadStations {
-
     private static final String NOAA_STATIONS_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt";
-    private static List<Station> stations; //Werden die nur einmal geöaden und dann gecached? nochmal prüfen
-
+    private static List<Station> stationList; //Werden die nur einmal geöaden und dann gecached? nochmal prüfen
+    public record Station(String id, double latitude, double longitude) {}
     public static List<Station> getStations() {
-        if (stations == null) {
-            stations = loadStationsFromNOAA();
+        if (stationList == null) {
+            stationList = loadStationsFromNOAA();
         }
-        return stations;
+        return stationList;
     }
 
     static List<Station> loadStationsFromNOAA() {
-        List<Station> stationsList = new ArrayList<>();
+        List<Station> stations = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new URL(NOAA_STATIONS_URL).openStream()))) {
             String line;
             while ((line = br.readLine()) != null) {
+                String stationId = line.substring(0, 11).trim();
+                double latitude = Double.parseDouble(line.substring(12, 20).trim());
+                double longitude = Double.parseDouble(line.substring(21, 30).trim());
 
-                String stationId = line.substring(0, 11).trim();  // filter id
-                double latitude = Double.parseDouble(line.substring(12, 20).trim());  // filter latitidude
-                double longitude = Double.parseDouble(line.substring(21, 30).trim()); // filter longitude
-
-                stationsList.add(new Station(stationId, latitude, longitude));
+                stations.add(new Station(stationId, latitude, longitude));
             }
-            System.out.println("Geladene Stationen: " + stationsList.size());
+            System.out.println("Geladene Stationen: " + stations.size());
         } catch (Exception e) {
             System.err.println("Fehler beim Laden der NOAA-Stationen: " + e.getMessage());
         }
-        return stationsList;
+        return stations;
     }
 
     public static void main(String[] args) {

@@ -1,0 +1,214 @@
+{
+  "station" : "AE000041196",
+  "zeitraum" : "1949-2000",
+  "jahreswerte" : {
+    "1949" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1950" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1951" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1952" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1953" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1954" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1955" : {
+      "durchschnittliche_mindesttemperatur" : 20.255649717514125,
+      "durchschnittliche_hoechsttemperatur" : 31.86060606060606
+    },
+    "1956" : {
+      "durchschnittliche_mindesttemperatur" : 20.133236994219654,
+      "durchschnittliche_hoechsttemperatur" : 31.83005464480874
+    },
+    "1957" : {
+      "durchschnittliche_mindesttemperatur" : 20.383045977011495,
+      "durchschnittliche_hoechsttemperatur" : 31.218767507002802
+    },
+    "1958" : {
+      "durchschnittliche_mindesttemperatur" : 20.366760563380282,
+      "durchschnittliche_hoechsttemperatur" : 31.887878787878787
+    },
+    "1959" : {
+      "durchschnittliche_mindesttemperatur" : 20.55641791044776,
+      "durchschnittliche_hoechsttemperatur" : 31.194957983193277
+    },
+    "1960" : {
+      "durchschnittliche_mindesttemperatur" : 20.23472222222222,
+      "durchschnittliche_hoechsttemperatur" : 31.727197802197804
+    },
+    "1961" : {
+      "durchschnittliche_mindesttemperatur" : 18.18857142857143,
+      "durchschnittliche_hoechsttemperatur" : 29.24585635359116
+    },
+    "1962" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1963" : {
+      "durchschnittliche_mindesttemperatur" : 21.290277777777778,
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1964" : {
+      "durchschnittliche_mindesttemperatur" : 19.510915492957746,
+      "durchschnittliche_hoechsttemperatur" : 27.233333333333334
+    },
+    "1965" : {
+      "durchschnittliche_mindesttemperatur" : 21.64814814814815,
+      "durchschnittliche_hoechsttemperatur" : 31.928571428571427
+    },
+    "1966" : {
+      "durchschnittliche_mindesttemperatur" : 19.950595238095236,
+      "durchschnittliche_hoechsttemperatur" : 31.21914893617021
+    },
+    "1967" : {
+      "durchschnittliche_mindesttemperatur" : 20.556444444444445,
+      "durchschnittliche_hoechsttemperatur" : 31.983333333333334
+    },
+    "1968" : {
+      "durchschnittliche_mindesttemperatur" : 20.04488888888889,
+      "durchschnittliche_hoechsttemperatur" : 34.8
+    },
+    "1969" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1970" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1971" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1972" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1973" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1974" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1975" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1976" : {
+      "durchschnittliche_mindesttemperatur" : "NaN",
+      "durchschnittliche_hoechsttemperatur" : "NaN"
+    },
+    "1977" : {
+      "durchschnittliche_mindesttemperatur" : 18.11111111111111,
+      "durchschnittliche_hoechsttemperatur" : 34.38636363636363
+    },
+    "1978" : {
+      "durchschnittliche_mindesttemperatur" : 18.77310924369748,
+      "durchschnittliche_hoechsttemperatur" : 34.99857142857143
+    },
+    "1979" : {
+      "durchschnittliche_mindesttemperatur" : 25.0,
+      "durchschnittliche_hoechsttemperatur" : 35.21951219512195
+    },
+    "1980" : {
+      "durchschnittliche_mindesttemperatur" : 19.0,
+      "durchschnittliche_hoechsttemperatur" : 34.982089552238804
+    },
+    "1981" : {
+      "durchschnittliche_mindesttemperatur" : 23.75,
+      "durchschnittliche_hoechsttemperatur" : 34.636655948553056
+    },
+    "1982" : {
+      "durchschnittliche_mindesttemperatur" : 19.676106194690266,
+      "durchschnittliche_hoechsttemperatur" : 33.0736220472441
+    },
+    "1983" : {
+      "durchschnittliche_mindesttemperatur" : 19.39082125603865,
+      "durchschnittliche_hoechsttemperatur" : 34.05670103092783
+    },
+    "1984" : {
+      "durchschnittliche_mindesttemperatur" : 18.389558232931726,
+      "durchschnittliche_hoechsttemperatur" : 34.125856697819316
+    },
+    "1985" : {
+      "durchschnittliche_mindesttemperatur" : 19.54469026548673,
+      "durchschnittliche_hoechsttemperatur" : 34.16366366366366
+    },
+    "1986" : {
+      "durchschnittliche_mindesttemperatur" : 19.88869565217391,
+      "durchschnittliche_hoechsttemperatur" : 33.72369230769231
+    },
+    "1987" : {
+      "durchschnittliche_mindesttemperatur" : 18.82101167315175,
+      "durchschnittliche_hoechsttemperatur" : 34.24390243902439
+    },
+    "1988" : {
+      "durchschnittliche_mindesttemperatur" : 19.686936936936938,
+      "durchschnittliche_hoechsttemperatur" : 34.087106918238995
+    },
+    "1989" : {
+      "durchschnittliche_mindesttemperatur" : 18.65870646766169,
+      "durchschnittliche_hoechsttemperatur" : 33.62433333333333
+    },
+    "1990" : {
+      "durchschnittliche_mindesttemperatur" : 19.444660194174755,
+      "durchschnittliche_hoechsttemperatur" : 34.67326732673267
+    },
+    "1991" : {
+      "durchschnittliche_mindesttemperatur" : 18.994117647058825,
+      "durchschnittliche_hoechsttemperatur" : 33.37269736842105
+    },
+    "1992" : {
+      "durchschnittliche_mindesttemperatur" : 18.89371727748691,
+      "durchschnittliche_hoechsttemperatur" : 32.84448051948052
+    },
+    "1993" : {
+      "durchschnittliche_mindesttemperatur" : 20.0,
+      "durchschnittliche_hoechsttemperatur" : 34.351020408163265
+    },
+    "1994" : {
+      "durchschnittliche_mindesttemperatur" : 19.92232142857143,
+      "durchschnittliche_hoechsttemperatur" : 35.28070739549839
+    },
+    "1995" : {
+      "durchschnittliche_mindesttemperatur" : 19.297975708502026,
+      "durchschnittliche_hoechsttemperatur" : 33.771646341463416
+    },
+    "1996" : {
+      "durchschnittliche_mindesttemperatur" : 19.673191489361702,
+      "durchschnittliche_hoechsttemperatur" : 34.73201219512195
+    },
+    "1997" : {
+      "durchschnittliche_mindesttemperatur" : 20.023188405797104,
+      "durchschnittliche_hoechsttemperatur" : 33.138275862068966
+    },
+    "1998" : {
+      "durchschnittliche_mindesttemperatur" : 21.018141592920355,
+      "durchschnittliche_hoechsttemperatur" : 36.57736486486486
+    },
+    "1999" : {
+      "durchschnittliche_mindesttemperatur" : 21.74761904761905,
+      "durchschnittliche_hoechsttemperatur" : 36.920481927710846
+    },
+    "2000" : {
+      "durchschnittliche_mindesttemperatur" : 20.359493670886074,
+      "durchschnittliche_hoechsttemperatur" : 35.814935064935064
+    }
+  }
+}

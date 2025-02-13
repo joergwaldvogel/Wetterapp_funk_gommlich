@@ -1,20 +1,23 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 import java.util.zip.GZIPInputStream;
 
-public class fetchingWeatherData {
+public class fetchingWeatherData extends determineStations {
     private static final String BASE_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/by_station/";
 
     public static void main(String[] args) {
         String stationId = "AE000041196"; // beispieldaten zum direkt testen
         int startYear = 1949;
         int endYear = 2000;
-        fetchAndProcessWeatherData(stationId, startYear, endYear);
+        fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
     }
 
-    public static void fetchAndProcessWeatherData(String stationId, int startYear, int endYear) {
+    public static String fetchAndProcessWeatherDataByYear(String stationId, int startYear, int endYear) {
         String fileUrl = BASE_URL + stationId + ".csv.gz"; // GZIP-Datei
         Map<Integer, List<Double>> minTempsByYear = new HashMap<>();
         Map<Integer, List<Double>> maxTempsByYear = new HashMap<>();
@@ -57,19 +60,24 @@ public class fetchingWeatherData {
             }
             reader.close();
 
-            saveToFile(stationId, startYear, endYear, minTempsByYear, maxTempsByYear);
+            return saveToJson(stationId, startYear, endYear, minTempsByYear, maxTempsByYear);
 
         } catch (Exception e) {
             e.printStackTrace();
+            return "{}";
         }
     }
 
-    private static void saveToFile(String stationId, int startYear, int endYear,
-                                   Map<Integer, List<Double>> minTempsByYear,
-                                   Map<Integer, List<Double>> maxTempsByYear) {
-        try (FileWriter writer = new FileWriter("weather_data.txt")) {
-            writer.write("Station: " + stationId + "\n");
-            writer.write("Zeitraum: " + startYear + "-" + endYear + "\n\n");
+    private static String saveToJson(String stationId, int startYear, int endYear,
+                                     Map<Integer, List<Double>> minTempsByYear,
+                                     Map<Integer, List<Double>> maxTempsByYear) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectNode rootNode = objectMapper.createObjectNode();
+            rootNode.put("station", stationId);
+            rootNode.put("zeitraum", startYear + "-" + endYear);
+
+            ObjectNode yearlyData = objectMapper.createObjectNode();
 
             for (int year = startYear; year <= endYear; year++) {
                 double avgMin = minTempsByYear.getOrDefault(year, Collections.emptyList())
@@ -77,12 +85,25 @@ public class fetchingWeatherData {
                 double avgMax = maxTempsByYear.getOrDefault(year, Collections.emptyList())
                         .stream().mapToDouble(Double::doubleValue).average().orElse(Double.NaN);
 
-                writer.write("Jahr: " + year + "\n");
-                writer.write("Durchschnittliche Mindesttemperatur: " + avgMin + "°C\n");
-                writer.write("Durchschnittliche Höchsttemperatur: " + avgMax + "°C\n\n");
+                ObjectNode yearNode = objectMapper.createObjectNode();
+                yearNode.put("tmin", avgMin);
+                yearNode.put("zmax", avgMax);
+                yearlyData.set(String.valueOf(year), yearNode);
             }
+
+            rootNode.set("jahreswerte", yearlyData);
+
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("weather_data.json"), rootNode);
+
+            return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+
         } catch (Exception e) {
             e.printStackTrace();
+            return "{}";
         }
+    }
+
+    public static void fetchAndProcessWeatherDataBySeasons(String stationId, int startYear, int endYear){
+
     }
 }

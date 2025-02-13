@@ -19,12 +19,11 @@ public class determineStations extends loadStations {
         double searchLongitude = -61.7833 ;
         double searchRadius = 6000.0;
 
-        List<Station> stations = loadStationsFromNOAA();
-
+        List<Station> stations = getStations();
         //KD-Tree
         KdTree kdTree = new KdTree();
         for (Station station : stations) {
-            kdTree.insert(new Coordinate(station.getLatitude(), station.getLongitude()), station);
+            kdTree.insert(new Coordinate(station.latitude(), station.longitude()), station);
         }
 
         List<Station> nearbyStations = findStationsInRadius(kdTree, searchLatitude, searchLongitude, searchRadius);
@@ -56,13 +55,13 @@ public class determineStations extends loadStations {
 
         return nearbyNodes.stream()
                 .map(node -> (Station) node.getData())
-                .filter(station -> haversine(lat, lon, station.getLatitude(), station.getLongitude()) <= radius)
+                .filter(station -> haversine(lat, lon, station.latitude(), station.longitude()) <= radius)
                 .collect(Collectors.toList());
     }
 
     private static List<Station> sortStationsByDistance(List<Station> stations, double lat, double lon) {
         return stations.stream()
-                .sorted(Comparator.comparingDouble(station -> haversine(lat, lon, station.getLatitude(), station.getLongitude())))
+                .sorted(Comparator.comparingDouble(station -> haversine(lat, lon, station.latitude(), station.longitude())))
                 .collect(Collectors.toList());
     }
 

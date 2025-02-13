@@ -1,7 +1,7 @@
 public class WeatherAPIEssentials extends fetchingWeatherData {
 
     public static void main(String[] args) {
-        fetchAndProcessWeatherData("ACW00011604", 1949, 1951);
+        fetchAndProcessWeatherDataByYear("ACW00011604", 1949, 1951);
 
         //TODO ZU beachtende Funktionen:
         //  -> Wetter Daten müssen Frontend per JSOn übermittelt werden, visualisierung dann vielleicht per Chart.js

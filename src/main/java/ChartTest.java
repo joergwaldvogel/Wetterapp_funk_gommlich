@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
 public class ChartTest {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            WeatherChart chart = new WeatherChart();
-            crea
+            //Chart chart = new WeatherChart();
+            //chart.createAndShowGUI();
         });
     }
 
