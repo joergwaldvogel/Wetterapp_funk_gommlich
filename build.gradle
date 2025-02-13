@@ -21,6 +21,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    //jts library für kd tree
+    implementation("org.locationtech.jts:jts-core:1.18.2")
+
+
+    implementation("org.jfree:jfreechart:1.5.3")
+    implementation("org.jfree:jcommon:1.0.24")
 }
 
 tasks.test {
