@@ -8,13 +8,13 @@
     let weatherData = null;
 
     async function fetchStations() {
-      const response = await fetch(`http://localhost:8080/stations?lat=${latitude}&lon=${longitude}&radius=${radius}`);
+      const response = await fetch(`http://localhost:8080/get_stations?lat=${latitude}&lon=${longitude}&radius=${radius}`);
       stations = await response.json();
     }
 
     async function fetchWeatherData(stationId) {
       selectedStation = stationId;
-      const response = await fetch(`http://localhost:8080/weather?station=${stationId}`);
+      const response = await fetch(`http://localhost:8080/get_weather_data?station=${stationId}`);
       weatherData = await response.json();
     }
 </script>
