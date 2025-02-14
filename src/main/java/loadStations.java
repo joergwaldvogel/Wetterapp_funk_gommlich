@@ -33,9 +33,9 @@ public class loadStations {
         return stations;
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         List<Station> stations = getStations();
         System.out.println("Erste 5 Stationen:");
         stations.stream().limit(5).forEach(System.out::println);
-    }
+    }*/
 }

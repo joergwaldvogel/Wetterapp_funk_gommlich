@@ -13,12 +13,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChartTest {
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             //Chart chart = new WeatherChart();
             //chart.createAndShowGUI();
         });
-    }
+    }*/
 
     private void createAndShowGUI() {
         JFrame frame = new JFrame("Wetterdaten Stabdiagramm");

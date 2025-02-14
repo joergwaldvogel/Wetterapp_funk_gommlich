@@ -7,6 +7,12 @@ tasks.named('bootJar') {
     mainClass = 'WeatherAPIEssentials'
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(20))
+    }
+}
+
 group = "org.example"
 version = "1.0-SNAPSHOT"
 

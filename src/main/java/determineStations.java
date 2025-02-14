@@ -12,34 +12,30 @@ import java.util.stream.Collectors;
 
 public class determineStations extends loadStations {
 
-    public static void main(String[] args) {
-
-        //vordefinierte Koordinaten zum mtesten
-        double searchLatitude = 17.1167;
-        double searchLongitude = -61.7833 ;
-        double searchRadius = 6000.0;
+    public static String stationSearch(double lat, double lon, double radius) { //vordefinierte Koordinaten zum mtesten
 
         List<Station> stations = getStations();
-        //KD-Tree
+
+        //KD-Tree erstellen
         KdTree kdTree = new KdTree();
         for (Station station : stations) {
             kdTree.insert(new Coordinate(station.latitude(), station.longitude()), station);
         }
 
-        List<Station> nearbyStations = findStationsInRadius(kdTree, searchLatitude, searchLongitude, searchRadius);
-
-        List<Station> sortedStations = sortStationsByDistance(nearbyStations, searchLatitude, searchLongitude);
+        List<Station> nearbyStations = findStationsInRadius(kdTree, lat, lon, radius);
+        List<Station> sortedStations = sortStationsByDistance(nearbyStations, lat, lon);
 
         if (sortedStations.size() > 10) {
             sortedStations = sortedStations.subList(0, 10);
         }
 
-        saveStationsToJson(sortedStations, "stations.json");
-
-        System.out.println(nearbyStations.size() + " Stationen innerhalb von " + searchRadius + " km um (" + searchLatitude + ", " + searchLongitude + "):");
+        System.out.println(nearbyStations.size() + " Stationen innerhalb von " + radius + " km um (" + lat + ", " + lon + "):");
         for (Station station : nearbyStations) {
             System.out.println(station);
         }
+
+        return saveStationsToJson(sortedStations);
+
     }
 
     //KD-Tree radiussuche und manueller Distanzberechnung (da nur rechteck berrechnet werden kann)
@@ -77,15 +73,23 @@ public class determineStations extends loadStations {
         return R * c;
     }
 
-    private static void saveStationsToJson(List<Station> stations, String filename) {
+    private static String saveStationsToJson(List<Station> stations) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            objectMapper.writeValue(new File(filename), stations);
-            System.out.println("Stationen wurden als JSON gespeichert: " + filename);
+            objectMapper.writeValue(new File("station_data.json"), stations);
+            return objectMapper.writeValueAsString(stations);
         } catch (Exception e) {
-            System.err.println("Fehler beim Speichern der JSON-Datei: " + e.getMessage());
+            System.err.println("Fehler beim Erstellen der JSON-Daten: " + e.getMessage());
+            return "[]"; // Leeres JSON-Array als Fallback
         }
     }
+
+ /*   public static void main(String[] args) {
+        double searchLatitude = 17.1167;
+        double searchLongitude = -61.7833 ;
+        double searchRadius = 6000.0;
+        stationSearch(searchLatitude, searchLongitude, searchRadius);
+    }*/
 }
 

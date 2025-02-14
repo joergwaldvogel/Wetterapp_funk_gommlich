@@ -10,12 +10,12 @@ import java.util.zip.GZIPInputStream;
 public class fetchingWeatherData extends determineStations {
     private static final String BASE_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/by_station/";
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         String stationId = "AE000041196"; // beispieldaten zum direkt testen
         int startYear = 1949;
         int endYear = 2000;
         fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
-    }
+    }*/
 
     public static String fetchAndProcessWeatherDataByYear(String stationId, int startYear, int endYear) {
         String fileUrl = BASE_URL + stationId + ".csv.gz"; // GZIP-Datei
@@ -35,7 +35,7 @@ public class fetchingWeatherData extends determineStations {
                 if (parts.length < 4) continue;
 
                 // debugging
-                System.out.println("Zeile gelesen: " + line);
+                //System.out.println("Zeile gelesen: " + line);
 
                 try {
                     int year = Integer.parseInt(parts[1].substring(0, 4)); // Jahr aus Datum ziehen
@@ -46,7 +46,7 @@ public class fetchingWeatherData extends determineStations {
                     double tempValue = Double.parseDouble(parts[3]) / 10.0; // Temperatur umrechnen
 
                     // Debugging
-                    System.out.println("Jahr: " + year + ", Typ: " + recordType + ", Wert: " + tempValue);
+                    //System.out.println("Jahr: " + year + ", Typ: " + recordType + ", Wert: " + tempValue);
 
                     if (recordType.equals("TMIN")) {
                         minTempsByYear.computeIfAbsent(year, k -> new ArrayList<>()).add(tempValue);
