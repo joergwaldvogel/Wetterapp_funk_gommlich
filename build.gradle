@@ -9,7 +9,7 @@ tasks.named('bootJar') {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(20))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -26,7 +26,11 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    implementation 'com.h2database:h2'
 
     //jts library für kd tree
     implementation("org.locationtech.jts:jts-core:1.18.2")
