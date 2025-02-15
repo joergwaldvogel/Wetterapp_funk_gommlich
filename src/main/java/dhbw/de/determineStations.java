@@ -88,11 +88,11 @@ public class determineStations extends loadStations {
         }
     }
 
- /*   public static void main(String[] args) {
+    public static void main(String[] args) {
         double searchLatitude = 17.1167;
         double searchLongitude = -61.7833 ;
         double searchRadius = 6000.0;
         stationSearch(searchLatitude, searchLongitude, searchRadius);
-    }*/
+    }
 }
 
