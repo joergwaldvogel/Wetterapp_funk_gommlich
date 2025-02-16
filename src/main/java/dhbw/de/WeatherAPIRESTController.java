@@ -1,9 +1,8 @@
 package dhbw.de;
 
-import dhbw.de.fetchingWeatherData;
-import dhbw.de.loadStations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
@@ -12,16 +11,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "dhbw.de")
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:5173") //Anfragen vom Frontend
 public class WeatherAPIRESTController {
 
     private static final Logger logger = LoggerFactory.getLogger(WeatherAPIRESTController.class);
-    private final determineStations stationService;
-    private final fetchingWeatherData weatherDataService;
+    private final DetermineStations stationService;
+    private final FetchingWeatherData weatherDataService;
 
-    public WeatherAPIRESTController(determineStations stationService, fetchingWeatherData weatherDataService) {
+    public WeatherAPIRESTController(@Qualifier("determineStations") DetermineStations stationService,
+                                    @Qualifier("fetchingWeatherData") FetchingWeatherData weatherDataService) {
         this.stationService = stationService;
         this.weatherDataService = weatherDataService;
     }

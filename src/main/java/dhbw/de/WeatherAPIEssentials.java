@@ -1,9 +1,7 @@
 package dhbw.de;
 
-import dhbw.de.fetchingWeatherData;
 
-
-public class WeatherAPIEssentials extends fetchingWeatherData {
+public class WeatherAPIEssentials extends FetchingWeatherData {
    // public static void main(String[] args) {
         //pringApplication.run(dhbw.de.WeatherAPIEssentials.class, args);
 
