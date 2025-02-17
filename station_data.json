@@ -1,41 +1,41 @@
 [ {
-  "id" : "BR000736040",
-  "latitude" : -7.99,
-  "longitude" : -36.5
+  "id" : "GME00127850",
+  "latitude" : 52.5331,
+  "longitude" : 13.3831
 }, {
-  "id" : "BR038579050",
-  "latitude" : -7.97,
-  "longitude" : -36.48
+  "id" : "GMW00035104",
+  "latitude" : 52.4833,
+  "longitude" : 13.4
 }, {
-  "id" : "BR038579180",
-  "latitude" : -7.97,
-  "longitude" : -36.42
+  "id" : "GME00111445",
+  "latitude" : 52.4683,
+  "longitude" : 13.4039
 }, {
-  "id" : "BR038671130",
-  "latitude" : -8.08,
-  "longitude" : -36.45
+  "id" : "GME00121150",
+  "latitude" : 52.5656,
+  "longitude" : 13.3106
 }, {
-  "id" : "BR038662970",
-  "latitude" : -8.1,
-  "longitude" : -36.52
+  "id" : "GME00128126",
+  "latitude" : 52.4567,
+  "longitude" : 13.4717
 }, {
-  "id" : "BR038662930",
-  "latitude" : -8.13,
-  "longitude" : -36.55
+  "id" : "GMW00035110",
+  "latitude" : 52.5667,
+  "longitude" : 13.3
 }, {
-  "id" : "BR038662810",
-  "latitude" : -8.1,
-  "longitude" : -36.6
+  "id" : "GM000003319",
+  "latitude" : 52.4639,
+  "longitude" : 13.3017
 }, {
-  "id" : "BR038577260",
-  "latitude" : -7.88,
-  "longitude" : -36.38
+  "id" : "GME00127486",
+  "latitude" : 52.4578,
+  "longitude" : 13.3014
 }, {
-  "id" : "BR038663840",
-  "latitude" : -8.15,
-  "longitude" : -36.58
+  "id" : "GME00127822",
+  "latitude" : 52.5458,
+  "longitude" : 13.5617
 }, {
-  "id" : "BR038660660",
-  "latitude" : -8.03,
-  "longitude" : -36.68
+  "id" : "GME00128062",
+  "latitude" : 52.6056,
+  "longitude" : 13.2967
 } ]

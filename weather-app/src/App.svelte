@@ -7,24 +7,26 @@
   let selectedStation = null;
   let weatherData = null;
   let map;
-  let lat = -8.0;
-  let lon = -36.5;
-  let radius = 10000;
+  let searchCircle = null;
+  let lat = 52.52;
+  let lon = 13.405;
+  let radius = 10;
   let startYear = 1949;
   let endYear = 1959;
 
-    onMount(() => {
-        if (!map) {
-            map = L.map("map", {
-                center: [lat, lon],
-                zoom: 5
-            });
+   onMount(() => {
+       if (!map) {
+           map = L.map("map", {
+               center: [lat, lon],
+               zoom: 5
+           });
 
-            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                maxZoom: 19
-            }).addTo(map);
-        }
-    });
+           L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+               maxZoom: 19
+           }).addTo(map);
+       }
+       fetchStations();
+   });
 
   // Fetch stations from backend
   async function fetchStations() {
@@ -35,10 +37,42 @@
           selectedStation = null;  // Reset selected station
           weatherData = null;      // Clear previous weather data
           console.log("Stations received:", stations);
+          showStationMarkers();
       } catch (error) {
           console.error("Error fetching stations:", error);
       }
   }
+
+    // Funktion, um Marker und roten Kreis für Stationen anzuzeigen
+    function showStationMarkers() {
+    // Entferne alten Kreis, falls vorhanden
+    if (searchCircle) {
+        map.removeLayer(searchCircle);
+    }
+
+    // Erstelle einen neuen roten Kreis um die Suchposition
+    searchCircle = L.circle([lat, lon], {
+        color: 'red',
+        fillColor: 'red',
+        fillOpacity: 0.1,
+        radius: radius * 1000 // km → m Umrechnung
+    }).addTo(map);
+
+    // Definiere ein kleineres Icon
+    const smallIcon = L.icon({
+        iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png", // Standard Leaflet-Icon
+        iconSize: [16, 26], // Kleinere Größe (Breite, Höhe)
+        iconAnchor: [8, 26], // Ankerpunkt unten mittig
+        popupAnchor: [1, -24] // Position des Popups relativ zum Icon
+    });
+
+    // Füge Marker für die ersten 10 Stationen hinzu
+    stations.slice(0, 10).forEach(station => {
+        const { latitude, longitude } = station;
+        const marker = L.marker([latitude, longitude], { icon: smallIcon }).addTo(map);
+        marker.bindPopup(`<b>${station.id}</b><br>(${latitude}, ${longitude})`);
+    });
+}
 
   // Fetch weather data for a specific station
   async function fetchWeatherData(stationId) {
