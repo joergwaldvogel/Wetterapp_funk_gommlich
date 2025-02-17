@@ -8,7 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @RestController
 @SpringBootApplication(scanBasePackages = "dhbw.de")
@@ -47,14 +52,23 @@ public class WeatherAPIRESTController {
     }
 
     @GetMapping("/get_stations")
-    public String getStations(@RequestParam double lat, @RequestParam double lon, @RequestParam double radius) {
+    public ResponseEntity<String> getStations(@RequestParam double lat, @RequestParam double lon, @RequestParam double radius) throws IOException {
         logger.info("GET-Request auf /get_station empfangen!");
-        return stationService.stationSearch(lat, lon, radius).toString();
+        //return stationService.stationSearch(lat, lon, radius).toString();
+
+        Path path = Path.of("station-data.json");
+        String jsonContent = Files.readString(path);
+
+        return ResponseEntity.ok(jsonContent);
     }
 
     @GetMapping("/get_weather_data")
-    public String getWeatherData(@RequestParam String stationId, @RequestParam int startYear, @RequestParam int endYear) {
+    public ResponseEntity<String> getWeatherData(@RequestParam String stationId, @RequestParam int startYear, @RequestParam int endYear) throws IOException {
         logger.info("GET-Request auf /get_weather_data empfangen!");
-        return weatherDataService.fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
+        //return weatherDataService.fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
+        Path path = Path.of("weather_data.json");
+        String jsonContent = Files.readString(path);
+
+        return ResponseEntity.ok(jsonContent);
     }
 }
