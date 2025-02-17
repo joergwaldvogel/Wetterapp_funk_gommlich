@@ -66,7 +66,7 @@ public class WeatherAPIRESTController {
     public ResponseEntity<String> getWeatherData(@RequestParam String stationId, @RequestParam int startYear, @RequestParam int endYear) throws IOException {
         logger.info("GET-Request auf /get_weather_data empfangen!");
         //return weatherDataService.fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
-        Path path = Path.of("weather-data.json");
+        Path path = Path.of("weather_data.json");
         String jsonContent = Files.readString(path);
 
         return ResponseEntity.ok(jsonContent);
