@@ -1,14 +1,30 @@
 <script>
   import { onMount } from "svelte";
+  import "leaflet/dist/leaflet.css";
+  import L from "leaflet";
 
   let stations = [];
   let selectedStation = null;
   let weatherData = null;
-
-  // Coordinates for searching stations
+  let map;
   let lat = -8.0;
   let lon = -36.5;
-  let radius = 50;
+  let radius = 10000;
+  let startYear = 1949;
+  let endYear = 1959;
+
+    onMount(() => {
+        if (!map) {
+            map = L.map("map", {
+                center: [lat, lon],
+                zoom: 5
+            });
+
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                maxZoom: 19
+            }).addTo(map);
+        }
+    });
 
   // Fetch stations from backend
   async function fetchStations() {
@@ -16,6 +32,8 @@
           const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}`);
           if (!response.ok) throw new Error("Failed to fetch stations");
           stations = await response.json();
+          selectedStation = null;  // Reset selected station
+          weatherData = null;      // Clear previous weather data
           console.log("Stations received:", stations);
       } catch (error) {
           console.error("Error fetching stations:", error);
@@ -25,33 +43,34 @@
   // Fetch weather data for a specific station
   async function fetchWeatherData(stationId) {
       try {
-          const startYear = 1949;
-          const endYear = 1951;
           const response = await fetch(`http://localhost:8080/api/get_weather_data?stationId=${stationId}&startYear=${startYear}&endYear=${endYear}`);
           if (!response.ok) throw new Error("Failed to fetch weather data");
           weatherData = await response.json();
-          selectedStation = stationId;
+          selectedStation = stationId;  // Store selected station
           console.log("Weather data received:", weatherData);
       } catch (error) {
           console.error("Error fetching weather data:", error);
       }
-
-      fetch("http://localhost:8080/api/test")
-        .then(response => response.text())
-        .then(data => console.log("Response from backend:", data))
-        .catch(error => console.error("Fetch error:", error));
   }
 </script>
 
-<!-- UI Section -->
 <main>
-    <h1>Weather Station Finder</h1>
+    <div id="map"></div>
+    <div class="overlay">
+        <h1>Weather Station Finder</h1>
 
-    <!-- Search Controls -->
-    <label>Latitude: <input type="number" bind:value={lat} /></label>
-    <label>Longitude: <input type="number" bind:value={lon} /></label>
-    <label>Radius (km): <input type="number" bind:value={radius} /></label>
-    <button on:click={fetchStations}>Search Stations</button>
+        <div class="search-controls">
+            <label>Latitude: <input type="number" bind:value={lat} /></label>
+            <label>Longitude: <input type="number" bind:value={lon} /></label>
+            <label>Radius (km): <input type="number" bind:value={radius} /></label>
+        </div>
+
+        <div class="year-controls">
+            <label>Start Year: <input type="number" bind:value={startYear} min="1900" max="2100" /></label>
+            <label>End Year: <input type="number" bind:value={endYear} min="1900" max="2100" /></label>
+        </div>
+
+        <button on:click={fetchStations}>Search Stations</button>
 
     <!-- Station List -->
     {#if stations.length > 0}
@@ -60,39 +79,139 @@
             {#each stations as station}
                 <li>
                     <button on:click={() => fetchWeatherData(station.id)}>
-                        {station.id} - ({station.latitude}, {station.longitude})
+                        {station.id}  ({station.latitude}, {station.longitude})
                     </button>
-                </li>
-            {/each}
-        </ul>
-    {/if}
 
-    <!-- Weather Data -->
-    {#if weatherData}
-        <h2>Weather Data for {selectedStation}</h2>
-        <pre>{JSON.stringify(weatherData, null, 2)}</pre>
-    {/if}
+                    <!-- Show weather data directly under the selected station -->
+                   {#if selectedStation === station.id && weatherData}
+                                       <div class="weather-data">
+                                           <table>
+                                               <thead>
+                                                   <tr>
+                                                       <th>Year</th>
+                                                       <th>Minimum Temperature</th>
+                                                       <th>Maximum Temperature</th>
+                                                   </tr>
+                                               </thead>
+                                               <tbody>
+                                                   {#each Object.keys(weatherData.jahreswerte) as year}
+                                                       <tr>
+                                                           <td>{year}</td>
+                                                           <td>
+                                                               {#if weatherData.jahreswerte[year].tmin === "NaN"}
+                                                                   <span class="missing-data">Data not available</span>
+                                                               {:else}
+                                                                   {weatherData.jahreswerte[year].tmin}°C
+                                                               {/if}
+                                                           </td>
+                                                           <td>
+                                                               {#if weatherData.jahreswerte[year].zmax === "NaN"}
+                                                                   <span class="missing-data">Data not available</span>
+                                                               {:else}
+                                                                   {weatherData.jahreswerte[year].zmax}°C
+                                                               {/if}
+                                                           </td>
+                                                       </tr>
+                                                   {/each}
+                                               </tbody>
+                                           </table>
+                                       </div>
+                                   {/if}
+                               </li>
+                           {/each}
+                       </ul>
+                   {/if}
 </main>
 
 <style>
-  main {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: auto;
-  }
-  ul {
-      list-style: none;
-      padding: 0;
-  }
-  li {
-      margin: 5px 0;
-  }
-  button {
-      cursor: pointer;
-      padding: 5px 10px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-  }
+   main {
+        font-family: Arial, sans-serif;
+    }
+
+    .search-controls, .year-controls {
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .year-controls label {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        margin: 5px 0;
+        color: #918F8F;
+    }
+
+    button {
+        cursor: pointer;
+        padding: 5px 10px;
+        border: none;
+        background-color: #615F5F;
+        color: white;
+        border-radius: 5px;
+    }
+
+    pre {
+        background: #222;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 5px;
+        overflow-x: auto;
+    }
+
+    #map {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 5%;
+        left: 15%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    h3 {
+        color:black;
+    }
+
+    .weather-data {
+        margin-top: 15px;
+    }
+
+    .weather-data table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #A49E9E;
+    }
+
+    .weather-data th, .weather-data td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        color: black;
+    }
+
+    .missing-data {
+        color: red;
+        font-style: italic;
+    }
 </style>

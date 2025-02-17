@@ -68,7 +68,9 @@ public class FetchingWeatherData extends DetermineStations {
         } catch (Exception e) {
             e.printStackTrace();
             return "{}";
+
         }
+
     }
 
     private static String saveToJson(String stationId, int startYear, int endYear,
@@ -103,6 +105,7 @@ public class FetchingWeatherData extends DetermineStations {
         } catch (Exception e) {
             e.printStackTrace();
             return "{}";
+
         }
     }
 

@@ -52,23 +52,23 @@ public class WeatherAPIRESTController {
     }
 
     @GetMapping("/get_stations")
-    public ResponseEntity<String> getStations(@RequestParam double lat, @RequestParam double lon, @RequestParam double radius) throws IOException {
+    public String getStations(@RequestParam double lat, @RequestParam double lon, @RequestParam double radius) throws IOException {
         logger.info("GET-Request auf /get_station empfangen!");
-        //return stationService.stationSearch(lat, lon, radius).toString();
+        return stationService.stationSearch(lat, lon, radius).toString();
 
-        Path path = Path.of("station-data.json");
-        String jsonContent = Files.readString(path);
+        // Path path = Path.of("station-data.json");
+        //String jsonContent = Files.readString(path);
 
-        return ResponseEntity.ok(jsonContent);
+        //return ResponseEntity.ok(jsonContent);
     }
 
     @GetMapping("/get_weather_data")
-    public ResponseEntity<String> getWeatherData(@RequestParam String stationId, @RequestParam int startYear, @RequestParam int endYear) throws IOException {
+    public String getWeatherData(@RequestParam String stationId, @RequestParam int startYear, @RequestParam int endYear) throws IOException {
         logger.info("GET-Request auf /get_weather_data empfangen!");
-        //return weatherDataService.fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
-        Path path = Path.of("weather_data.json");
-        String jsonContent = Files.readString(path);
+        return weatherDataService.fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
+        //Path path = Path.of("weather_data.json");
+        // String jsonContent = Files.readString(path);
 
-        return ResponseEntity.ok(jsonContent);
+        //return ResponseEntity.ok(jsonContent);
     }
 }

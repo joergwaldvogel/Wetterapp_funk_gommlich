@@ -1,16 +1,48 @@
 {
-  "station" : "BR038660660",
-  "zeitraum" : "1949-1951",
+  "station" : "BR000736040",
+  "zeitraum" : "1949-1959",
   "jahreswerte" : {
     "1949" : {
-      "tmin" : 22.788679245283017,
-      "zmax" : 28.525000000000002
+      "tmin" : "NaN",
+      "zmax" : "NaN"
     },
     "1950" : {
       "tmin" : "NaN",
       "zmax" : "NaN"
     },
     "1951" : {
+      "tmin" : "NaN",
+      "zmax" : "NaN"
+    },
+    "1952" : {
+      "tmin" : "NaN",
+      "zmax" : "NaN"
+    },
+    "1953" : {
+      "tmin" : "NaN",
+      "zmax" : "NaN"
+    },
+    "1954" : {
+      "tmin" : "NaN",
+      "zmax" : "NaN"
+    },
+    "1955" : {
+      "tmin" : "NaN",
+      "zmax" : "NaN"
+    },
+    "1956" : {
+      "tmin" : "NaN",
+      "zmax" : "NaN"
+    },
+    "1957" : {
+      "tmin" : "NaN",
+      "zmax" : "NaN"
+    },
+    "1958" : {
+      "tmin" : "NaN",
+      "zmax" : "NaN"
+    },
+    "1959" : {
       "tmin" : "NaN",
       "zmax" : "NaN"
     }
