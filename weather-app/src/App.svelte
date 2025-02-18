@@ -11,7 +11,7 @@
   let searchCircle = null;
   let lat = 52.52;
   let lon = 13.405;
-  let radius = 100000;
+  let radius = 10000;
   let startYear = 1949;
   let endYear = 1959;
 
