@@ -42,6 +42,10 @@
           weatherData = null;      // Clear previous weather data
           console.log("Stations received:", stations);
           showStationMarkers();
+          if (myChart) {
+            myChart.destroy();
+          }
+
       } catch (error) {
           console.error("Error fetching stations:", error);
       }
