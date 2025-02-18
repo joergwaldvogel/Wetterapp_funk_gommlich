@@ -11,7 +11,7 @@
   let searchCircle = null;
   let lat = 52.52;
   let lon = 13.405;
-  let radius=1;
+  let radius=10;
   let startYear = 1949;
   let endYear = 1959;
 
@@ -100,8 +100,12 @@
       if (!weatherData || !weatherData.jahreswerte || !chartCanvas) return;
 
       const years = Object.keys(weatherData.jahreswerte);
-      const tminData = years.map(year => weatherData.jahreswerte[year].tmin || null);
-      const tmaxData = years.map(year => weatherData.jahreswerte[year].zmax || null);
+        const tminData = years.map(year => {
+            return weatherData.jahreswerte[year].tmin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2) : null;
+        });
+        const tmaxData = years.map(year => {
+             return weatherData.jahreswerte[year].zmax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2) : null;
+        });
 
       if (myChart) {
           myChart.destroy();
@@ -199,14 +203,14 @@
                                                                {#if weatherData.jahreswerte[year].tmin === "NaN"}
                                                                    <span class="missing-data">Data not available</span>
                                                                {:else}
-                                                                   {weatherData.jahreswerte[year].tmin}°C
+                                                                   {parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C
                                                                {/if}
                                                            </td>
                                                            <td>
                                                                {#if weatherData.jahreswerte[year].zmax === "NaN"}
                                                                    <span class="missing-data">Data not available</span>
                                                                {:else}
-                                                                   {weatherData.jahreswerte[year].zmax}°C
+                                                                   {parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C
                                                                {/if}
                                                            </td>
                                                        </tr>
