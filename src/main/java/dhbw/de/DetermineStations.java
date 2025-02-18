@@ -6,6 +6,7 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.index.kdtree.KdTree;
 import org.locationtech.jts.index.kdtree.KdNode;
 import org.locationtech.jts.geom.Envelope;
+import org.locationtech.jts.index.strtree.STRtree;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +20,9 @@ public class DetermineStations extends loadStations {
     public static String stationSearch(double lat, double lon, double radius) { //vordefinierte Koordinaten zum mtesten
 
         List<loadStations.Station> stations = loadStations.getStations();
+        STRtree stRtree = buildRTree(stations);
 
-        //KD-Tree erstellen
-        KdTree kdTree = new KdTree();
-        for (loadStations.Station station : stations) {
-            kdTree.insert(new Coordinate(station.latitude(), station.longitude()), station);
-        }
-
-        List<loadStations.Station> nearbyStations = findStationsInRadius(kdTree, lat, lon, radius);
+        List<loadStations.Station> nearbyStations = findStationsInRadius(stRtree, lat, lon, radius);
         List<loadStations.Station> sortedStations = sortStationsByDistance(nearbyStations, lat, lon);
 
         if (sortedStations.size() > 10) {
@@ -43,19 +39,28 @@ public class DetermineStations extends loadStations {
     }
 
     //KD-Tree radiussuche und manueller Distanzberechnung (da nur rechteck berrechnet werden kann)
-    private static List<loadStations.Station> findStationsInRadius(KdTree kdTree, double lat, double lon, double radius) {
-        double radiusInDegrees = radius / 111.32; // Grobe Umrechnung von km in Grad
+    // Create an R-Tree
+    private static STRtree buildRTree(List<loadStations.Station> stations) {
+        STRtree rTree = new STRtree();
+        for (loadStations.Station station : stations) {
+            rTree.insert(new Envelope(station.longitude(), station.longitude(),
+                    station.latitude(), station.latitude()), station);
+        }
+        return rTree;
+    }
 
-        Envelope searchEnvelope = new Envelope(
-                lon - radiusInDegrees, lon + radiusInDegrees,
-                lat - radiusInDegrees, lat + radiusInDegrees
-        );
+    // Query the R-Tree
+    private static List<loadStations.Station> findStationsInRadius(STRtree rTree, double lat, double lon, double radius) {
+        double degreeMargin = radius / 111.32; // Convert km to degrees
+        Envelope searchEnvelope = new Envelope(lon - degreeMargin, lon + degreeMargin, lat - degreeMargin, lat + degreeMargin);
 
-        List<KdNode> nearbyNodes = kdTree.query(searchEnvelope);
+        @SuppressWarnings("unchecked")
+        List<loadStations.Station> nearbyStations = rTree.query(searchEnvelope);
 
-        return nearbyNodes.stream()
-                .map(node -> (loadStations.Station) node.getData())
+        // Apply Haversine filtering
+        return nearbyStations.stream()
                 .filter(station -> haversine(lat, lon, station.latitude(), station.longitude()) <= radius)
+                .sorted(Comparator.comparingDouble(station -> haversine(lat, lon, station.latitude(), station.longitude())))
                 .collect(Collectors.toList());
     }
 
@@ -90,9 +95,9 @@ public class DetermineStations extends loadStations {
     }
 
     public static void main(String[] args) {
-        double searchLatitude = 17.1167;
-        double searchLongitude = -61.7833 ;
-        double searchRadius = 6000.0;
+        double searchLatitude = 52.52;
+        double searchLongitude = 13.405;
+        double searchRadius = 10000.0;
         stationSearch(searchLatitude, searchLongitude, searchRadius);
     }
 }
