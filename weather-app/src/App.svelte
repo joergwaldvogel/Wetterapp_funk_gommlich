@@ -54,6 +54,17 @@ function updateCircle() {
     markers = []; // Leere die Marker-Liste
 
     searchCircle = createGeodesicCircle(lat, lon, radius * 1000);
+
+    // Ursprungspunkt setzen
+    const originMarker = L.marker([lat, lon], {
+        icon: L.icon({
+        iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34]
+        })
+    }).addTo(map);
+    originMarker.bindPopup("Ausgangspunkt").openPopup();
 }
 
 function createGeodesicCircle(lat, lon, radius, steps = 64) {
@@ -94,6 +105,7 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
 
     // Funktion, um Marker und roten Kreis für Stationen anzuzeigen
     function showStationMarkers() {
+
     // Entferne alten Kreis, falls vorhanden
     if (searchCircle) {
         map.removeLayer(searchCircle);
@@ -140,9 +152,13 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
   function updateChart() {
       if (!weatherData || !weatherData.jahreswerte || !chartCanvas) return;
 
-      const years = Object.keys(weatherData.jahreswerte);
-      const tminData = years.map(year => weatherData.jahreswerte[year].tmin || null);
-      const tmaxData = years.map(year => weatherData.jahreswerte[year].zmax || null);
+        const years = Object.keys(weatherData.jahreswerte);
+            const tminData = years.map(year => {
+                return weatherData.jahreswerte[year].tmin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2) : null;
+            });
+            const tmaxData = years.map(year => {
+                return weatherData.jahreswerte[year].zmax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2) : null;
+            });
 
       if (myChart) {
           myChart.destroy();
@@ -240,14 +256,14 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
                                                                {#if weatherData.jahreswerte[year].tmin === "NaN"}
                                                                    <span class="missing-data">Data not available</span>
                                                                {:else}
-                                                                   {weatherData.jahreswerte[year].tmin}°C
+                                                                   {parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C
                                                                {/if}
                                                            </td>
                                                            <td>
                                                                {#if weatherData.jahreswerte[year].zmax === "NaN"}
                                                                    <span class="missing-data">Data not available</span>
                                                                {:else}
-                                                                   {weatherData.jahreswerte[year].zmax}°C
+                                                                   {parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C
                                                                {/if}
                                                            </td>
                                                        </tr>
@@ -305,15 +321,6 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
         background-color: #615F5F;
         color: white;
         border-radius: 5px;
-    }
-
-    pre {
-        background: #222;
-        color: #fff;
-        padding: 10px;
-        border-radius: 5px;
-        margin-top: 5px;
-        overflow-x: auto;
     }
 
     #map {
