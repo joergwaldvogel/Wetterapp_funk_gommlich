@@ -11,6 +11,7 @@
   let lat = 52.52;
   let lon = 13.405;
   let radius = 10;
+  let circleRadius = 0;
   let startYear = 1949;
   let endYear = 1959;
 
