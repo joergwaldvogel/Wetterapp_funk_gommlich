@@ -370,4 +370,5 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
         color: red;
         font-style: italic;
     }
+
 </style>
