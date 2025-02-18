@@ -11,7 +11,8 @@
   let searchCircle = null;
   let lat = 52.52;
   let lon = 13.405;
-  let radius = 10000;
+  let radius;
+  let markers = [];
   let startYear = 1949;
   let endYear = 1959;
 
@@ -32,6 +33,46 @@
        fetchStations();
    });
 
+   function filterMarkers() {
+       markers.forEach(marker => {
+           const position = marker.getLatLng();
+           const distance = haversine(lat, lon, position.lat, position.lng);
+           if (distance > radius * 1000) {
+               map.removeLayer(marker);
+           }
+       });
+       markers = markers.filter(marker => map.hasLayer(marker)); // Liste bereinigen
+   }
+
+function updateCircle() {
+    if (searchCircle) {
+        map.removeLayer(searchCircle);
+    }
+
+    // Entferne alle Marker
+    markers.forEach(marker => map.removeLayer(marker));
+    markers = []; // Leere die Marker-Liste
+
+    searchCircle = createGeodesicCircle(lat, lon, radius * 1000);
+}
+
+function createGeodesicCircle(lat, lon, radius, steps = 64) {
+        let coords = [];
+        let earthRadius = 6371000; // Erdradius in Metern
+
+        for (let i = 0; i < steps; i++) {
+            let angle = (i / steps) * 2 * Math.PI;
+            let dx = radius * Math.cos(angle);
+            let dy = radius * Math.sin(angle);
+
+            let newLat = lat + (dy / earthRadius) * (180 / Math.PI);
+            let newLon = lon + (dx / (earthRadius * Math.cos(lat * Math.PI / 180))) * (180 / Math.PI);
+
+            coords.push([newLat, newLon]);
+        }
+
+        return L.polygon(coords, { color: 'red', fillColor: 'red', fillOpacity: 0.1 }).addTo(map);
+  }
   // Fetch stations from backend
   async function fetchStations() {
       try {
@@ -57,14 +98,8 @@
     if (searchCircle) {
         map.removeLayer(searchCircle);
     }
+    searchCircle = createGeodesicCircle(lat, lon, radius * 1000);
 
-    // Erstelle einen neuen roten Kreis um die Suchposition
-    searchCircle = L.circle([lat, lon], {
-        color: 'red',
-        fillColor: 'red',
-        fillOpacity: 0.1,
-        radius: radius * 1000 // km → m Umrechnung
-    }).addTo(map);
 
     // Definiere ein kleineres Icon
     const smallIcon = L.icon({
@@ -74,12 +109,18 @@
         popupAnchor: [1, -24] // Position des Popups relativ zum Icon
     });
 
+    // Entferne alte Marker
+    markers.forEach(marker => map.removeLayer(marker));
+    markers = [];
+
     // Füge Marker für die ersten 10 Stationen hinzu
     stations.slice(0, 10).forEach(station => {
         const { latitude, longitude } = station;
         const marker = L.marker([latitude, longitude], { icon: smallIcon }).addTo(map);
         marker.bindPopup(`<b>${station.id}</b><br>(${latitude}, ${longitude})`);
+        markers.push(marker);
     });
+  filterMarkers();
 }
 
   // Fetch weather data for a specific station
@@ -158,9 +199,9 @@
         <h1>Weather Station Finder</h1>
 
         <div class="search-controls">
-            <label>Latitude: <input type="number" bind:value={lat} /></label>
-            <label>Longitude: <input type="number" bind:value={lon} /></label>
-            <label>Radius (km): <input type="number" bind:value={radius} /></label>
+            <label>Latitude: <input type="number" bind:value={lat} on:change={updateCircle} /></label>
+            <label>Longitude: <input type="number" bind:value={lon} on:change={updateCircle} /></label>
+            <label>Radius (km): <input type="number" bind:value={radius} on:change={updateCircle} /></label>
         </div>
 
         <div class="year-controls">
@@ -296,10 +337,6 @@
         z-index: 1000;
         max-width: 400px;
         text-align: center;
-    }
-
-    h3 {
-        color:black;
     }
 
     .weather-data {
