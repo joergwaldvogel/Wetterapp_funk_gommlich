@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import "leaflet/dist/leaflet.css";
   import L from "leaflet";
+  import Chart from "chart.js/auto";
 
   let stations = [];
   let selectedStation = null;
@@ -10,10 +11,12 @@
   let searchCircle = null;
   let lat = 52.52;
   let lon = 13.405;
-  let radius = 10;
-  let circleRadius = 0;
+  let radius = 10000;
   let startYear = 1949;
   let endYear = 1959;
+
+  let chartCanvas;
+  let myChart = null;
 
    onMount(() => {
        if (!map) {
@@ -83,9 +86,65 @@
           weatherData = await response.json();
           selectedStation = stationId;  // Store selected station
           console.log("Weather data received:", weatherData);
+
+          updateChart();  // Diagramm aktualisieren
       } catch (error) {
           console.error("Error fetching weather data:", error);
       }
+  }
+  function updateChart() {
+      if (!weatherData || !weatherData.jahreswerte || !chartCanvas) return;
+
+      const years = Object.keys(weatherData.jahreswerte);
+      const tminData = years.map(year => weatherData.jahreswerte[year].tmin || null);
+      const tmaxData = years.map(year => weatherData.jahreswerte[year].zmax || null);
+
+      if (myChart) {
+          myChart.destroy();
+      }
+
+      myChart = new Chart(chartCanvas, {
+          type: "line",
+          data: {
+              labels: years,
+              datasets: [
+                  {
+                      label: "Min. Temperatur (°C)",
+                      data: tminData,
+                      borderColor: "blue",
+                      backgroundColor: "rgba(0, 0, 255, 0.2)",
+                      fill: true,
+                      tension: 0.3
+                  },
+                  {
+                      label: "Max. Temperatur (°C)",
+                      data: tmaxData,
+                      borderColor: "red",
+                      backgroundColor: "rgba(255, 0, 0, 0.2)",
+                      fill: true,
+                      tension: 0.3
+                  }
+              ]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: "Jahr"
+                      }
+                  },
+                  y: {
+                      title: {
+                          display: true,
+                          text: "Temperatur (°C)"
+                      }
+                  }
+              }
+          }
+      });
   }
 </script>
 
@@ -156,6 +215,10 @@
                            {/each}
                        </ul>
                    {/if}
+        <div class="chart-container">
+            <canvas bind:this={chartCanvas}></canvas>
+        </div>
+    </div>
 </main>
 
 <style>
@@ -171,6 +234,13 @@
     .year-controls label {
         flex-direction: column;
         align-items: center;
+    }
+
+    .chart-container {
+        width: 100%;
+        max-width: 600px;
+        height: 400px;
+        margin: 20px auto;
     }
 
     ul {
@@ -229,7 +299,10 @@
     }
 
     .weather-data {
-        margin-top: 15px;
+        margin-top: 1px;
+        display: flex;
+        justify-content: left; /* Links ausrichten */
+        align-items: center; /* Vertikal zentrieren */
     }
 
     .weather-data table {
