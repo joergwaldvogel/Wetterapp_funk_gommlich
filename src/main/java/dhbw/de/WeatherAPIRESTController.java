@@ -66,6 +66,7 @@ public class WeatherAPIRESTController {
     public String getWeatherData(@RequestParam String stationId, @RequestParam int startYear, @RequestParam int endYear) throws IOException {
         logger.info("GET-Request auf /get_weather_data empfangen!");
         return weatherDataService.fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
+
         //Path path = Path.of("weather_data_test.json");
         // String jsonContent = Files.readString(path);
 

@@ -2,12 +2,8 @@ package dhbw.de;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.index.kdtree.KdTree;
-import org.locationtech.jts.index.kdtree.KdNode;
 import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.index.strtree.STRtree;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -23,7 +19,7 @@ public class DetermineStations extends loadStations {
         STRtree stRtree = buildRTree(stations);
 
         List<loadStations.Station> nearbyStations = findStationsInRadius(stRtree, lat, lon, radius);
-        List<loadStations.Station> sortedStations = sortStationsByDistance(nearbyStations, lat, lon);
+        List<loadStations.Station> sortedStations = sortStationsByDistance(nearbyStations);
 
         if (sortedStations.size() > 10) {
             sortedStations = sortedStations.subList(0, 10);
@@ -38,8 +34,8 @@ public class DetermineStations extends loadStations {
 
     }
 
-    //KD-Tree radiussuche und manueller Distanzberechnung (da nur rechteck berrechnet werden kann)
-    // Create an R-Tree
+
+    //  R-Tree erstellen
     private static STRtree buildRTree(List<loadStations.Station> stations) {
         STRtree rTree = new STRtree();
         for (loadStations.Station station : stations) {
@@ -49,7 +45,7 @@ public class DetermineStations extends loadStations {
         return rTree;
     }
 
-    // Query the R-Tree
+    // R-Tree durchsuchen
     private static List<loadStations.Station> findStationsInRadius(STRtree rTree, double lat, double lon, double radius) {
         double degreeMargin = radius / 111.32; // Convert km to degrees
         Envelope searchEnvelope = new Envelope(lon - degreeMargin, lon + degreeMargin, lat - degreeMargin, lat + degreeMargin);
@@ -57,18 +53,31 @@ public class DetermineStations extends loadStations {
         @SuppressWarnings("unchecked")
         List<loadStations.Station> nearbyStations = rTree.query(searchEnvelope);
 
-        // Apply Haversine filtering
+        // Haversine filtering
         return nearbyStations.stream()
-                .filter(station -> haversine(lat, lon, station.latitude(), station.longitude()) <= radius)
-                .sorted(Comparator.comparingDouble(station -> haversine(lat, lon, station.latitude(), station.longitude())))
+                .filter(station -> {
+                    double distance = haversine(lat, lon, station.latitude(), station.longitude());
+                    return distance <= radius;
+                })
+                .map(station -> {
+                    double distance = haversine(lat, lon, station.latitude(), station.longitude());
+                    return new loadStations.Station(
+                            station.id(),
+                            station.latitude(),
+                            station.longitude(),
+                            station.name(),
+                            distance
+                    );
+                })
                 .collect(Collectors.toList());
+    }
+        private static List<loadStations.Station> sortStationsByDistance(List<loadStations.Station> stations) {
+        return stations.stream()
+                .sorted(Comparator.comparingDouble(loadStations.Station::distance))
+                .collect(Collectors.toList());
+
     }
 
-    private static List<loadStations.Station> sortStationsByDistance(List<loadStations.Station> stations, double lat, double lon) {
-        return stations.stream()
-                .sorted(Comparator.comparingDouble(station -> haversine(lat, lon, station.latitude(), station.longitude())))
-                .collect(Collectors.toList());
-    }
 
     //Haversine-Formel
     private static double haversine(double lat1, double lon1, double lat2, double lon2) {
@@ -97,8 +106,9 @@ public class DetermineStations extends loadStations {
     public static void main(String[] args) {
         double searchLatitude = 52.52;
         double searchLongitude = 13.405;
-        double searchRadius = 10000.0;
+        double searchRadius = 100.0;
         stationSearch(searchLatitude, searchLongitude, searchRadius);
+
     }
 }
 
