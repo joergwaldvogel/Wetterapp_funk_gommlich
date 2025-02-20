@@ -67,7 +67,7 @@ function updateCircle() {
         popupAnchor: [1, -34]
         })
     }).addTo(map);
-    originMarker.bindPopup("Current Location").openPopup();
+    originMarker.bindPopup("Current Location");
 }
 
 function createGeodesicCircle(lat, lon, radius, steps = 64) {
