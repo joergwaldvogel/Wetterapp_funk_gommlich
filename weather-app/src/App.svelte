@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { tick } from "svelte";
   import "leaflet/dist/leaflet.css";
   import L from "leaflet";
   import Chart from "chart.js/auto";
@@ -15,6 +16,7 @@
   let markers = [];
   let startYear = 1949;
   let endYear = 1959;
+  let originMarker = null;
 
   let chartCanvas;
   let myChart = null;
@@ -48,6 +50,7 @@ function updateCircle() {
     if (searchCircle) {
         map.removeLayer(searchCircle);
     }
+    if (originMarker) { map.removeLayer(originMarker); }
 
     // Entferne alle Marker
     markers.forEach(marker => map.removeLayer(marker));
@@ -56,15 +59,15 @@ function updateCircle() {
     searchCircle = createGeodesicCircle(lat, lon, radius * 1000);
 
     // Ursprungspunkt setzen
-    const originMarker = L.marker([lat, lon], {
+     originMarker = L.marker([lat, lon], {
         icon: L.icon({
-        iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
         iconSize: [25, 41],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34]
         })
     }).addTo(map);
-    originMarker.bindPopup("Ausgangspunkt").openPopup();
+    originMarker.bindPopup("Current Location").openPopup();
 }
 
 function createGeodesicCircle(lat, lon, radius, steps = 64) {
@@ -143,6 +146,8 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
           weatherData = await response.json();
           selectedStation = stationId;  // Store selected station
           console.log("Weather data received:", weatherData);
+
+          await tick();
 
           updateChart();  // Diagramm aktualisieren
       } catch (error) {
@@ -276,10 +281,14 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
                            {/each}
                        </ul>
                    {/if}
-        <div class="chart-container">
-            <canvas bind:this={chartCanvas}></canvas>
-        </div>
     </div>
+    {#if weatherData}
+        <div class="overlay_right">
+            <div class="chart-container">
+                <canvas bind:this={chartCanvas}></canvas>
+            </div>
+        </div>
+    {/if}
 </main>
 
 <style>
@@ -345,6 +354,19 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
         max-width: 400px;
         text-align: center;
     }
+
+    .overlay_right {
+            position: absolute;
+            top: 5%;
+            left: 88%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            text-align: center;
+        }
 
     .weather-data {
         margin-top: 1px;
