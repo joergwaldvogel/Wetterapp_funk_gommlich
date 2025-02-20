@@ -86,37 +86,35 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
         }
 
         return L.polygon(coords, { color: 'red', fillColor: 'red', fillOpacity: 0.1 }).addTo(map);
-  }
-  // Fetch stations from backend
-  async function fetchStations() {
-      try {
-          const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}`);
-          if (!response.ok) throw new Error("Failed to fetch stations");
-          stations = await response.json();
-          selectedStation = null;  // Reset selected station
-          weatherData = null;      // Clear previous weather data
-          console.log("Stations received:", stations);
-          showStationMarkers();
-          if (myChart) {
+}
+// Fetch stations from backend
+async function fetchStations() {
+    try {
+        const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}`);
+        if (!response.ok) throw new Error("Failed to fetch stations");
+        stations = await response.json();
+        selectedStation = null;  // Reset selected station
+        weatherData = null;      // Clear previous weather data
+        console.log("Stations received:", stations);
+        showStationMarkers();
+        if (myChart) {
             myChart.destroy();
-          }
+        }
 
-      } catch (error) {
-          console.error("Error fetching stations:", error);
-      }
-  }
+    } catch (error) {
+        console.error("Error fetching stations:", error);
+    }
+}
 
-    // Funktion, um Marker und roten Kreis für Stationen anzuzeigen
-    function showStationMarkers() {
-
-    // Entferne alten Kreis, falls vorhanden
+// Funktion, um Marker und roten Kreis für Stationen anzuzeigen
+function showStationMarkers() {
+     // Entferne alten Kreis, falls vorhanden
     if (searchCircle) {
         map.removeLayer(searchCircle);
     }
     searchCircle = createGeodesicCircle(lat, lon, radius * 1000);
 
-
-    // Definiere ein kleineres Icon
+     // Definiere ein kleineres Icon
     const smallIcon = L.icon({
         iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png", // Standard Leaflet-Icon
         iconSize: [16, 26], // Kleinere Größe (Breite, Höhe)
@@ -133,6 +131,11 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
         const { latitude, longitude } = station;
         const marker = L.marker([latitude, longitude], { icon: smallIcon }).addTo(map);
         marker.bindPopup(`<b>${station.id}</b><br>(${latitude}, ${longitude})`);
+
+        marker.on('click', () => {
+            fetchWeatherData(station.id); // Lade die Wetterdaten für die Station
+        });
+
         markers.push(marker);
     });
   filterMarkers();
