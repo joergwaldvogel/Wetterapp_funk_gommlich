@@ -1,25 +1,29 @@
 package dhbw.de;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
-import javax.print.DocFlavor;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import static dhbw.de.WeatherAPIRESTController.logger;
+
 @Service
-public class loadStations {
+public class LoadStationsFromNOAA {
     private static final String NOAA_STATIONS_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt";
-    private static List<Station> stationList; //Werden die nur einmal geöaden und dann gecached? nochmal prüfen
+    private static List<Station> stationList; //Werden die nur einmal geladen und dann gecached? nochmal prüfen
     public record Station(String id, double latitude, double longitude, String name, double distance) {}
-    public static List<Station> getStations() {
+    @PostConstruct
+    public static List<Station> getNOAAStations() {
         if (stationList == null) {
             stationList = loadStationsFromNOAA();
+            logger.info("Stationen wurden geladen");
         }
         return stationList;
     }
-
     static List<Station> loadStationsFromNOAA() {
         List<Station> stations = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new URL(NOAA_STATIONS_URL).openStream()))) {
@@ -47,9 +51,9 @@ public class loadStations {
         return stations;
     }
 
-   /* public static void main(String[] args) {
-        List<Station> stations = getStations();
+   public static void main(String[] args) {
+        List<Station> stations = getNOAAStations();
         System.out.println("Erste 5 Stationen:");
         stations.stream().limit(5).forEach(System.out::println);
-    }*/
+    }
 }

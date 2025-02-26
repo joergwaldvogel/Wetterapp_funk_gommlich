@@ -8,12 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 @RestController
 @SpringBootApplication(scanBasePackages = "dhbw.de")
@@ -21,11 +18,18 @@ import java.nio.file.Path;
 @CrossOrigin(origins = "http://localhost:5173") //Anfragen vom Frontend
 public class WeatherAPIRESTController {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeatherAPIRESTController.class);
-    private final DetermineStations stationService;
+    //TODO ZU beachtende, fehlende Funktionen:
+    //      - wetterdaten pro jahr und pro meterologischer Jahreszeit (Je Jahreszeit ein Datenpunkt pro Jahr)
+    //          *Das als Feld im Frontend beachten
+    //      - Die anzahl der zu anzeigenden Stationen soll konfigurierbar sein (max aber 10)
+    //  -> welche java version???
+    // Ladebalken und mehr logger
+
+    public static final Logger logger = LoggerFactory.getLogger(WeatherAPIRESTController.class);
+    private final DetermineStationsInRadius stationService;
     private final FetchingWeatherData weatherDataService;
 
-    public WeatherAPIRESTController(@Qualifier("determineStations") DetermineStations stationService,
+    public WeatherAPIRESTController(@Qualifier("determineStations") DetermineStationsInRadius stationService,
                                     @Qualifier("fetchingWeatherData") FetchingWeatherData weatherDataService) {
         this.stationService = stationService;
         this.weatherDataService = weatherDataService;
@@ -52,9 +56,9 @@ public class WeatherAPIRESTController {
     }
 
     @GetMapping("/get_stations")
-    public String getStations(@RequestParam double lat, @RequestParam double lon, @RequestParam double radius) throws IOException {
+    public String getStations(@RequestParam double lat, @RequestParam double lon, @RequestParam double radius, @RequestParam int limit) throws IOException {
         logger.info("GET-Request auf /get_station empfangen!");
-        return stationService.stationSearch(lat, lon, radius).toString();
+        return stationService.stationSearch(lat, lon, radius, limit).toString();
 
         // Path path = Path.of("station_data_test.json");
         //String jsonContent = Files.readString(path);

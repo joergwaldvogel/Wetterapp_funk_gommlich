@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.zip.GZIPInputStream;
 @Service
-public class FetchingWeatherData extends DetermineStations {
+public class FetchingWeatherData extends DetermineStationsInRadius {
     private static final String BASE_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/by_station/";
 
    /* public static void main(String[] args) {

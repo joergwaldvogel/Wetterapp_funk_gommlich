@@ -11,22 +11,22 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
-public class DetermineStations extends loadStations {
+public class DetermineStationsInRadius extends LoadStationsFromNOAA {
 
-    public static String stationSearch(double lat, double lon, double radius) { //vordefinierte Koordinaten zum mtesten
+    public static String stationSearch(double lat, double lon, double radius, int limit) { //vordefinierte Koordinaten zum mtesten
 
-        List<loadStations.Station> stations = loadStations.getStations();
+        List<LoadStationsFromNOAA.Station> stations = LoadStationsFromNOAA.getNOAAStations();
         STRtree stRtree = buildRTree(stations);
 
-        List<loadStations.Station> nearbyStations = findStationsInRadius(stRtree, lat, lon, radius);
-        List<loadStations.Station> sortedStations = sortStationsByDistance(nearbyStations);
+        List<LoadStationsFromNOAA.Station> nearbyStations = findStationsInRadius(stRtree, lat, lon, radius);
+        List<LoadStationsFromNOAA.Station> sortedStations = sortStationsByDistance(nearbyStations);
 
-        if (sortedStations.size() > 10) {
-            sortedStations = sortedStations.subList(0, 10);
+        if (sortedStations.size() > limit) {
+            sortedStations = sortedStations.subList(0, limit);
         }
 
         System.out.println(nearbyStations.size() + " Stationen innerhalb von " + radius + " km um (" + lat + ", " + lon + "):");
-        for (loadStations.Station station : nearbyStations) {
+        for (LoadStationsFromNOAA.Station station : nearbyStations) {
             System.out.println(station);
         }
 
@@ -36,9 +36,9 @@ public class DetermineStations extends loadStations {
 
 
     //  R-Tree erstellen
-    private static STRtree buildRTree(List<loadStations.Station> stations) {
+    private static STRtree buildRTree(List<LoadStationsFromNOAA.Station> stations) {
         STRtree rTree = new STRtree();
-        for (loadStations.Station station : stations) {
+        for (LoadStationsFromNOAA.Station station : stations) {
             rTree.insert(new Envelope(station.longitude(), station.longitude(),
                     station.latitude(), station.latitude()), station);
         }
@@ -46,12 +46,12 @@ public class DetermineStations extends loadStations {
     }
 
     // R-Tree durchsuchen
-    private static List<loadStations.Station> findStationsInRadius(STRtree rTree, double lat, double lon, double radius) {
+    private static List<LoadStationsFromNOAA.Station> findStationsInRadius(STRtree rTree, double lat, double lon, double radius) {
         double degreeMargin = radius / 111.32; // Convert km to degrees
         Envelope searchEnvelope = new Envelope(lon - degreeMargin, lon + degreeMargin, lat - degreeMargin, lat + degreeMargin);
 
         @SuppressWarnings("unchecked")
-        List<loadStations.Station> nearbyStations = rTree.query(searchEnvelope);
+        List<LoadStationsFromNOAA.Station> nearbyStations = rTree.query(searchEnvelope);
 
         // Haversine filtering
         return nearbyStations.stream()
@@ -61,7 +61,7 @@ public class DetermineStations extends loadStations {
                 })
                 .map(station -> {
                     double distance = haversine(lat, lon, station.latitude(), station.longitude());
-                    return new loadStations.Station(
+                    return new LoadStationsFromNOAA.Station(
                             station.id(),
                             station.latitude(),
                             station.longitude(),
@@ -71,9 +71,9 @@ public class DetermineStations extends loadStations {
                 })
                 .collect(Collectors.toList());
     }
-        private static List<loadStations.Station> sortStationsByDistance(List<loadStations.Station> stations) {
+        private static List<LoadStationsFromNOAA.Station> sortStationsByDistance(List<LoadStationsFromNOAA.Station> stations) {
         return stations.stream()
-                .sorted(Comparator.comparingDouble(loadStations.Station::distance))
+                .sorted(Comparator.comparingDouble(LoadStationsFromNOAA.Station::distance))
                 .collect(Collectors.toList());
 
     }
@@ -91,7 +91,7 @@ public class DetermineStations extends loadStations {
         return R * c;
     }
 
-    private static String saveStationsToJson(List<loadStations.Station> stations) {
+    private static String saveStationsToJson(List<LoadStationsFromNOAA.Station> stations) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -107,7 +107,8 @@ public class DetermineStations extends loadStations {
         double searchLatitude = 52.52;
         double searchLongitude = 13.405;
         double searchRadius = 100.0;
-        stationSearch(searchLatitude, searchLongitude, searchRadius);
+        int limit = 10;
+        stationSearch(searchLatitude, searchLongitude, searchRadius, limit);
 
     }
 }
