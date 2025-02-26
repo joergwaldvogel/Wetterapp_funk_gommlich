@@ -9,16 +9,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 import java.util.zip.GZIPInputStream;
+
+import static dhbw.de.WeatherAPIRESTController.logger;
+
 @Service
 public class FetchingWeatherData extends DetermineStationsInRadius {
     private static final String BASE_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/by_station/";
 
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
         String stationId = "AE000041196"; // beispieldaten zum direkt testen
         int startYear = 1949;
         int endYear = 2000;
         fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
-    }*/
+        fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear, 25.33);
+    }
 
     public static String fetchAndProcessWeatherDataByYear(String stationId, int startYear, int endYear) {
         String fileUrl = BASE_URL + stationId + ".csv.gz"; // GZIP-Datei
@@ -48,7 +52,7 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
                     String recordType = parts[2]; // Temperaturtyp (TMIN oder TMAX gesucht)
                     double tempValue = Double.parseDouble(parts[3]) / 10.0; // Temperatur umrechnen
 
-                    // Debugging
+                    // debugging
                     //System.out.println("Jahr: " + year + ", Typ: " + recordType + ", Wert: " + tempValue);
 
                     if (recordType.equals("TMIN")) {
@@ -62,11 +66,13 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
                 }
             }
             reader.close();
+            logger.info("Wetterdaten pro Jahr für "+ stationId +" gesammelt");
 
             return saveToJson(stationId, startYear, endYear, minTempsByYear, maxTempsByYear);
 
         } catch (Exception e) {
             e.printStackTrace();
+            logger.info("Wetterdaten pro Jahr für "+ stationId +" konnten nicht ermittelt werden");
             return "{}";
 
         }
@@ -109,7 +115,147 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
         }
     }
 
-    public static void fetchAndProcessWeatherDataBySeasons(String stationId, int startYear, int endYear){
+    public static String fetchAndProcessWeatherDataBySeasons(String stationId, int startYear, int endYear, double lat) {
+        String fileUrl = BASE_URL + stationId + ".csv.gz"; // GZIP-Datei
+        Map<String, List<Double>> minTempsBySeason = new HashMap<>();
+        Map<String, List<Double>> maxTempsBySeason = new HashMap<>();
+
+        // Initialisierung der Jahreszeiten
+        String[] seasons = {"Frühling", "Sommer", "Herbst", "Winter"};
+        for (String season : seasons) {
+            minTempsBySeason.put(season, new ArrayList<>());
+            maxTempsBySeason.put(season, new ArrayList<>());
+        }
+
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(fileUrl).openConnection();
+            connection.setRequestMethod("GET");
+
+            InputStream gzipStream = new GZIPInputStream(connection.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(gzipStream));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(","); // CSV-Datei ist komma-separiert
+                if (parts.length < 4) continue;
+
+                try {
+                    int year = Integer.parseInt(parts[1].substring(0, 4));
+                    int month = Integer.parseInt(parts[1].substring(4, 6));
+                    if (year < startYear || year > endYear) continue;
+
+                    String recordType = parts[2]; // Temperaturtyp (TMIN oder TMAX)
+                    double tempValue = Double.parseDouble(parts[3]) / 10.0; // Temperatur umrechnen
+
+                    String season = getSeason(month, lat);
+
+                    if (recordType.equals("TMIN")) {
+                        minTempsBySeason.get(season).add(tempValue);
+                    } else if (recordType.equals("TMAX")) {
+                        maxTempsBySeason.get(season).add(tempValue);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Fehler beim Parsen von: " + line);
+                    e.printStackTrace();
+                }
+            }
+            reader.close();
+            logger.info("Wetterdaten pro Jahreszeit für " + stationId + " gesammelt");
+
+            return saveSeasonalDataToJson(stationId, startYear, endYear, minTempsBySeason, maxTempsBySeason);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.info("Wetterdaten pro Jahreszeit für " + stationId + " konnten nicht ermittelt werden");
+            return "{}";
+        }
+    }
+
+    private static String getSeason(int month, double lat) {
+        // Wenn südliche Hemisphäre (Breitengrad negativ), Jahreszeiten umkehren
+        if (lat < 0) {
+            switch (month) {
+                case 3:
+                case 4:
+                case 5:
+                    return "Herbst";   // Frühling -> Herbst
+                case 6:
+                case 7:
+                case 8:
+                    return "Winter";   // Sommer -> Winter
+                case 9:
+                case 10:
+                case 11:
+                    return "Frühling"; // Herbst -> Frühling
+                case 12:
+                case 1:
+                case 2:
+                    return "Sommer";   // Winter -> Sommer
+                default:
+                    return "Unbekannt";
+            }
+        } else {
+            // Nördliche Hemisphäre (Breitengrad positiv oder Äquator)
+            switch (month) {
+                case 3:
+                case 4:
+                case 5:
+                    return "Frühling";
+                case 6:
+                case 7:
+                case 8:
+                    return "Sommer";
+                case 9:
+                case 10:
+                case 11:
+                    return "Herbst";
+                case 12:
+                case 1:
+                case 2:
+                    return "Winter";
+                default:
+                    return "Unbekannt";
+            }
+        }
 
     }
+
+    private static String saveSeasonalDataToJson(String stationId, int startYear, int endYear,
+                                                 Map<String, List<Double>> minTempsBySeason,
+                                                 Map<String, List<Double>> maxTempsBySeason) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectNode rootNode = objectMapper.createObjectNode();
+            rootNode.put("station", stationId);
+            rootNode.put("zeitraum", startYear + "-" + endYear);
+
+            ObjectNode seasonalData = objectMapper.createObjectNode();
+
+            for (String season : minTempsBySeason.keySet()) {
+                double min = minTempsBySeason.get(season)
+                        .stream().mapToDouble(Double::doubleValue).min().orElse(Double.NaN);
+                double max = maxTempsBySeason.get(season)
+                        .stream().mapToDouble(Double::doubleValue).max().orElse(Double.NaN);
+
+                ObjectNode seasonNode = objectMapper.createObjectNode();
+                seasonNode.put("tmin", min);
+                seasonNode.put("tmax", max);
+
+                seasonalData.set(season, seasonNode);
+            }
+
+            rootNode.set("saisonwerte", seasonalData);
+
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("seasonal_weather_data.json"), rootNode);
+
+            System.out.println("Daten pro Jahreszeit gespeichert in seasonal_weather_data.json");
+
+            return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "[]"; // Leeres JSON-Array als Fallback
+        }
+    }
+
 }

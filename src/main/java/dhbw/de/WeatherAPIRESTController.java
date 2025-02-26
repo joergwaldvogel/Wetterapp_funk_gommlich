@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @SpringBootApplication(scanBasePackages = "dhbw.de")
@@ -23,7 +25,7 @@ public class WeatherAPIRESTController {
     //          *Das als Feld im Frontend beachten
     //      - Die anzahl der zu anzeigenden Stationen soll konfigurierbar sein (max aber 10)
     //  -> welche java version???
-    // Ladebalken und mehr logger
+    // Ladebalken und eventuell mehr logger
 
     public static final Logger logger = LoggerFactory.getLogger(WeatherAPIRESTController.class);
     private final DetermineStationsInRadius stationService;
@@ -52,7 +54,7 @@ public class WeatherAPIRESTController {
     @PostMapping("/test")
     public String postTest(@RequestBody String data) {
         logger.info("POST-Request auf /api/test mit Daten: " + data);
-        return "Data received: " + data;
+        return "Daten erhalten: " + data;
     }
 
     @GetMapping("/get_stations")
@@ -67,9 +69,16 @@ public class WeatherAPIRESTController {
     }
 
     @GetMapping("/get_weather_data")
-    public String getWeatherData(@RequestParam String stationId, @RequestParam int startYear, @RequestParam int endYear) throws IOException {
+    public String getWeatherData(@RequestParam String stationId, @RequestParam int startYear, @RequestParam int endYear, @RequestParam double latitute) throws IOException {
         logger.info("GET-Request auf /get_weather_data empfangen!");
-        return weatherDataService.fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
+        String DataByYear = weatherDataService.fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
+        String DataBySeason = weatherDataService.fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear, latitute);
+
+        Map<String, Object> WeatherDataResponse = new HashMap<>();
+        WeatherDataResponse.put("DataByYear", DataByYear);
+        WeatherDataResponse.put("DataBySeason", DataBySeason);
+
+        return WeatherDataResponse.toString();
 
         //Path path = Path.of("weather_data_test.json");
         // String jsonContent = Files.readString(path);

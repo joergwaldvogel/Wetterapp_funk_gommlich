@@ -40,7 +40,7 @@ public class LoadStationsFromNOAA {
                     name = "Unbekannt";
                 }
 
-                double distance = 0.0; //Distanz wird erst später ermittelt
+                double distance = 0.0; //Distanz wird erst später ermittelt, wird vorerst auf 0 gesetzt
 
                 stations.add(new Station(stationId, latitude, longitude, name, distance));
             }

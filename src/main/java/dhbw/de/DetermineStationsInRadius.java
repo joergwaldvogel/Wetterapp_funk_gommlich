@@ -10,10 +10,13 @@ import java.io.File;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static dhbw.de.WeatherAPIRESTController.logger;
+
 @Service
 public class DetermineStationsInRadius extends LoadStationsFromNOAA {
 
-    public static String stationSearch(double lat, double lon, double radius, int limit) { //vordefinierte Koordinaten zum mtesten
+    public static String stationSearch(double lat, double lon, double radius, int limit) {
 
         List<LoadStationsFromNOAA.Station> stations = LoadStationsFromNOAA.getNOAAStations();
         STRtree stRtree = buildRTree(stations);
@@ -25,7 +28,7 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
             sortedStations = sortedStations.subList(0, limit);
         }
 
-        System.out.println(nearbyStations.size() + " Stationen innerhalb von " + radius + " km um (" + lat + ", " + lon + "):");
+        logger.info(nearbyStations.size() + " Stationen innerhalb von " + radius + " km um Koordinaten (" + lat + ", " + lon + "):");
         for (LoadStationsFromNOAA.Station station : nearbyStations) {
             System.out.println(station);
         }
@@ -78,8 +81,6 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
 
     }
 
-
-    //Haversine-Formel
     private static double haversine(double lat1, double lon1, double lat2, double lon2) {
         final int R = 6371; // Erdradius in km
         double dLat = Math.toRadians(lat2 - lat1);
