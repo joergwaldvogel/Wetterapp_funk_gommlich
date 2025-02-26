@@ -1,0 +1,22 @@
+{
+  "station" : "AE000041196",
+  "zeitraum" : "1949-2000",
+  "saisonwerte" : {
+    "Frühling" : {
+      "tmin" : 5.8,
+      "tmax" : 46.4
+    },
+    "Winter" : {
+      "tmin" : 0.8,
+      "tmax" : 35.5
+    },
+    "Sommer" : {
+      "tmin" : 17.8,
+      "tmax" : 49.0
+    },
+    "Herbst" : {
+      "tmin" : 8.1,
+      "tmax" : 46.0
+    }
+  }
+}

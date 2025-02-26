@@ -20,8 +20,15 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
         String stationId = "AE000041196"; // beispieldaten zum direkt testen
         int startYear = 1949;
         int endYear = 2000;
-        fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
-        fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear, 25.33);
+
+        String DataByYear = fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
+        String DataBySeason = fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear, 25.33);
+
+        Map<String, Object> WeatherDataResponse = new HashMap<>();
+        WeatherDataResponse.put("DataByYear", DataByYear);
+        WeatherDataResponse.put("DataBySeason", DataBySeason);
+
+        System.out.println(WeatherDataResponse.toString());
     }
 
     public static String fetchAndProcessWeatherDataByYear(String stationId, int startYear, int endYear) {

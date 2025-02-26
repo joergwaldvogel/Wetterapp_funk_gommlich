@@ -70,6 +70,10 @@ public class WeatherAPIRESTController {
 
     @GetMapping("/get_weather_data")
     public String getWeatherData(@RequestParam String stationId, @RequestParam int startYear, @RequestParam int endYear, @RequestParam double latitute) throws IOException {
+
+        //TODO ZU beachtende, fehlende Funktionen:
+        // Problem im Code: Latitute der station wird benötigt, nicht der wert, der der benutzer zur suche eingegebenhat
+        // Funktion nochmal gründlich Testen
         logger.info("GET-Request auf /get_weather_data empfangen!");
         String DataByYear = weatherDataService.fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
         String DataBySeason = weatherDataService.fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear, latitute);
