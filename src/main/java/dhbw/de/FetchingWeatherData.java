@@ -16,21 +16,6 @@ import static dhbw.de.WeatherAPIRESTController.logger;
 public class FetchingWeatherData extends DetermineStationsInRadius {
     private static final String BASE_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/by_station/";
 
-    public static void main(String[] args) {
-        String stationId = "AE000041196"; // beispieldaten zum direkt testen
-        int startYear = 1949;
-        int endYear = 2000;
-
-        String DataByYear = fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
-        String DataBySeason = fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear);
-
-        Map<String, Object> WeatherDataResponse = new HashMap<>();
-        WeatherDataResponse.put("DataByYear", DataByYear);
-        WeatherDataResponse.put("DataBySeason", DataBySeason);
-
-        System.out.println(WeatherDataResponse);
-    }
-
     public static String fetchAndProcessWeatherDataByYear(String stationId, int startYear, int endYear) {
         String fileUrl = BASE_URL + stationId + ".csv.gz"; // GZIP-Datei
         Map<Integer, List<Double>> minTempsByYear = new HashMap<>();
@@ -73,8 +58,8 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
                 }
             }
             reader.close();
-            logger.info("Wetterdaten pro Jahr für "+ stationId +" gesammelt");
 
+            logger.info("Wetterdaten pro Jahr für "+ stationId +" gesammelt");
             return saveToJson(stationId, startYear, endYear, minTempsByYear, maxTempsByYear);
 
         } catch (Exception e) {
@@ -124,14 +109,9 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
 
     public static String fetchAndProcessWeatherDataBySeasons(String stationId, int startYear, int endYear) {
         String fileUrl = BASE_URL + stationId + ".csv.gz";
+
         Map<String, List<Double>> minTempsBySeason = new HashMap<>();
         Map<String, List<Double>> maxTempsBySeason = new HashMap<>();
-
-        String[] seasons = {"Frühling", "Sommer", "Herbst", "Winter"};
-        for (String season : seasons) {
-            minTempsBySeason.put(season, new ArrayList<>());
-            maxTempsBySeason.put(season, new ArrayList<>());
-        }
 
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(fileUrl).openConnection();
@@ -142,95 +122,93 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(","); // CSV-Datei ist komma-separiert
+                String[] parts = line.split(",");
                 if (parts.length < 4)
                     continue;
 
                 try {
                     int year = Integer.parseInt(parts[1].substring(0, 4));
                     int month = Integer.parseInt(parts[1].substring(4, 6));
-                    if (year < startYear || year > endYear)
-                        continue;
-
-                    String recordType = parts[2]; // Temperaturtyp (TMIN oder TMAX)
-                    double tempValue = Double.parseDouble(parts[3]) / 10.0; // Temperatur umrechnen
+                    String recordType = parts[2];
+                    double tempValue = Double.parseDouble(parts[3]) / 10.0;
 
                     Double lat = getLatitudeByStationId(stationId);
-                    String season = getSeason(month, lat);
+                    String seasonKey = getSeasonKeyByHemisphere(year, month, lat);
 
                     if (recordType.equals("TMIN")) {
-                        minTempsBySeason.get(season).add(tempValue);
+                        minTempsBySeason.computeIfAbsent(seasonKey, k -> new ArrayList<>()).add(tempValue);
                     } else if (recordType.equals("TMAX")) {
-                        maxTempsBySeason.get(season).add(tempValue);
+                        maxTempsBySeason.computeIfAbsent(seasonKey, k -> new ArrayList<>()).add(tempValue);
                     }
                 } catch (Exception e) {
                     System.out.println("Fehler beim Parsen von: " + line);
                     e.printStackTrace();
                 }
             }
-
             reader.close();
-            logger.info("Wetterdaten pro Jahreszeit für " + stationId + " gesammelt");
 
-            return saveSeasonalDataToJson(stationId, startYear, endYear, minTempsBySeason, maxTempsBySeason);
+            logger.info("Wetterdaten pro Jahreszeit für " + stationId + " gesammelt");
+            return saveSeasonDataToJson(stationId, startYear, endYear, minTempsBySeason, maxTempsBySeason);
 
         } catch (Exception e) {
             e.printStackTrace();
-
-            logger.info("Wetterdaten pro Jahreszeit für " + stationId + " konnten nicht ermittelt werden");
+            logger.info("Wetterdaten pro Jahreszeit für "+ stationId +" konnten nicht ermittelt werden");
             return "{}";
-
         }
     }
 
-    private static String getSeason(int month, double lat) {
-        // Wenn südliche Hemisphäre (Breitengrad negativ), Jahreszeiten umkehren
-        if (lat < 0) {
+
+    private static String getSeasonKeyByHemisphere(int year, int month, double latitude) {
+        boolean isSouthernHemisphere = latitude < 0;
+
+        if (isSouthernHemisphere) {
             switch (month) {
+                case 12:
+                    return "Sommer_" + year + "_" + (year + 1); //beachtung winter nächstes jahr
+                case 1:
+                case 2:
+                    return "Sommer_" + (year - 1) + "_" + year; //beachtung winter vorjahr
                 case 3:
                 case 4:
                 case 5:
-                    return "Herbst";   // Frühling -> Herbst
+                    return "Herbst_" + year;
                 case 6:
                 case 7:
                 case 8:
-                    return "Winter";   // Sommer -> Winter
+                    return "Winter_" + year;
                 case 9:
                 case 10:
                 case 11:
-                    return "Frühling"; // Herbst -> Frühling
-                case 12:
-                case 1:
-                case 2:
-                    return "Sommer";   // Winter -> Sommer
+                    return "Frühling_" + year;
                 default:
                     return "Unbekannt";
             }
         } else {
-            // Nördliche Hemisphäre (Breitengrad positiv oder Äquator)
+            // nördliche hemisphäre standart
             switch (month) {
+                case 12:
+                    return "Winter_" + year + "_" + (year + 1);
+                case 1:
+                case 2:
+                    return "Winter_" + (year - 1) + "_" + year;
                 case 3:
                 case 4:
                 case 5:
-                    return "Frühling";
+                    return "Frühling_" + year;
                 case 6:
                 case 7:
                 case 8:
-                    return "Sommer";
+                    return "Sommer_" + year;
                 case 9:
                 case 10:
                 case 11:
-                    return "Herbst";
-                case 12:
-                case 1:
-                case 2:
-                    return "Winter";
+                    return "Herbst_" + year;
                 default:
                     return "Unbekannt";
             }
         }
-
     }
+
 
     public static double getLatitudeByStationId(String stationId) {
         return sortedStations.stream()
@@ -240,42 +218,43 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
                 .orElse(Double.NaN); // Falls keine Station gefunden wird, NaN zurückgeben
     }
 
-    private static String saveSeasonalDataToJson(String stationId, int startYear, int endYear,
-                                                 Map<String, List<Double>> minTempsBySeason,
-                                                 Map<String, List<Double>> maxTempsBySeason) {
+    private static String saveSeasonDataToJson(String stationId, int startYear, int endYear,
+                                             Map<String, List<Double>> minTempsBySeason,
+                                             Map<String, List<Double>> maxTempsBySeason) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             ObjectNode rootNode = objectMapper.createObjectNode();
             rootNode.put("station", stationId);
             rootNode.put("zeitraum", startYear + "-" + endYear);
 
-            ObjectNode seasonalData = objectMapper.createObjectNode();
+            ObjectNode seasonsData = objectMapper.createObjectNode();
 
             for (String season : minTempsBySeason.keySet()) {
-                double min = minTempsBySeason.get(season)
+                double minTemp = minTempsBySeason.getOrDefault(season, Collections.emptyList())
                         .stream().mapToDouble(Double::doubleValue).min().orElse(Double.NaN);
-                double max = maxTempsBySeason.get(season)
+                double maxTemp = maxTempsBySeason.getOrDefault(season, Collections.emptyList())
                         .stream().mapToDouble(Double::doubleValue).max().orElse(Double.NaN);
 
                 ObjectNode seasonNode = objectMapper.createObjectNode();
-                seasonNode.put("tmin", min);
-                seasonNode.put("tmax", max);
+                seasonNode.put("minTemp", minTemp);
+                seasonNode.put("maxTemp", maxTemp);
 
-                seasonalData.set(season, seasonNode);
+                seasonsData.set(season, seasonNode);
             }
 
-            rootNode.set("saisonwerte", seasonalData);
+            rootNode.set("jahreszeiten", seasonsData);
 
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("seasonal_weather_data.json"), rootNode);
-
-            System.out.println("Daten pro Jahreszeit gespeichert in seasonal_weather_data.json");
-
             return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "[]"; // Leeres JSON-Array als Fallback
+            return "{}";
         }
+
+    }
+
+    public static void main(String[] args) {
     }
 
 }
