@@ -31,7 +31,7 @@ public class WeatherAPIRESTController {
     private final DetermineStationsInRadius stationService;
     private final FetchingWeatherData weatherDataService;
 
-    public WeatherAPIRESTController(@Qualifier("determineStations") DetermineStationsInRadius stationService,
+    public WeatherAPIRESTController(@Qualifier("determineStationsInRadius") DetermineStationsInRadius stationService,
                                     @Qualifier("fetchingWeatherData") FetchingWeatherData weatherDataService) {
         this.stationService = stationService;
         this.weatherDataService = weatherDataService;
@@ -82,7 +82,8 @@ public class WeatherAPIRESTController {
         WeatherDataResponse.put("DataByYear", DataByYear);
         WeatherDataResponse.put("DataBySeason", DataBySeason);
 
-        return WeatherDataResponse.toString();
+        //return WeatherDataResponse.toString(); //das wieder einkommentieren, wenn beide datenarten verwendet werden sollen
+        return DataByYear.toString(); //nur daten pro jahr, solang frontend grafik noch nicht angepasst hat
 
         //Path path = Path.of("weather_data_test.json");
         // String jsonContent = Files.readString(path);

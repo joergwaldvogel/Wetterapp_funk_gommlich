@@ -12,7 +12,8 @@
   let searchCircle = null;
   let lat = 52.52;
   let lon = 13.405;
-  let radius;
+  let radius = 50;
+  let limit = 10;
   let markers = [];
   let startYear = 1949;
   let endYear = 1959;
@@ -32,8 +33,8 @@
                maxZoom: 19
            }).addTo(map);
        }
-       fetchStations();
-   });
+       //fetchStations(); //Gibt es einen bestimmten grund weshalb das hier ist? Das sorgt nämlich dafür das bei jedem neuladen der Seite
+   });                    // Der code für die stationssuche komplett neu ausgeführt wird ohne das der User den knopf drückt
 
    function filterMarkers() {
        markers.forEach(marker => {
@@ -87,10 +88,11 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
 
         return L.polygon(coords, { color: 'red', fillColor: 'red', fillOpacity: 0.1 }).addTo(map);
 }
+
 // Fetch stations from backend
 async function fetchStations() {
     try {
-        const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}`);
+        const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}&limit=${limit}`);
         if (!response.ok) throw new Error("Failed to fetch stations");
         stations = await response.json();
         selectedStation = null;  // Reset selected station
@@ -226,6 +228,7 @@ function showStationMarkers() {
             <label>Latitude: <input type="number" bind:value={lat} on:change={updateCircle} /></label>
             <label>Longitude: <input type="number" bind:value={lon} on:change={updateCircle} /></label>
             <label>Radius (km): <input type="number" bind:value={radius} on:change={updateCircle} /></label>
+            <label>Maximale Anzeige an Stationen: <input type="number" bind:value={limit} /></label>
         </div>
 
         <div class="year-controls">
