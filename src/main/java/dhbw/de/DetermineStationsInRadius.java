@@ -8,13 +8,21 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import static dhbw.de.FetchingWeatherData.fetchAndProcessWeatherDataBySeasons;
+import static dhbw.de.FetchingWeatherData.fetchAndProcessWeatherDataByYear;
 import static dhbw.de.WeatherAPIRESTController.logger;
+
+
 
 @Service
 public class DetermineStationsInRadius extends LoadStationsFromNOAA {
+
+    static List<LoadStationsFromNOAA.Station> sortedStations;
 
     public static String stationSearch(double lat, double lon, double radius, int limit) {
 
@@ -22,7 +30,7 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
         STRtree stRtree = buildRTree(stations);
 
         List<LoadStationsFromNOAA.Station> nearbyStations = findStationsInRadius(stRtree, lat, lon, radius);
-        List<LoadStationsFromNOAA.Station> sortedStations = sortStationsByDistance(nearbyStations);
+        sortedStations = sortStationsByDistance(nearbyStations);
 
         if (sortedStations.size() > limit) {
             sortedStations = sortedStations.subList(0, limit);
@@ -107,9 +115,23 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
     public static void main(String[] args) {
         double searchLatitude = 52.52;
         double searchLongitude = 13.405;
-        double searchRadius = 100.0;
+        double searchRadius = 50.0;
         int limit = 10;
         stationSearch(searchLatitude, searchLongitude, searchRadius, limit);
+
+        String stationId = "GME00127850"; // beispieldaten zum direkt testen
+        int startYear = 1949;
+        int endYear = 2000;
+
+        String DataByYear = fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
+        String DataBySeason = fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear);
+
+        Map<String, Object> WeatherDataResponse = new HashMap<>();
+        WeatherDataResponse.put("DataByYear", DataByYear);
+        WeatherDataResponse.put("DataBySeason", DataBySeason);
+
+        System.out.println(WeatherDataResponse);
+
 
     }
 }

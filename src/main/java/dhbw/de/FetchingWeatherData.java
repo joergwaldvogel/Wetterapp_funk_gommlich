@@ -22,13 +22,13 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
         int endYear = 2000;
 
         String DataByYear = fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
-        String DataBySeason = fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear, 25.33);
+        String DataBySeason = fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear);
 
         Map<String, Object> WeatherDataResponse = new HashMap<>();
         WeatherDataResponse.put("DataByYear", DataByYear);
         WeatherDataResponse.put("DataBySeason", DataBySeason);
 
-        System.out.println(WeatherDataResponse.toString());
+        System.out.println(WeatherDataResponse);
     }
 
     public static String fetchAndProcessWeatherDataByYear(String stationId, int startYear, int endYear) {
@@ -122,12 +122,11 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
         }
     }
 
-    public static String fetchAndProcessWeatherDataBySeasons(String stationId, int startYear, int endYear, double lat) {
-        String fileUrl = BASE_URL + stationId + ".csv.gz"; // GZIP-Datei
+    public static String fetchAndProcessWeatherDataBySeasons(String stationId, int startYear, int endYear) {
+        String fileUrl = BASE_URL + stationId + ".csv.gz";
         Map<String, List<Double>> minTempsBySeason = new HashMap<>();
         Map<String, List<Double>> maxTempsBySeason = new HashMap<>();
 
-        // Initialisierung der Jahreszeiten
         String[] seasons = {"Frühling", "Sommer", "Herbst", "Winter"};
         for (String season : seasons) {
             minTempsBySeason.put(season, new ArrayList<>());
@@ -144,16 +143,19 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(","); // CSV-Datei ist komma-separiert
-                if (parts.length < 4) continue;
+                if (parts.length < 4)
+                    continue;
 
                 try {
                     int year = Integer.parseInt(parts[1].substring(0, 4));
                     int month = Integer.parseInt(parts[1].substring(4, 6));
-                    if (year < startYear || year > endYear) continue;
+                    if (year < startYear || year > endYear)
+                        continue;
 
                     String recordType = parts[2]; // Temperaturtyp (TMIN oder TMAX)
                     double tempValue = Double.parseDouble(parts[3]) / 10.0; // Temperatur umrechnen
 
+                    Double lat = getLatitudeByStationId(stationId);
                     String season = getSeason(month, lat);
 
                     if (recordType.equals("TMIN")) {
@@ -166,6 +168,7 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
                     e.printStackTrace();
                 }
             }
+
             reader.close();
             logger.info("Wetterdaten pro Jahreszeit für " + stationId + " gesammelt");
 
@@ -173,8 +176,10 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
 
         } catch (Exception e) {
             e.printStackTrace();
+
             logger.info("Wetterdaten pro Jahreszeit für " + stationId + " konnten nicht ermittelt werden");
             return "{}";
+
         }
     }
 
@@ -225,6 +230,14 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
             }
         }
 
+    }
+
+    public static double getLatitudeByStationId(String stationId) {
+        return sortedStations.stream()
+                .filter(station -> station.id().equals(stationId))
+                .map(LoadStationsFromNOAA.Station::latitude)
+                .findFirst()
+                .orElse(Double.NaN); // Falls keine Station gefunden wird, NaN zurückgeben
     }
 
     private static String saveSeasonalDataToJson(String stationId, int startYear, int endYear,
