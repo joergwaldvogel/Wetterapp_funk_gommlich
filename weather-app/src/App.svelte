@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { tick } from "svelte";
   import "leaflet/dist/leaflet.css";
   import L from "leaflet";
   import Chart from "chart.js/auto";
@@ -11,9 +12,11 @@
   let searchCircle = null;
   let lat = 52.52;
   let lon = 13.405;
-  let radius = 10000;
+  let radius;
+  let markers = [];
   let startYear = 1949;
   let endYear = 1959;
+  let originMarker = null;
 
   let chartCanvas;
   let myChart = null;
@@ -32,41 +35,86 @@
        fetchStations();
    });
 
-  // Fetch stations from backend
-  async function fetchStations() {
-      try {
-          const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}`);
-          if (!response.ok) throw new Error("Failed to fetch stations");
-          stations = await response.json();
-          selectedStation = null;  // Reset selected station
-          weatherData = null;      // Clear previous weather data
-          console.log("Stations received:", stations);
-          showStationMarkers();
-          if (myChart) {
-            myChart.destroy();
-          }
+   function filterMarkers() {
+       markers.forEach(marker => {
+           const position = marker.getLatLng();
+           const distance = haversine(lat, lon, position.lat, position.lng);
+           if (distance > radius * 1000) {
+               map.removeLayer(marker);
+           }
+       });
+       markers = markers.filter(marker => map.hasLayer(marker)); // Liste bereinigen
+   }
 
-      } catch (error) {
-          console.error("Error fetching stations:", error);
-      }
-  }
-
-    // Funktion, um Marker und roten Kreis für Stationen anzuzeigen
-    function showStationMarkers() {
-    // Entferne alten Kreis, falls vorhanden
+function updateCircle() {
     if (searchCircle) {
         map.removeLayer(searchCircle);
     }
+    if (originMarker) { map.removeLayer(originMarker); }
 
-    // Erstelle einen neuen roten Kreis um die Suchposition
-    searchCircle = L.circle([lat, lon], {
-        color: 'red',
-        fillColor: 'red',
-        fillOpacity: 0.1,
-        radius: radius * 1000 // km → m Umrechnung
+    // Entferne alle Marker
+    markers.forEach(marker => map.removeLayer(marker));
+    markers = []; // Leere die Marker-Liste
+
+    searchCircle = createGeodesicCircle(lat, lon, radius * 1000);
+
+    // Ursprungspunkt setzen
+     originMarker = L.marker([lat, lon], {
+        icon: L.icon({
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34]
+        })
     }).addTo(map);
+    originMarker.bindPopup("Current Location");
+}
 
-    // Definiere ein kleineres Icon
+function createGeodesicCircle(lat, lon, radius, steps = 64) {
+        let coords = [];
+        let earthRadius = 6371000; // Erdradius in Metern
+
+        for (let i = 0; i < steps; i++) {
+            let angle = (i / steps) * 2 * Math.PI;
+            let dx = radius * Math.cos(angle);
+            let dy = radius * Math.sin(angle);
+
+            let newLat = lat + (dy / earthRadius) * (180 / Math.PI);
+            let newLon = lon + (dx / (earthRadius * Math.cos(lat * Math.PI / 180))) * (180 / Math.PI);
+
+            coords.push([newLat, newLon]);
+        }
+
+        return L.polygon(coords, { color: 'red', fillColor: 'red', fillOpacity: 0.1 }).addTo(map);
+}
+// Fetch stations from backend
+async function fetchStations() {
+    try {
+        const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}`);
+        if (!response.ok) throw new Error("Failed to fetch stations");
+        stations = await response.json();
+        selectedStation = null;  // Reset selected station
+        weatherData = null;      // Clear previous weather data
+        console.log("Stations received:", stations);
+        showStationMarkers();
+        if (myChart) {
+            myChart.destroy();
+        }
+
+    } catch (error) {
+        console.error("Error fetching stations:", error);
+    }
+}
+
+// Funktion, um Marker und roten Kreis für Stationen anzuzeigen
+function showStationMarkers() {
+     // Entferne alten Kreis, falls vorhanden
+    if (searchCircle) {
+        map.removeLayer(searchCircle);
+    }
+    searchCircle = createGeodesicCircle(lat, lon, radius * 1000);
+
+     // Definiere ein kleineres Icon
     const smallIcon = L.icon({
         iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png", // Standard Leaflet-Icon
         iconSize: [16, 26], // Kleinere Größe (Breite, Höhe)
@@ -74,12 +122,23 @@
         popupAnchor: [1, -24] // Position des Popups relativ zum Icon
     });
 
+    // Entferne alte Marker
+    markers.forEach(marker => map.removeLayer(marker));
+    markers = [];
+
     // Füge Marker für die ersten 10 Stationen hinzu
     stations.slice(0, 10).forEach(station => {
         const { latitude, longitude } = station;
         const marker = L.marker([latitude, longitude], { icon: smallIcon }).addTo(map);
         marker.bindPopup(`<b>${station.id}</b><br>(${latitude}, ${longitude})`);
+
+        marker.on('click', () => {
+            fetchWeatherData(station.id); // Lade die Wetterdaten für die Station
+        });
+
+        markers.push(marker);
     });
+  filterMarkers();
 }
 
   // Fetch weather data for a specific station
@@ -91,6 +150,8 @@
           selectedStation = stationId;  // Store selected station
           console.log("Weather data received:", weatherData);
 
+          await tick();
+
           updateChart();  // Diagramm aktualisieren
       } catch (error) {
           console.error("Error fetching weather data:", error);
@@ -99,9 +160,13 @@
   function updateChart() {
       if (!weatherData || !weatherData.jahreswerte || !chartCanvas) return;
 
-      const years = Object.keys(weatherData.jahreswerte);
-      const tminData = years.map(year => weatherData.jahreswerte[year].tmin || null);
-      const tmaxData = years.map(year => weatherData.jahreswerte[year].zmax || null);
+        const years = Object.keys(weatherData.jahreswerte);
+            const tminData = years.map(year => {
+                return weatherData.jahreswerte[year].tmin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2) : null;
+            });
+            const tmaxData = years.map(year => {
+                return weatherData.jahreswerte[year].zmax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2) : null;
+            });
 
       if (myChart) {
           myChart.destroy();
@@ -158,9 +223,9 @@
         <h1>Weather Station Finder</h1>
 
         <div class="search-controls">
-            <label>Latitude: <input type="number" bind:value={lat} /></label>
-            <label>Longitude: <input type="number" bind:value={lon} /></label>
-            <label>Radius (km): <input type="number" bind:value={radius} /></label>
+            <label>Latitude: <input type="number" bind:value={lat} on:change={updateCircle} /></label>
+            <label>Longitude: <input type="number" bind:value={lon} on:change={updateCircle} /></label>
+            <label>Radius (km): <input type="number" bind:value={radius} on:change={updateCircle} /></label>
         </div>
 
         <div class="year-controls">
@@ -199,14 +264,14 @@
                                                                {#if weatherData.jahreswerte[year].tmin === "NaN"}
                                                                    <span class="missing-data">Data not available</span>
                                                                {:else}
-                                                                   {weatherData.jahreswerte[year].tmin}°C
+                                                                   {parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C
                                                                {/if}
                                                            </td>
                                                            <td>
                                                                {#if weatherData.jahreswerte[year].zmax === "NaN"}
                                                                    <span class="missing-data">Data not available</span>
                                                                {:else}
-                                                                   {weatherData.jahreswerte[year].zmax}°C
+                                                                   {parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C
                                                                {/if}
                                                            </td>
                                                        </tr>
@@ -219,10 +284,14 @@
                            {/each}
                        </ul>
                    {/if}
-        <div class="chart-container">
-            <canvas bind:this={chartCanvas}></canvas>
-        </div>
     </div>
+    {#if weatherData}
+        <div class="overlay_right">
+            <div class="chart-container">
+                <canvas bind:this={chartCanvas}></canvas>
+            </div>
+        </div>
+    {/if}
 </main>
 
 <style>
@@ -266,15 +335,6 @@
         border-radius: 5px;
     }
 
-    pre {
-        background: #222;
-        color: #fff;
-        padding: 10px;
-        border-radius: 5px;
-        margin-top: 5px;
-        overflow-x: auto;
-    }
-
     #map {
         position: absolute;
         top: 0;
@@ -298,9 +358,18 @@
         text-align: center;
     }
 
-    h3 {
-        color:black;
-    }
+    .overlay_right {
+            position: absolute;
+            top: 5%;
+            left: 88%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            text-align: center;
+        }
 
     .weather-data {
         margin-top: 1px;
@@ -326,4 +395,5 @@
         color: red;
         font-style: italic;
     }
+
 </style>
