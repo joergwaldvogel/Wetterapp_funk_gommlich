@@ -36,6 +36,14 @@
        //fetchStations(); //Gibt es einen bestimmten grund weshalb das hier ist? Das sorgt nämlich dafür das bei jedem neuladen der Seite
    });                    // Der code für die stationssuche komplett neu ausgeführt wird ohne das der User den knopf drückt
 
+function updateLimit() {
+    if (limit > 10) {
+        limit = 10;  // Setzt den Wert auf 10, falls er höher ist
+    }
+}
+
+
+
    function filterMarkers() {
        markers.forEach(marker => {
            const position = marker.getLatLng();
@@ -228,7 +236,7 @@ function showStationMarkers() {
             <label>Latitude: <input type="number" bind:value={lat} on:change={updateCircle} /></label>
             <label>Longitude: <input type="number" bind:value={lon} on:change={updateCircle} /></label>
             <label>Radius (km): <input type="number" bind:value={radius} on:change={updateCircle} /></label>
-            <label>Maximale Anzeige an Stationen: <input type="number" bind:value={limit} /></label>
+            <label>Maximale Anzeige an Stationen: <input type="number" bind:value={limit} min="1" max="10" on:change={updateLimit} /></label>
         </div>
 
         <div class="year-controls">
@@ -260,23 +268,13 @@ function showStationMarkers() {
                                                    </tr>
                                                </thead>
                                                <tbody>
-                                                   {#each Object.keys(weatherData.jahreswerte) as year}
+                                                   {#each Object.keys(weatherData.jahreswerte).filter(year =>
+                                                       weatherData.jahreswerte[year].tmin !== "NaN" && weatherData.jahreswerte[year].zmax !== "NaN"
+                                                   ) as year}
                                                        <tr>
                                                            <td>{year}</td>
-                                                           <td>
-                                                               {#if weatherData.jahreswerte[year].tmin === "NaN"}
-                                                                   <span class="missing-data">Data not available</span>
-                                                               {:else}
-                                                                   {parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C
-                                                               {/if}
-                                                           </td>
-                                                           <td>
-                                                               {#if weatherData.jahreswerte[year].zmax === "NaN"}
-                                                                   <span class="missing-data">Data not available</span>
-                                                               {:else}
-                                                                   {parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C
-                                                               {/if}
-                                                           </td>
+                                                           <td>{parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C</td>
+                                                           <td>{parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C</td>
                                                        </tr>
                                                    {/each}
                                                </tbody>
@@ -394,9 +392,5 @@ function showStationMarkers() {
         color: black;
     }
 
-    .missing-data {
-        color: red;
-        font-style: italic;
-    }
 
 </style>
