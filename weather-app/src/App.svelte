@@ -261,41 +261,34 @@ function showStationMarkers() {
                     <button on:click={() => fetchWeatherData(station.id)}>
                         {station.id}  ({station.latitude}, {station.longitude})
                     </button>
-
-                    <!-- Show weather data directly under the selected station -->
-                   {#if selectedStation === station.id && weatherData}
-                                       <div class="weather-data">
-                                           <table>
-                                               <thead>
-                                                   <tr>
-                                                       <th>Year</th>
-                                                       <th>Minimum Temperature</th>
-                                                       <th>Maximum Temperature</th>
-                                                   </tr>
-                                               </thead>
-                                               <tbody>
-                                                   {#each Object.keys(weatherData.jahreswerte).filter(year =>
-                                                       weatherData.jahreswerte[year].tmin !== "NaN" && weatherData.jahreswerte[year].zmax !== "NaN"
-                                                   ) as year}
-                                                       <tr>
-                                                           <td>{year}</td>
-                                                           <td>{parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C</td>
-                                                           <td>{parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C</td>
-                                                       </tr>
-                                                   {/each}
-                                               </tbody>
-                                           </table>
-                                       </div>
-                                   {/if}
-                               </li>
-                           {/each}
-                       </ul>
-                   {/if}
     </div>
     {#if weatherData}
         <div class="overlay_right">
             <div class="chart-container">
                 <canvas bind:this={chartCanvas}></canvas>
+            </div>
+
+            <div class="weather-data">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Minimum Temperature</th>
+                            <th>Maximum Temperature</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {#each Object.keys(weatherData.jahreswerte).filter(year =>
+                            weatherData.jahreswerte[year].tmin !== "NaN" && weatherData.jahreswerte[year].zmax !== "NaN"
+                        ) as year}
+                            <tr>
+                                <td>{year}</td>
+                                <td>{parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C</td>
+                                <td>{parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C</td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </table>
             </div>
         </div>
     {/if}
@@ -375,15 +368,18 @@ function showStationMarkers() {
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-        }
+    }
 
     .weather-data {
-        max-height: 150px;
+        max-height: 300px;
         overflow-y: auto;
-        margin-top: 1px;
-        justify-content: left; /* Links ausrichten */
-        align-items: center; /* Vertikal zentrieren */
+        margin-top: 10px;
+        justify-content: left;
+        align-items: center;
     }
 
     .weather-data table {
@@ -393,9 +389,17 @@ function showStationMarkers() {
     }
 
     .weather-data th, .weather-data td {
-        padding: 8px;
+        padding: 10px;
         text-align: left;
         border-bottom: 1px solid #ddd;
         color: black;
+
+    }
+
+    .weather-data th {
+        position: sticky;
+        top: 0;
+        background-color: #f0f0f0;
+        z-index: 2;
     }
 </style>
