@@ -79,6 +79,10 @@ function updateCircle() {
     originMarker.bindPopup("Current Location");
 }
 
+function zoomToCoordinates() {
+    map.setView([lat, lon], 10); // Zoomt auf die gesetzten Koordinaten
+}
+
 function createGeodesicCircle(lat, lon, radius, steps = 64) {
         let coords = [];
         let earthRadius = 6371000; // Erdradius in Metern
@@ -93,7 +97,6 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
 
             coords.push([newLat, newLon]);
         }
-
         return L.polygon(coords, { color: 'red', fillColor: 'red', fillOpacity: 0.1 }).addTo(map);
 }
 
@@ -144,6 +147,7 @@ function showStationMarkers() {
 
         marker.on('click', () => {
             fetchWeatherData(station.id); // Lade die Wetterdaten für die Station
+            map.setView([latitude, longitude], 10);
         });
 
         markers.push(marker);
@@ -244,7 +248,9 @@ function showStationMarkers() {
             <label>End Year: <input type="number" bind:value={endYear} min="1900" max="2100" /></label>
         </div>
 
-        <button on:click={fetchStations}>Search Stations</button>
+        <button on:click={() => { fetchStations(); map.setView([lat, lon], 10); }}>
+            Search Stations
+        </button>
 
     <!-- Station List -->
     {#if stations.length > 0}
@@ -373,8 +379,9 @@ function showStationMarkers() {
         }
 
     .weather-data {
+        max-height: 150px;
+        overflow-y: auto;
         margin-top: 1px;
-        display: flex;
         justify-content: left; /* Links ausrichten */
         align-items: center; /* Vertikal zentrieren */
     }
@@ -391,6 +398,4 @@ function showStationMarkers() {
         border-bottom: 1px solid #ddd;
         color: black;
     }
-
-
 </style>
