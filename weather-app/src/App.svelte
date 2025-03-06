@@ -36,13 +36,22 @@
        //fetchStations(); //Gibt es einen bestimmten grund weshalb das hier ist? Das sorgt nämlich dafür das bei jedem neuladen der Seite
    });                    // Der code für die stationssuche komplett neu ausgeführt wird ohne das der User den knopf drückt
 
-function updateLimit() {
+function updateLimitStations() {
     if (limit > 10) {
         limit = 10;  // Setzt den Wert auf 10, falls er höher ist
     }
 }
 
+function updateLimitRadius() {
+    if (radius > 100) {
+        radius = 100;  // Setzt den Wert auf 10, falls er höher ist
+    }
+}
 
+function handleRadiusChange() {
+    updateLimitRadius();
+    updateCircle();
+}
 
    function filterMarkers() {
        markers.forEach(marker => {
@@ -142,7 +151,7 @@ function showStationMarkers() {
     stations.slice(0, 10).forEach(station => {
         const { latitude, longitude } = station;
         const marker = L.marker([latitude, longitude], { icon: smallIcon }).addTo(map);
-        marker.bindPopup(`<b>${station.id}</b><br>(${latitude}, ${longitude})`);
+        marker.bindPopup(`<b>${station.name}</b><br>(${latitude}, ${longitude})`);
 
         marker.on('click', () => {
             fetchWeatherData(station.id); // Lade die Wetterdaten für die Station
@@ -238,8 +247,8 @@ function showStationMarkers() {
         <div class="search-controls">
             <label>Latitude: <input type="number" bind:value={lat} on:change={updateCircle} /></label>
             <label>Longitude: <input type="number" bind:value={lon} on:change={updateCircle} /></label>
-            <label>Radius (km): <input type="number" bind:value={radius} on:change={updateCircle} /></label>
-            <label>Maximale Anzeige an Stationen: <input type="number" bind:value={limit} min="1" max="10" on:change={updateLimit} /></label>
+            <label>Radius (km): <input type="number" bind:value={radius} min="1" max="100" on:change={handleRadiusChange} /></label>
+            <label>Max Display at Stations: <input type="number" bind:value={limit} min="1" max="10" on:change={updateLimitStations} /></label>
         </div>
 
         <div class="year-controls">
@@ -258,7 +267,7 @@ function showStationMarkers() {
             {#each stations as station}
                 <li>
                     <button on:click={() => fetchWeatherData(station.id)}>
-                        {station.id}  ({station.latitude}, {station.longitude})
+                        {station.name}
                     </button>
                      </li>
             {/each}
@@ -307,6 +316,10 @@ function showStationMarkers() {
         margin-bottom: 10px;
     }
 
+    .year-controls {
+        display: flex;
+    }
+
     .year-controls label {
         flex-direction: column;
         align-items: center;
@@ -333,7 +346,7 @@ function showStationMarkers() {
         cursor: pointer;
         padding: 5px 10px;
         border: none;
-        background-color: #615F5F;
+        background-color: #757474;
         color: white;
         border-radius: 5px;
     }
@@ -349,11 +362,11 @@ function showStationMarkers() {
 
     .overlay {
         position: absolute;
-        top: 5%;
+        top: 2%;
         left: 15%;
         transform: translateX(-50%);
         background: rgba(255, 255, 255, 0.9);
-        padding: 15px;
+        padding: 0.5%;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 1000;
@@ -363,11 +376,11 @@ function showStationMarkers() {
 
     .overlay_right {
         position: absolute;
-        top: 5%;
+        top: 2%;
         left: 88%;
         transform: translateX(-50%);
         background: rgba(255, 255, 255, 0.9);
-        padding: 15px;
+        padding: 0.5%;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 1000;
