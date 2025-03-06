@@ -82,8 +82,8 @@ public class WeatherAPIRESTController {
         WeatherDataResponse.put("DataByYear", DataByYear);
         WeatherDataResponse.put("DataBySeason", DataBySeason);
 
-        //return WeatherDataResponse.toString(); //das wieder einkommentieren, wenn beide datenarten verwendet werden sollen
-        return DataByYear.toString(); //nur daten pro jahr, solang frontend grafik noch nicht angepasst hat
+        return WeatherDataResponse.toString(); //das wieder einkommentieren, wenn beide datenarten verwendet werden sollen
+        //return DataByYear.toString(); //nur daten pro jahr, solang frontend grafik noch nicht angepasst hat
 
         //Path path = Path.of("weather_data_test.json");
         // String jsonContent = Files.readString(path);
