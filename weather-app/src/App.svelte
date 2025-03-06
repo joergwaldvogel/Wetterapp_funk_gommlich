@@ -121,7 +121,6 @@ async function fetchStations() {
 
 // Funktion, um Marker und roten Kreis für Stationen anzuzeigen
 function showStationMarkers() {
-     // Entferne alten Kreis, falls vorhanden
     if (searchCircle) {
         map.removeLayer(searchCircle);
     }
@@ -403,5 +402,4 @@ function showStationMarkers() {
         background-color: #f0f0f0;
         z-index: 2;
     }
-
 </style>
