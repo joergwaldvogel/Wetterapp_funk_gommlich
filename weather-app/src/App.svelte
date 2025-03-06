@@ -363,16 +363,16 @@ function showStationMarkers() {
     }
 
     .overlay_right {
-            position: absolute;
-            top: 5%;
-            left: 88%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            text-align: center;
+        position: absolute;
+        top: 5%;
+        left: 88%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        text-align: center;
     }
 
     .weather-data {
