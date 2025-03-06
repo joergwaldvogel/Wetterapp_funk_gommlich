@@ -51,9 +51,11 @@ public class LoadStationsFromNOAA {
         return stations;
     }
 
-   public static void main(String[] args) {
+/*   public static void main(String[] args) {
         List<Station> stations = getNOAAStations();
         System.out.println("Erste 5 Stationen:");
         stations.stream().limit(5).forEach(System.out::println);
     }
+ */
 }
+

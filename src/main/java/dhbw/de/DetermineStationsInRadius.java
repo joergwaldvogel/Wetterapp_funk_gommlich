@@ -111,7 +111,7 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
             return "[]"; // Leeres JSON-Array als Fallback
         }
     }
-
+/*
     public static void main(String[] args) {
         double searchLatitude = 52.52;
         double searchLongitude = 13.405;
@@ -134,5 +134,6 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
 
 
     }
+ */
 }
 

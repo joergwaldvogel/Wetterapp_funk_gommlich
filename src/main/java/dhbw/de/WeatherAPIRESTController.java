@@ -45,7 +45,7 @@ public class WeatherAPIRESTController {
         return factory -> factory.setPort(8080);
     }
 
-    @GetMapping("/test")
+    /*@GetMapping("/test")
     public String getTest() {
         logger.info("GET-Request auf /api/test empfangen!");
         return "Hello from Backend!";
@@ -56,7 +56,7 @@ public class WeatherAPIRESTController {
         logger.info("POST-Request auf /api/test mit Daten: " + data);
         return "Daten erhalten: " + data;
     }
-
+*/
     @GetMapping("/get_stations")
     public String getStations(@RequestParam double lat, @RequestParam double lon, @RequestParam double radius, @RequestParam int limit) throws IOException {
         logger.info("GET-Request auf /get_station empfangen!");
