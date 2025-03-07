@@ -1,61 +1,61 @@
 [ {
-  "id" : "GMW00035109",
-  "latitude" : 52.5833,
-  "longitude" : 10.0333,
-  "name" : "CELLE",
-  "distance" : 7.389962025047912
+  "id" : "GME00127850",
+  "latitude" : 52.5331,
+  "longitude" : 13.3831,
+  "name" : "BERLIN-MITTE",
+  "distance" : 2.0776921509980335
 }, {
-  "id" : "GME00132514",
-  "latitude" : 52.5953,
-  "longitude" : 10.0281,
-  "name" : "CELLE",
-  "distance" : 8.585763791279057
+  "id" : "GMW00035104",
+  "latitude" : 52.4833,
+  "longitude" : 13.4,
+  "name" : "TEMPELHOF",
+  "distance" : 4.094864049440625
 }, {
-  "id" : "GME00132502",
-  "latitude" : 52.6164,
-  "longitude" : 10.0739,
-  "name" : "CELLE (STADT)",
-  "distance" : 11.82570057410311
+  "id" : "GME00111445",
+  "latitude" : 52.4683,
+  "longitude" : 13.4039,
+  "name" : "BERLIN-TEMPELHOF",
+  "distance" : 5.749260034137326
 }, {
-  "id" : "GME00102244",
-  "latitude" : 52.4656,
-  "longitude" : 9.6794,
-  "name" : "HANNOVER",
-  "distance" : 22.53245543521344
+  "id" : "GME00121150",
+  "latitude" : 52.5656,
+  "longitude" : 13.3106,
+  "name" : "BERLIN-TEGEL",
+  "distance" : 8.152487881738962
 }, {
-  "id" : "GME00126886",
-  "latitude" : 52.8167,
-  "longitude" : 9.9331,
-  "name" : "BERGEN",
-  "distance" : 33.29852588416506
+  "id" : "GME00128126",
+  "latitude" : 52.4567,
+  "longitude" : 13.4717,
+  "name" : "BERLIN-TREPTOW",
+  "distance" : 8.362922272611476
 }, {
-  "id" : "GME00122206",
-  "latitude" : 52.1803,
-  "longitude" : 9.9533,
-  "name" : "HILDESHEIM-DRISPENSTEDT",
-  "distance" : 37.90586056182727
+  "id" : "GMW00035110",
+  "latitude" : 52.5667,
+  "longitude" : 13.3,
+  "name" : "TEGEL",
+  "distance" : 8.796771318670672
 }, {
-  "id" : "GMW00035108",
-  "latitude" : 52.85,
-  "longitude" : 10.1833,
-  "name" : "FASSBERG",
-  "distance" : 38.71859614143217
+  "id" : "GM000003319",
+  "latitude" : 52.4639,
+  "longitude" : 13.3017,
+  "name" : "BERLIN-DAHLEM",
+  "distance" : 9.371552904956935
 }, {
-  "id" : "GME00131674",
-  "latitude" : 52.2903,
-  "longitude" : 10.4483,
-  "name" : "BRAUNSCHWEIG",
-  "distance" : 39.71408765265441
+  "id" : "GME00127486",
+  "latitude" : 52.4578,
+  "longitude" : 13.3014,
+  "name" : "BERLIN-DAHLEM (LFAG)",
+  "distance" : 9.850877900636672
 }, {
-  "id" : "GME00129610",
-  "latitude" : 52.8514,
-  "longitude" : 10.2908,
-  "name" : "UNTERLUSS",
-  "distance" : 41.73880824256622
+  "id" : "GME00127822",
+  "latitude" : 52.5458,
+  "longitude" : 13.5617,
+  "name" : "BERLIN-MARZAHN",
+  "distance" : 10.980647749546252
 }, {
-  "id" : "GME00123766",
-  "latitude" : 52.1419,
-  "longitude" : 9.885,
-  "name" : "HILDESHEIM",
-  "distance" : 42.76283941971193
+  "id" : "GME00128062",
+  "latitude" : 52.6056,
+  "longitude" : 13.2967,
+  "name" : "BERLIN-TEGELER FLIESSTAL",
+  "distance" : 12.007793478030722
 } ]

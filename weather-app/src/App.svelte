@@ -20,6 +20,7 @@
   let startYear = 1949;
   let endYear = 1959;
   let originMarker = null;
+  let showLoading = false;
 
   let chartCanvas;
   let myChart = null;
@@ -53,8 +54,6 @@ function handleRadiusChange() {
     updateLimitRadius();
     updateCircle();
 }
-
-
 
 function filterMarkers() {
    markers.forEach(marker => {
@@ -170,6 +169,11 @@ function showStationMarkers() {
 
   // Fetch weather data for a specific station
 async function fetchWeatherData(stationId) {
+    showLoading = false;
+    const timeout = setTimeout(() => {
+        showLoading = true; // Load-Display after 1 sec
+    }, 1000);
+
     try {
         const response = await fetch(`http://localhost:8080/api/get_weather_data?stationId=${stationId}&startYear=${startYear}&endYear=${endYear}`);
         if (!response.ok) throw new Error("Failed to fetch weather data");
@@ -182,6 +186,9 @@ async function fetchWeatherData(stationId) {
         updateChart();  // Diagramm aktualisieren
     } catch (error) {
         console.error("Error fetching weather data:", error);
+    } finally {
+        clearTimeout(timeout);
+        showLoading = false;
     }
 }
 
@@ -333,7 +340,17 @@ const getSortedSeasons = () => {
                 {/each}
             </ul>
         {/if}
-        </div>
+    </div>
+
+    {#if showLoading}
+      <div class="loading-modal">
+          <div class="loading-content">
+              <p>Lade Daten...</p>
+              <progress></progress>
+          </div>
+      </div>
+    {/if}
+
     {#if weatherData}
         <div class="overlay_right">
             <div class="chart-container">
@@ -469,21 +486,21 @@ const getSortedSeasons = () => {
         text-align: center;
     }
 
-    .weather-data {
-        max-height: 300px;
+    .weather-data,.seasonal-weather-data {
+        max-height: 220px;
         overflow-y: auto;
         margin-top: 10px;
         justify-content: left;
         align-items: center;
     }
 
-    .weather-data table {
+    .weather-data table, .seasonal-weather-data table {
         width: 100%;
         border-collapse: collapse;
         border: 2px solid #A49E9E;
     }
 
-    .weather-data th, .weather-data td {
+    .weather-data th, .weather-data td, .seasonal-weather-data th, .seasonal-weather-data td {
         padding: 10px;
         text-align: left;
         border-bottom: 1px solid #ddd;
@@ -491,10 +508,35 @@ const getSortedSeasons = () => {
 
     }
 
-    .weather-data th {
+    .weather-data th , .seasonal-weather-data th {
         position: sticky;
         top: 0;
         background-color: #f0f0f0;
         z-index: 2;
+    }
+
+    .loading-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loading-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    progress {
+        width: 100%;
+        height: 10px;
     }
 </style>
