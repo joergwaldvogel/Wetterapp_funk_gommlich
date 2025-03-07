@@ -68,6 +68,14 @@ public class WeatherAPIRESTController {
         //return ResponseEntity.ok(jsonContent);
     }
 
+    @GetMapping("/get_seasonal_weather_data")
+    public String getSeasonalWeatherData(@RequestParam String stationId, @RequestParam int startYear, @RequestParam int endYear) throws IOException {
+
+        logger.info("GET-Request auf /get_seasonal_weather_data empfangen!");
+        return weatherDataService.fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear).toString();
+
+    }
+
     @GetMapping("/get_weather_data")
     public String getWeatherData(@RequestParam String stationId, @RequestParam int startYear, @RequestParam int endYear) throws IOException {
 

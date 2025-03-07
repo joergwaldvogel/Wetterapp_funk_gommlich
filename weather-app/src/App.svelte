@@ -5,9 +5,11 @@
   import L from "leaflet";
   import Chart from "chart.js/auto";
 
+
   let stations = [];
   let selectedStation = null;
   let weatherData = null;
+  let seasonalweatherData = null;
   let map;
   let searchCircle = null;
   let lat = 52.52;
@@ -18,6 +20,8 @@
   let startYear = 1949;
   let endYear = 1959;
   let originMarker = null;
+  let isLoading = false;
+  let loadingTimeout;
 
   let chartCanvas;
   let myChart = null;
@@ -33,8 +37,7 @@
                maxZoom: 19
            }).addTo(map);
        }
-       //fetchStations(); //Gibt es einen bestimmten grund weshalb das hier ist? Das sorgt nämlich dafür das bei jedem neuladen der Seite
-   });                    // Der code für die stationssuche komplett neu ausgeführt wird ohne das der User den knopf drückt
+   });
 
 function updateLimitStations() {
     if (limit > 10) {
@@ -44,7 +47,7 @@ function updateLimitStations() {
 
 function updateLimitRadius() {
     if (radius > 100) {
-        radius = 100;  // Setzt den Wert auf 10, falls er höher ist
+        radius = 100;  // Setzt den Wert auf 100, falls er höher ist
     }
 }
 
@@ -53,16 +56,32 @@ function handleRadiusChange() {
     updateCircle();
 }
 
-   function filterMarkers() {
-       markers.forEach(marker => {
-           const position = marker.getLatLng();
-           const distance = haversine(lat, lon, position.lat, position.lng);
-           if (distance > radius * 1000) {
-               map.removeLayer(marker);
-           }
-       });
-       markers = markers.filter(marker => map.hasLayer(marker)); // Liste bereinigen
-   }
+// Funktion zum Starten des Ladevorgangs
+function startLoading() {
+    isLoading = true;
+    loadingTimeout = setTimeout(() => {
+    isLoading = true;
+    // Den Text setzen
+    document.getElementById("loading-text").innerText = "Daten werden geladen";
+    }, 1000); // 1 Sekunde Verzögerung, bevor der Ladebalken erscheint
+}
+
+// Funktion zum Stoppen des Ladevorgangs
+function stopLoading() {
+    clearTimeout(loadingTimeout);  // Stoppt den Timer, wenn die Daten schneller geladen werden
+    isLoading = false;
+}
+
+function filterMarkers() {
+   markers.forEach(marker => {
+       const position = marker.getLatLng();
+       const distance = haversine(lat, lon, position.lat, position.lng);
+       if (distance > radius * 1000) {
+           map.removeLayer(marker);
+       }
+   });
+   markers = markers.filter(marker => map.hasLayer(marker)); // Liste bereinigen
+}
 
 function updateCircle() {
     if (searchCircle) {
@@ -111,20 +130,24 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
 
 // Fetch stations from backend
 async function fetchStations() {
+    startLoading();  // Ladevorgang starten
+
     try {
         const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}&limit=${limit}`);
         if (!response.ok) throw new Error("Failed to fetch stations");
         stations = await response.json();
         selectedStation = null;  // Reset selected station
         weatherData = null;      // Clear previous weather data
+        seasonalweatherData = null;
         console.log("Stations received:", stations);
         showStationMarkers();
         if (myChart) {
             myChart.destroy();
         }
-
+        stopLoading();
     } catch (error) {
         console.error("Error fetching stations:", error);
+        stopLoading();
     }
 }
 
@@ -153,6 +176,7 @@ function showStationMarkers() {
         const marker = L.marker([latitude, longitude], { icon: smallIcon }).addTo(map);
         marker.bindPopup(`<b>${station.name}</b><br>(${latitude}, ${longitude})`);
 
+
         marker.on('click', () => {
             fetchWeatherData(station.id); // Lade die Wetterdaten für die Station
             map.setView([latitude, longitude], 10);
@@ -164,21 +188,73 @@ function showStationMarkers() {
 }
 
   // Fetch weather data for a specific station
-  async function fetchWeatherData(stationId) {
-      try {
-          const response = await fetch(`http://localhost:8080/api/get_weather_data?stationId=${stationId}&startYear=${startYear}&endYear=${endYear}`);
-          if (!response.ok) throw new Error("Failed to fetch weather data");
-          weatherData = await response.json();
-          selectedStation = stationId;  // Store selected station
-          console.log("Weather data received:", weatherData);
+async function fetchWeatherData(stationId) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/get_weather_data?stationId=${stationId}&startYear=${startYear}&endYear=${endYear}`);
+        if (!response.ok) throw new Error("Failed to fetch weather data");
+        weatherData = await response.json();
+        selectedStation = stationId;  // Store selected station
+        console.log("Weather data received:", weatherData);
 
-          await tick();
+        await tick();
 
-          updateChart();  // Diagramm aktualisieren
-      } catch (error) {
-          console.error("Error fetching weather data:", error);
+        updateChart();  // Diagramm aktualisieren
+    } catch (error) {
+        console.error("Error fetching weather data:", error);
+    }
+}
+
+async function fetchSeasonalWeatherData(stationId) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/get_seasonal_weather_data?stationId=${stationId}&startYear=${startYear}&endYear=${endYear}`);
+        if (!response.ok) throw new Error("Failed to fetch weather data");
+        seasonalweatherData = await response.json();
+        selectedStation = stationId;  // Store selected station
+        console.log("Weather data received:", seasonalweatherData);
+        console.log("Weather data received:", JSON.stringify(seasonalweatherData, null, 2));
+
+        await tick();
+
+        //updateChart();  // Diagramm aktualisieren
+    } catch (error) {
+        console.error("Error fetching weather data:", error);
+    }
+}
+
+const getSortedSeasons = () => {
+  const seasonOrder = ['Winter', 'Frühling', 'Sommer', 'Herbst'];
+
+  return Object.keys(seasonalweatherData.jahreszeiten)
+    .map(season => {
+      const seasonYears = season.split("_");
+      const seasonName = seasonYears[0];  // Saisonname (z.B. Frühling, Sommer, Herbst, Winter)
+      const year = parseInt(seasonYears[seasonYears.length - 1]);  // Jahr extrahieren
+
+      // Nur Jahre im Bereich zwischen startYear und endYear berücksichtigen
+      if (year < startYear || year > endYear) {
+        return null;  // Rückgabe von null für Jahre außerhalb des Bereichs
       }
-  }
+
+      return {
+        season,
+        seasonName,
+        year,
+        minTemp: seasonalweatherData.jahreszeiten[season].minTemp,
+        maxTemp: seasonalweatherData.jahreszeiten[season].maxTemp
+      };
+    })
+    .filter(item => item !== null) // Nullwerte herausfiltern
+    .sort((a, b) => {
+      // Zuerst nach Jahr sortieren
+      if (a.year !== b.year) {
+        return a.year - b.year;
+      }
+
+      // Wenn Jahre gleich sind, nach Saison innerhalb des Jahres sortieren (Frühling, Sommer, Herbst, Winter)
+      return seasonOrder.indexOf(a.seasonName) - seasonOrder.indexOf(b.seasonName);
+    });
+};
+
   function updateChart() {
       if (!weatherData || !weatherData.jahreswerte || !chartCanvas) return;
 
@@ -261,19 +337,29 @@ function showStationMarkers() {
         </button>
 
     <!-- Station List -->
-    {#if stations.length > 0}
-        <h2>Available Stations:</h2>
-        <ul>
-            {#each stations as station}
-                <li>
-                    <button on:click={() => fetchWeatherData(station.id)}>
-                        {station.name}
-                    </button>
-                     </li>
-            {/each}
-        </ul>
-    {/if}
+        {#if stations.length > 0}
+            <h2>Available Stations:</h2>
+            <ul>
+                {#each stations as station}
+                    <li>
+                        <button on:click={() => {
+                            fetchWeatherData(station.id);
+                            fetchSeasonalWeatherData(station.id);
+                        }}>
+                         {station.name}
+                        </button>
+                         </li>
+                {/each}
+            </ul>
+        {/if}
     </div>
+    <!-- Loading Indicator -->
+    {#if isLoading}
+        <div id="loading-indicator">
+            <div class="loading-bar"></div>
+            <p id="loading-text">Lädt...</p>
+        </div>
+    {/if}
     {#if weatherData}
         <div class="overlay_right">
             <div class="chart-container">
@@ -298,6 +384,28 @@ function showStationMarkers() {
                                 <td>{parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C</td>
                                 <td>{parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C</td>
                             </tr>
+                        {/each}
+                    </tbody>
+                </table>
+            </div>
+            <div class="seasonal-weather-data">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Minimum Temperature</th>
+                            <th>Maximum Temperature</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {#each getSortedSeasons() as { season, minTemp, maxTemp }}
+                          {#if minTemp !== "NaN" && maxTemp !== "NaN"}
+                            <tr>
+                              <td>{season}</td>
+                              <td>{minTemp.toFixed(2)}°C</td>
+                              <td>{maxTemp.toFixed(2)}°C</td>
+                            </tr>
+                          {/if}
                         {/each}
                     </tbody>
                 </table>
@@ -415,4 +523,44 @@ function showStationMarkers() {
         background-color: #f0f0f0;
         z-index: 2;
     }
+
+    /* Ladebalken-Styles */
+    #loading-indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+    }
+
+    .loading-bar {
+        width: 50px;
+        height: 5px;
+        background-color: #007bff;
+        animation: loading 1s infinite;
+    }
+
+    @keyframes loading {
+        0% {
+          width: 50px;
+        }
+        50% {
+          width: 100px;
+        }
+        100% {
+          width: 50px;
+        }
+    }
+
+    #loading-text {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #007bff;
+    }
+
 </style>
