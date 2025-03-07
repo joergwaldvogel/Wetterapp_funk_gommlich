@@ -1,61 +1,61 @@
 [ {
-  "id" : "GME00130642",
-  "latitude" : 52.9681,
-  "longitude" : 13.3281,
-  "name" : "ZEHDENICK",
-  "distance" : 9.298677734804045
+  "id" : "GMW00035109",
+  "latitude" : 52.5833,
+  "longitude" : 10.0333,
+  "name" : "CELLE",
+  "distance" : 7.389962025047912
 }, {
-  "id" : "GME00126478",
-  "latitude" : 53.1031,
-  "longitude" : 13.0439,
-  "name" : "MENZ",
-  "distance" : 29.865607593982585
+  "id" : "GME00132514",
+  "latitude" : 52.5953,
+  "longitude" : 10.0281,
+  "name" : "CELLE",
+  "distance" : 8.585763791279057
 }, {
-  "id" : "GME00121526",
-  "latitude" : 52.8253,
-  "longitude" : 13.7994,
-  "name" : "EBERSWALDE",
-  "distance" : 30.10028748606053
+  "id" : "GME00132502",
+  "latitude" : 52.6164,
+  "longitude" : 10.0739,
+  "name" : "CELLE (STADT)",
+  "distance" : 11.82570057410311
 }, {
-  "id" : "GME00131014",
-  "latitude" : 52.78,
-  "longitude" : 13.7606,
-  "name" : "MELCHOW-SCHONHOLZ",
-  "distance" : 31.853770477749563
+  "id" : "GME00102244",
+  "latitude" : 52.4656,
+  "longitude" : 9.6794,
+  "name" : "HANNOVER",
+  "distance" : 22.53245543521344
 }, {
-  "id" : "GME00132022",
-  "latitude" : 53.3175,
-  "longitude" : 13.4175,
-  "name" : "FELDBERG/MECKLENBURG",
-  "distance" : 35.40001362300806
+  "id" : "GME00126886",
+  "latitude" : 52.8167,
+  "longitude" : 9.9331,
+  "name" : "BERGEN",
+  "distance" : 33.29852588416506
 }, {
-  "id" : "GME00120994",
-  "latitude" : 53.0331,
-  "longitude" : 13.9931,
-  "name" : "ANGERMUNDE",
-  "distance" : 36.08296664895378
+  "id" : "GME00122206",
+  "latitude" : 52.1803,
+  "longitude" : 9.9533,
+  "name" : "HILDESHEIM-DRISPENSTEDT",
+  "distance" : 37.90586056182727
 }, {
-  "id" : "GME00122078",
-  "latitude" : 53.3358,
-  "longitude" : 13.4389,
-  "name" : "FELDBERG",
-  "distance" : 37.3576820062342
+  "id" : "GMW00035108",
+  "latitude" : 52.85,
+  "longitude" : 10.1833,
+  "name" : "FASSBERG",
+  "distance" : 38.71859614143217
 }, {
-  "id" : "GME00132130",
-  "latitude" : 52.7458,
-  "longitude" : 13.8419,
-  "name" : "HECKELBERG",
-  "distance" : 38.31465173210037
+  "id" : "GME00131674",
+  "latitude" : 52.2903,
+  "longitude" : 10.4483,
+  "name" : "BRAUNSCHWEIG",
+  "distance" : 39.71408765265441
 }, {
-  "id" : "GME00127438",
-  "latitude" : 52.6325,
-  "longitude" : 13.5039,
-  "name" : "BERLIN-BUCH",
-  "distance" : 40.988100000053834
+  "id" : "GME00129610",
+  "latitude" : 52.8514,
+  "longitude" : 10.2908,
+  "name" : "UNTERLUSS",
+  "distance" : 41.73880824256622
 }, {
-  "id" : "GME00102236",
-  "latitude" : 52.9053,
-  "longitude" : 12.8083,
-  "name" : "NEURUPPIN",
-  "distance" : 44.68265024402664
+  "id" : "GME00123766",
+  "latitude" : 52.1419,
+  "longitude" : 9.885,
+  "name" : "HILDESHEIM",
+  "distance" : 42.76283941971193
 } ]

@@ -20,8 +20,6 @@
   let startYear = 1949;
   let endYear = 1959;
   let originMarker = null;
-  let isLoading = false;
-  let loadingTimeout;
 
   let chartCanvas;
   let myChart = null;
@@ -56,21 +54,7 @@ function handleRadiusChange() {
     updateCircle();
 }
 
-// Funktion zum Starten des Ladevorgangs
-function startLoading() {
-    isLoading = true;
-    loadingTimeout = setTimeout(() => {
-    isLoading = true;
-    // Den Text setzen
-    document.getElementById("loading-text").innerText = "Daten werden geladen";
-    }, 1000); // 1 Sekunde Verzögerung, bevor der Ladebalken erscheint
-}
 
-// Funktion zum Stoppen des Ladevorgangs
-function stopLoading() {
-    clearTimeout(loadingTimeout);  // Stoppt den Timer, wenn die Daten schneller geladen werden
-    isLoading = false;
-}
 
 function filterMarkers() {
    markers.forEach(marker => {
@@ -130,7 +114,6 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
 
 // Fetch stations from backend
 async function fetchStations() {
-    startLoading();  // Ladevorgang starten
 
     try {
         const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}&limit=${limit}`);
@@ -144,10 +127,8 @@ async function fetchStations() {
         if (myChart) {
             myChart.destroy();
         }
-        stopLoading();
     } catch (error) {
         console.error("Error fetching stations:", error);
-        stopLoading();
     }
 }
 
@@ -352,14 +333,7 @@ const getSortedSeasons = () => {
                 {/each}
             </ul>
         {/if}
-    </div>
-    <!-- Loading Indicator -->
-    {#if isLoading}
-        <div id="loading-indicator">
-            <div class="loading-bar"></div>
-            <p id="loading-text">Lädt...</p>
         </div>
-    {/if}
     {#if weatherData}
         <div class="overlay_right">
             <div class="chart-container">
@@ -523,44 +497,4 @@ const getSortedSeasons = () => {
         background-color: #f0f0f0;
         z-index: 2;
     }
-
-    /* Ladebalken-Styles */
-    #loading-indicator {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 999;
-    }
-
-    .loading-bar {
-        width: 50px;
-        height: 5px;
-        background-color: #007bff;
-        animation: loading 1s infinite;
-    }
-
-    @keyframes loading {
-        0% {
-          width: 50px;
-        }
-        50% {
-          width: 100px;
-        }
-        100% {
-          width: 50px;
-        }
-    }
-
-    #loading-text {
-        margin-top: 10px;
-        font-size: 16px;
-        font-weight: bold;
-        color: #007bff;
-    }
-
 </style>
