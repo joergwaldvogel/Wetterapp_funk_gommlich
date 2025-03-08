@@ -33,9 +33,6 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
                 String[] parts = line.split(","); // CSV-Datei is komma-separiert
                 if (parts.length < 4) continue;
 
-                // debugging
-                //System.out.println("Zeile gelesen: " + line);
-
                 try {
                     int year = Integer.parseInt(parts[1].substring(0, 4)); // Jahr aus Datum ziehen
                     if (year < startYear || year > endYear)
@@ -43,9 +40,6 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
 
                     String recordType = parts[2]; // Temperaturtyp (TMIN oder TMAX gesucht)
                     double tempValue = Double.parseDouble(parts[3]) / 10.0; // Temperatur umrechnen
-
-                    // debugging
-                    //System.out.println("Jahr: " + year + ", Typ: " + recordType + ", Wert: " + tempValue);
 
                     if (recordType.equals("TMIN")) {
                         minTempsByYear.computeIfAbsent(year, k -> new ArrayList<>()).add(tempValue);
@@ -89,8 +83,8 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
                         .stream().mapToDouble(Double::doubleValue).average().orElse(Double.NaN);
 
                 ObjectNode yearNode = objectMapper.createObjectNode();
-                yearNode.put("tmin", avgMin);
-                yearNode.put("zmax", avgMax);
+                yearNode.put("avgMin", avgMin);
+                yearNode.put("avgMax", avgMax);
                 yearlyData.set(String.valueOf(year), yearNode);
             }
 
@@ -230,14 +224,14 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
             ObjectNode seasonsData = objectMapper.createObjectNode();
 
             for (String season : minTempsBySeason.keySet()) {
-                double minTemp = minTempsBySeason.getOrDefault(season, Collections.emptyList())
+                double avgMin = minTempsBySeason.getOrDefault(season, Collections.emptyList())
                         .stream().mapToDouble(Double::doubleValue).min().orElse(Double.NaN);
-                double maxTemp = maxTempsBySeason.getOrDefault(season, Collections.emptyList())
+                double avgMax = maxTempsBySeason.getOrDefault(season, Collections.emptyList())
                         .stream().mapToDouble(Double::doubleValue).max().orElse(Double.NaN);
 
                 ObjectNode seasonNode = objectMapper.createObjectNode();
-                seasonNode.put("minTemp", minTemp);
-                seasonNode.put("maxTemp", maxTemp);
+                seasonNode.put("avgMin", avgMin);
+                seasonNode.put("avgMax", avgMax);
 
                 seasonsData.set(season, seasonNode);
             }
