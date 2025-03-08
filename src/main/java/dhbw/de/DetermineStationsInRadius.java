@@ -17,8 +17,6 @@ import static dhbw.de.FetchingWeatherData.fetchAndProcessWeatherDataBySeasons;
 import static dhbw.de.FetchingWeatherData.fetchAndProcessWeatherDataByYear;
 import static dhbw.de.WeatherAPIRESTController.logger;
 
-
-
 @Service
 public class DetermineStationsInRadius extends LoadStationsFromNOAA {
 
@@ -46,8 +44,8 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
     }
 
 
-    //  R-Tree erstellen
     private static STRtree buildRTree(List<LoadStationsFromNOAA.Station> stations) {
+
         STRtree rTree = new STRtree();
         for (LoadStationsFromNOAA.Station station : stations) {
             rTree.insert(new Envelope(station.longitude(), station.longitude(),
@@ -56,15 +54,14 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
         return rTree;
     }
 
-    // R-Tree durchsuchen
     private static List<LoadStationsFromNOAA.Station> findStationsInRadius(STRtree rTree, double lat, double lon, double radius) {
-        double degreeMargin = radius / 111.32; // Convert km to degrees
+
+        double degreeMargin = radius / 111.32;
         Envelope searchEnvelope = new Envelope(lon - degreeMargin, lon + degreeMargin, lat - degreeMargin, lat + degreeMargin);
 
         @SuppressWarnings("unchecked")
         List<LoadStationsFromNOAA.Station> nearbyStations = rTree.query(searchEnvelope);
 
-        // Haversine filtering
         return nearbyStations.stream()
                 .filter(station -> {
                     double distance = haversine(lat, lon, station.latitude(), station.longitude());
@@ -83,6 +80,7 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
                 .collect(Collectors.toList());
     }
         private static List<LoadStationsFromNOAA.Station> sortStationsByDistance(List<LoadStationsFromNOAA.Station> stations) {
+
         return stations.stream()
                 .sorted(Comparator.comparingDouble(LoadStationsFromNOAA.Station::distance))
                 .collect(Collectors.toList());
@@ -90,7 +88,8 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
     }
 
     private static double haversine(double lat1, double lon1, double lat2, double lon2) {
-        final int R = 6371; // Erdradius in km
+
+        final int R = 6371;
         double dLat = Math.toRadians(lat2 - lat1);
         double dLon = Math.toRadians(lon2 - lon1);
         double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -101,39 +100,18 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
     }
 
     private static String saveStationsToJson(List<LoadStationsFromNOAA.Station> stations) {
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             objectMapper.writeValue(new File("station_data.json"), stations);
+
             return objectMapper.writeValueAsString(stations);
+
         } catch (Exception e) {
-            System.err.println("Fehler beim Erstellen der JSON-Daten: " + e.getMessage());
-            return "[]"; // Leeres JSON-Array als Fallback
+            System.err.println("Fehler beim Erstellen der Json der Stationenliste: " + e.getMessage());
+            return "{}";
         }
     }
-/*
-    public static void main(String[] args) {
-        double searchLatitude = 52.52;
-        double searchLongitude = 13.405;
-        double searchRadius = 50.0;
-        int limit = 10;
-        stationSearch(searchLatitude, searchLongitude, searchRadius, limit);
-
-        String stationId = "GME00127850"; // beispieldaten zum direkt testen
-        int startYear = 1949;
-        int endYear = 2000;
-
-        String DataByYear = fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
-        String DataBySeason = fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear);
-
-        Map<String, Object> WeatherDataResponse = new HashMap<>();
-        WeatherDataResponse.put("DataByYear", DataByYear);
-        WeatherDataResponse.put("DataBySeason", DataBySeason);
-
-        System.out.println(WeatherDataResponse);
-
-
-    }
- */
 }
 

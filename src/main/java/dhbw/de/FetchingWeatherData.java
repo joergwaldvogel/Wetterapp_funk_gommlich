@@ -17,7 +17,8 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
     private static final String BASE_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/by_station/";
 
     public static String fetchAndProcessWeatherDataByYear(String stationId, int startYear, int endYear) {
-        String fileUrl = BASE_URL + stationId + ".csv.gz"; // GZIP-Datei
+
+        String fileUrl = BASE_URL + stationId + ".csv.gz";
         Map<Integer, List<Double>> minTempsByYear = new HashMap<>();
         Map<Integer, List<Double>> maxTempsByYear = new HashMap<>();
 
@@ -30,16 +31,17 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(","); // CSV-Datei is komma-separiert
-                if (parts.length < 4) continue;
+                String[] parts = line.split(",");
+                if (parts.length < 4)
+                    continue;
 
                 try {
-                    int year = Integer.parseInt(parts[1].substring(0, 4)); // Jahr aus Datum ziehen
+                    int year = Integer.parseInt(parts[1].substring(0, 4));
                     if (year < startYear || year > endYear)
                         continue;
 
-                    String recordType = parts[2]; // Temperaturtyp (TMIN oder TMAX gesucht)
-                    double tempValue = Double.parseDouble(parts[3]) / 10.0; // Temperatur umrechnen
+                    String recordType = parts[2];
+                    double tempValue = Double.parseDouble(parts[3]) / 10.0;
 
                     if (recordType.equals("TMIN")) {
                         minTempsByYear.computeIfAbsent(year, k -> new ArrayList<>()).add(tempValue);
@@ -47,27 +49,26 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
                         maxTempsByYear.computeIfAbsent(year, k -> new ArrayList<>()).add(tempValue);
                     }
                 } catch (Exception e) {
-                    System.out.println("Fehler beim Parsen von: " + line);
+                    System.out.println("Fehler beim Parsen: " + line);
                     e.printStackTrace();
                 }
             }
             reader.close();
 
             logger.info("Wetterdaten pro Jahr für "+ stationId +" gesammelt");
-            return saveToJson(stationId, startYear, endYear, minTempsByYear, maxTempsByYear);
+            return saveYearlyDataToJson(stationId, startYear, endYear, minTempsByYear, maxTempsByYear);
 
         } catch (Exception e) {
             e.printStackTrace();
-            logger.info("Wetterdaten pro Jahr für "+ stationId +" konnten nicht ermittelt werden");
+            logger.info("Wetterdaten pro Jahr für "+ stationId +" konnten nicht gesammelt werden");
             return "{}";
 
         }
 
     }
 
-    private static String saveToJson(String stationId, int startYear, int endYear,
-                                     Map<Integer, List<Double>> minTempsByYear,
-                                     Map<Integer, List<Double>> maxTempsByYear) {
+    private static String saveYearlyDataToJson(String stationId, int startYear, int endYear, Map<Integer, List<Double>> minTempsByYear, Map<Integer, List<Double>> maxTempsByYear) {
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             ObjectNode rootNode = objectMapper.createObjectNode();
@@ -102,6 +103,7 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
     }
 
     public static String fetchAndProcessWeatherDataBySeasons(String stationId, int startYear, int endYear) {
+
         String fileUrl = BASE_URL + stationId + ".csv.gz";
 
         Map<String, List<Double>> minTempsBySeason = new HashMap<>();
@@ -115,8 +117,10 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
             BufferedReader reader = new BufferedReader(new InputStreamReader(gzipStream));
 
             String line;
+
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
+
                 if (parts.length < 4)
                     continue;
 
@@ -135,7 +139,7 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
                         maxTempsBySeason.computeIfAbsent(seasonKey, k -> new ArrayList<>()).add(tempValue);
                     }
                 } catch (Exception e) {
-                    System.out.println("Fehler beim Parsen von: " + line);
+                    System.out.println("Fehler beim Parsen: " + line);
                     e.printStackTrace();
                 }
             }
@@ -146,22 +150,21 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
 
         } catch (Exception e) {
             e.printStackTrace();
-            logger.info("Wetterdaten pro Jahreszeit für "+ stationId +" konnten nicht ermittelt werden");
+            logger.info("Wetterdaten pro Jahreszeit für "+ stationId +" konnten nicht gesammelt werden");
             return "{}";
         }
     }
 
 
     private static String getSeasonKeyByHemisphere(int year, int month, double latitude) {
-        boolean isSouthernHemisphere = latitude < 0;
 
-        if (isSouthernHemisphere) {
+        if (latitude < 0) {  //Südliche Hemisphäre bei negativer Latitude
             switch (month) {
                 case 12:
-                    return "Sommer_" + year + "_" + (year + 1); //beachtung winter nächstes jahr
+                    return "Sommer_" + year + "_" + (year + 1); //Beachtung Winter nächstes jahr
                 case 1:
                 case 2:
-                    return "Sommer_" + (year - 1) + "_" + year; //beachtung winter vorjahr
+                    return "Sommer_" + (year - 1) + "_" + year; //Beachtung Winter vorjahr
                 case 3:
                 case 4:
                 case 5:
@@ -178,7 +181,6 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
                     return "Unbekannt";
             }
         } else {
-            // nördliche hemisphäre standart
             switch (month) {
                 case 12:
                     return "Winter_" + year + "_" + (year + 1);
@@ -209,12 +211,11 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
                 .filter(station -> station.id().equals(stationId))
                 .map(LoadStationsFromNOAA.Station::latitude)
                 .findFirst()
-                .orElse(Double.NaN); // Falls keine Station gefunden wird, NaN zurückgeben
+                .orElse(Double.NaN);
     }
 
-    private static String saveSeasonDataToJson(String stationId, int startYear, int endYear,
-                                             Map<String, List<Double>> minTempsBySeason,
-                                             Map<String, List<Double>> maxTempsBySeason) {
+    private static String saveSeasonDataToJson(String stationId, int startYear, int endYear, Map<String, List<Double>> minTempsBySeason, Map<String, List<Double>> maxTempsBySeason) {
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             ObjectNode rootNode = objectMapper.createObjectNode();
@@ -225,9 +226,9 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
 
             for (String season : minTempsBySeason.keySet()) {
                 double avgMin = minTempsBySeason.getOrDefault(season, Collections.emptyList())
-                        .stream().mapToDouble(Double::doubleValue).min().orElse(Double.NaN);
+                        .stream().mapToDouble(Double::doubleValue).average().orElse(Double.NaN);
                 double avgMax = maxTempsBySeason.getOrDefault(season, Collections.emptyList())
-                        .stream().mapToDouble(Double::doubleValue).max().orElse(Double.NaN);
+                        .stream().mapToDouble(Double::doubleValue).average().orElse(Double.NaN);
 
                 ObjectNode seasonNode = objectMapper.createObjectNode();
                 seasonNode.put("avgMin", avgMin);
@@ -246,9 +247,6 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
             return "{}";
         }
 
-    }
-
-    public static void main(String[] args) {
     }
 
 }
