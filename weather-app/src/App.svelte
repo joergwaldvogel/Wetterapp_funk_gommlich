@@ -22,8 +22,10 @@
   let originMarker = null;
   let showLoading = false;
 
-  let chartCanvas;
-  let myChart = null;
+  let chartCanvasAnnual;
+  let chartCanvasSeasonal;
+  let myChartAnnual = null;
+  let myChartSeasonal = null;
 
    onMount(() => {
        if (!map) {
@@ -159,6 +161,7 @@ function showStationMarkers() {
 
         marker.on('click', () => {
             fetchWeatherData(station.id); // Lade die Wetterdaten für die Station
+            fetchSeasonalWeatherData(station.id);
             map.setView([latitude, longitude], 10);
         });
 
@@ -203,7 +206,7 @@ async function fetchSeasonalWeatherData(stationId) {
 
         await tick();
 
-        //updateChart();  // Diagramm aktualisieren
+        updateChart();  // Diagramm aktualisieren
     } catch (error) {
         console.error("Error fetching weather data:", error);
     }
@@ -243,64 +246,125 @@ const getSortedSeasons = () => {
     });
 };
 
-  function updateChart() {
-      if (!weatherData || !weatherData.jahreswerte || !chartCanvas) return;
+async function updateChart() {
+    if (!weatherData || !weatherData.jahreswerte || !chartCanvasAnnual || !chartCanvasSeasonal) return;
 
-        const years = Object.keys(weatherData.jahreswerte);
-            const tminData = years.map(year => {
-                return weatherData.jahreswerte[year].tmin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2) : null;
-            });
-            const tmaxData = years.map(year => {
-                return weatherData.jahreswerte[year].zmax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2) : null;
-            });
+    // Jährliche Daten
+    const years = Object.keys(weatherData.jahreswerte);
+    const tminData = years.map(year => weatherData.jahreswerte[year].tmin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].tmin) : null);
+    const tmaxData = years.map(year => weatherData.jahreswerte[year].zmax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].zmax) : null);
 
-      if (myChart) {
-          myChart.destroy();
-      }
+    // Saisonale Daten
+    let monthLabels = [];
+    let monthTminData = [];
+    let monthTmaxData = [];
 
-      myChart = new Chart(chartCanvas, {
-          type: "line",
-          data: {
-              labels: years,
-              datasets: [
-                  {
-                      label: "Min. Temperatur (°C)",
-                      data: tminData,
-                      borderColor: "blue",
-                      backgroundColor: "rgba(0, 0, 255, 0.2)",
-                      fill: true,
-                      tension: 0.3
-                  },
-                  {
-                      label: "Max. Temperatur (°C)",
-                      data: tmaxData,
-                      borderColor: "red",
-                      backgroundColor: "rgba(255, 0, 0, 0.2)",
-                      fill: true,
-                      tension: 0.3
-                  }
-              ]
-          },
-          options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                  x: {
-                      title: {
-                          display: true,
-                          text: "Jahr"
-                      }
-                  },
-                  y: {
-                      title: {
-                          display: true,
-                          text: "Temperatur (°C)"
-                      }
-                  }
-              }
-          }
-      });
-  }
+    if (seasonalweatherData && seasonalweatherData.jahreszeiten) {
+        const sortedSeasons = getSortedSeasons();
+        sortedSeasons.forEach(item => {
+            monthLabels.push(item.seasonName + ' ' + item.year);
+            monthTminData.push(parseFloat(item.minTemp));
+            monthTmaxData.push(parseFloat(item.maxTemp));
+        });
+    }
+
+    // Jährliches Chart
+    if (myChartAnnual) {
+        myChartAnnual.destroy();
+    }
+
+    myChartAnnual = new Chart(chartCanvasAnnual, {
+        type: "line",
+        data: {
+            labels: years,
+            datasets: [
+                {
+                    label: "Jährliche Min. Temperatur (°C)",
+                    data: tminData,
+                    borderColor: "blue",
+                    backgroundColor: "rgba(0, 0, 255, 0.2)",
+                    fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: "Jährliche Max. Temperatur (°C)",
+                    data: tmaxData,
+                    borderColor: "red",
+                    backgroundColor: "rgba(255, 0, 0, 0.2)",
+                    fill: true,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: "Jahr"
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: "Temperatur (°C)"
+                    }
+                }
+            }
+        }
+    });
+
+    // Saisonales Chart
+    if (myChartSeasonal) {
+        myChartSeasonal.destroy();
+    }
+
+    myChartSeasonal = new Chart(chartCanvasSeasonal, {
+        type: "line",
+        data: {
+            labels: monthLabels,
+            datasets: [
+                {
+                    label: "Saisonale Min. Temperatur (°C)",
+                    data: monthTminData,
+                    borderColor: "green",
+                    backgroundColor: "rgba(0, 255, 0, 0.2)",
+                    fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: "Saisonale Max. Temperatur (°C)",
+                    data: monthTmaxData,
+                    borderColor: "orange",
+                    backgroundColor: "rgba(255, 165, 0, 0.2)",
+                    fill: true,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: "Saison / Jahr"
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: "Temperatur (°C)"
+                    }
+                }
+            }
+        }
+    });
+}
+
 </script>
 
 <main>
@@ -353,53 +417,65 @@ const getSortedSeasons = () => {
 
     {#if weatherData}
         <div class="overlay_right">
-            <div class="chart-container">
-                <canvas bind:this={chartCanvas}></canvas>
+            <div class="charts-container">
+                <!-- Canvas für das Jahresdiagramm -->
+                <div class="chart-container">
+                    <canvas bind:this={chartCanvasAnnual}></canvas>
+                </div>
+
+                <!-- Canvas für das saisonale Diagramm -->
+                <div class="chart-container">
+                    <canvas bind:this={chartCanvasSeasonal}></canvas>
+                </div>
             </div>
 
-            <div class="weather-data">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Year</th>
-                            <th>Minimum Temperature</th>
-                            <th>Maximum Temperature</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {#each Object.keys(weatherData.jahreswerte).filter(year =>
-                            weatherData.jahreswerte[year].tmin !== "NaN" && weatherData.jahreswerte[year].zmax !== "NaN"
-                        ) as year}
+            <div class="weather-tables">
+                <!-- Beide Tabellen nebeneinander -->
+                <div class="weather-data">
+                    <table>
+                        <thead>
                             <tr>
-                                <td>{year}</td>
-                                <td>{parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C</td>
-                                <td>{parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C</td>
+                                <th>Year</th>
+                                <th>Minimum Temperature</th>
+                                <th>Maximum Temperature</th>
                             </tr>
-                        {/each}
-                    </tbody>
-                </table>
-            </div>
-            <div class="seasonal-weather-data">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Year</th>
-                            <th>Minimum Temperature</th>
-                            <th>Maximum Temperature</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {#each getSortedSeasons() as { season, minTemp, maxTemp }}
-                          {#if minTemp !== "NaN" && maxTemp !== "NaN"}
+                        </thead>
+                        <tbody>
+                            {#each Object.keys(weatherData.jahreswerte).filter(year =>
+                                weatherData.jahreswerte[year].tmin !== "NaN" && weatherData.jahreswerte[year].zmax !== "NaN"
+                            ) as year}
+                                <tr>
+                                    <td>{year}</td>
+                                    <td>{parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C</td>
+                                    <td>{parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C</td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="seasonal-weather-data">
+                    <table>
+                        <thead>
                             <tr>
-                              <td>{season}</td>
-                              <td>{minTemp.toFixed(2)}°C</td>
-                              <td>{maxTemp.toFixed(2)}°C</td>
+                                <th>Year</th>
+                                <th>Minimum Temperature</th>
+                                <th>Maximum Temperature</th>
                             </tr>
-                          {/if}
-                        {/each}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {#each getSortedSeasons() as { season, minTemp, maxTemp }}
+                              {#if minTemp !== "NaN" && maxTemp !== "NaN"}
+                                <tr>
+                                  <td>{season}</td>
+                                  <td>{minTemp.toFixed(2)}°C</td>
+                                  <td>{maxTemp.toFixed(2)}°C</td>
+                                </tr>
+                              {/if}
+                            {/each}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     {/if}
@@ -424,11 +500,21 @@ const getSortedSeasons = () => {
         align-items: center;
     }
 
+    .charts-container {
+        display: flex;
+        flex-direction: row; /* Zeilenanordnung */
+        justify-content: space-between; /* Abstand zwischen den Diagrammen */
+        gap: 20px; /* Abstand zwischen den Diagrammen */
+        margin-bottom: 20px;
+    }
+
     .chart-container {
-        width: 100%;
-        max-width: 600px;
+        flex: 1;
+        min-width: 300px;
+        min-width: 45%;
+        max-width: 45%;
         height: 400px;
-        margin: 20px auto;
+        margin-bottom: 20px;
     }
 
     ul {
@@ -476,20 +562,29 @@ const getSortedSeasons = () => {
     .overlay_right {
         position: absolute;
         top: 2%;
-        left: 88%;
+        left: 83%;
         transform: translateX(-50%);
         background: rgba(255, 255, 255, 0.9);
-        padding: 0.5%;
+        padding: 1%;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 1000;
         text-align: center;
+        max-width: 90%;
+        overflow: auto;
+    }
+
+    .weather-tables {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;  /* Abstand zwischen den beiden Tabellen */
+        margin-top: 20px;
     }
 
     .weather-data,.seasonal-weather-data {
         max-height: 220px;
         overflow-y: auto;
-        margin-top: 10px;
+        width: 45%;
         justify-content: left;
         align-items: center;
     }
