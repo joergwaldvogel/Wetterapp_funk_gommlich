@@ -1,50 +1,50 @@
 {
-  "station" : "GME00128062",
+  "station" : "GME00127850",
   "zeitraum" : "1949-1959",
   "jahreswerte" : {
     "1949" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "tmin" : "NaN",
+      "zmax" : "NaN"
     },
     "1950" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "tmin" : "NaN",
+      "zmax" : "NaN"
     },
     "1951" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "tmin" : "NaN",
+      "zmax" : "NaN"
     },
     "1952" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "tmin" : "NaN",
+      "zmax" : "NaN"
     },
     "1953" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "tmin" : "NaN",
+      "zmax" : "NaN"
     },
     "1954" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "tmin" : "NaN",
+      "zmax" : "NaN"
     },
     "1955" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "tmin" : "NaN",
+      "zmax" : "NaN"
     },
     "1956" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "tmin" : 4.814207650273224,
+      "zmax" : 11.766939890710383
     },
     "1957" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "tmin" : 6.240821917808219,
+      "zmax" : 13.748767123287672
     },
     "1958" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "tmin" : 6.058904109589041,
+      "zmax" : 13.176438356164383
     },
     "1959" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "tmin" : 6.53041095890411,
+      "zmax" : 14.69205479452055
     }
   }
 }
