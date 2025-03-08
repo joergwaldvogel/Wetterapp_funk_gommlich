@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FetchingWeatherDataIntegrationTest{
+class UnitandIntegrationtests{
 
     // --- Bereits vorhandene Tests ---
 
@@ -80,17 +80,16 @@ class FetchingWeatherDataIntegrationTest{
      * Evtl. würdet ihr hier eine Exception oder "[]" erwarten.
      */
     @Test
-    void testStationSearchNegativeLimit() {
+    void testStationSearchNegativeLimit_shouldThrowException() {
         double lat = 52.52;
         double lon = 13.405;
         double radius = 50.0;
         int limit = -1;
 
-        String result = DetermineStationsInRadius.stationSearch(lat, lon, radius, limit);
-        Assertions.assertNotNull(result, "Sollte nicht null sein - ggf. ein leeres JSON/[] als Fallback.");
-        // Je nach Code-Verhalten:
-        // Hier könnte man z.B. checken, ob "[]" enthalten ist,
-        // wenn negative Limits nicht erlaubt sind.
+        // Variante: Wir erwarten, dass subList(0, -1) eine IllegalArgumentException wirft.
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            DetermineStationsInRadius.stationSearch(lat, lon, radius, limit);
+        });
     }
 
     /**
