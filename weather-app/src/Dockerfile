@@ -1,13 +1,14 @@
-# Frontend Dockerfile
-FROM node:18 AS build
+
+FROM node:20
 WORKDIR /app
-COPY package.json package-lock.json ./
+
+COPY package*.json ./
 RUN npm install
-COPY . .
+
+COPY . /app
+
 RUN npm run build
 
-# Serve das gebaute Frontend
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 5173
+
+CMD ["npm", "run", "dev"]

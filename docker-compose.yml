@@ -1,41 +1,28 @@
-version: '3.8'
+version: "2.2"
+
 services:
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: src/main/java/dhbw/de/Dockerfile
     ports:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-    depends_on:
-      - db
     networks:
-      - mynetwork
+      - wetter-app
 
   frontend:
-    build: ./frontend
+    build:
+      context: weather-app
+      dockerfile: src/Dockerfile
     ports:
-      - "5173:80"
+      - "5173:5173"
     depends_on:
       - backend
     networks:
-      - mynetwork
-
-  db:
-    image: postgres:15
-    restart: always
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydatabase
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - mynetwork
+      - wetter-app
 
 networks:
-  mynetwork:
-
-volumes:
-  postgres_data:
+  wetter-app:
+    driver: bridge
