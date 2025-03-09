@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@SpringBootApplication(scanBasePackages = "dhbw.de")
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:5173") // Frontendport
 public class WeatherAPIRESTController {
@@ -29,9 +28,6 @@ public class WeatherAPIRESTController {
         this.weatherDataService = weatherDataService;
     }
 
-   public static void main(String[] args) {
-        SpringApplication.run(dhbw.de.WeatherAPIRESTController.class, args);
-    }
     @Bean
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
         return factory -> factory.setPort(8080);
