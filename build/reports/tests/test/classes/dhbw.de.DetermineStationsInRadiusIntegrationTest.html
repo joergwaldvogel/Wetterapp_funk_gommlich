@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">1.803s</div>
+<div class="counter">2.724s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,17 +79,17 @@
 </thead>
 <tr>
 <td class="success">testFetchAndProcessWeatherDataBySeasons()</td>
-<td class="success">0.607s</td>
+<td class="success">0.784s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testFetchAndProcessWeatherDataByYear()</td>
-<td class="success">1.123s</td>
+<td class="success">1.830s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testStationSearch()</td>
-<td class="success">0.073s</td>
+<td class="success">0.110s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -97,8 +97,8 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>13:23:04.591 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dhbw.de.DetermineStationsInRadiusIntegrationTest]: DetermineStationsInRadiusIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-13:23:04.686 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dhbw.de.WeatherAPIRESTController for test class dhbw.de.DetermineStationsInRadiusIntegrationTest
+<pre>17:29:15.517 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dhbw.de.DetermineStationsInRadiusIntegrationTest]: DetermineStationsInRadiusIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:29:15.666 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dhbw.de.WeatherAPIRESTController for test class dhbw.de.DetermineStationsInRadiusIntegrationTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -109,18 +109,18 @@
 
  :: Spring Boot ::                (v3.4.2)
 
-2025-03-08T13:23:04.953+01:00  INFO 14012 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : Starting DetermineStationsInRadiusIntegrationTest using Java 17.0.12 with PID 14012 (started by g.infantone in D:\workspaces\WetterAPI_funk_gommlich_dhbw)
-2025-03-08T13:23:04.954+01:00  INFO 14012 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2025-03-08T13:23:05.371+01:00  INFO 14012 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-08T13:23:05.390+01:00  INFO 14012 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
-2025-03-08T13:23:05.653+01:00  INFO 14012 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-03-08T13:23:05.783+01:00  INFO 14012 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:55244412-419e-48d2-af2d-c0dcc1b0f875 user=SA
-2025-03-08T13:23:05.784+01:00  INFO 14012 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-03-08T13:23:05.828+01:00  INFO 14012 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-08T13:23:05.880+01:00  INFO 14012 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
-2025-03-08T13:23:05.911+01:00  INFO 14012 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-08T13:23:06.110+01:00  INFO 14012 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-08T13:23:06.172+01:00  INFO 14012 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-03-09T17:29:16.114+01:00  INFO 18280 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : Starting DetermineStationsInRadiusIntegrationTest using Java 17.0.12 with PID 18280 (started by g.infantone in D:\workspaces\WetterAPI_funk_gommlich_dhbw)
+2025-03-09T17:29:16.117+01:00  INFO 18280 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-03-09T17:29:16.793+01:00  INFO 18280 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-09T17:29:16.832+01:00  INFO 18280 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 0 JPA repository interfaces.
+2025-03-09T17:29:17.247+01:00  INFO 18280 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-09T17:29:17.436+01:00  INFO 18280 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:ff74ba78-229e-424d-978a-45f9e93f825b user=SA
+2025-03-09T17:29:17.439+01:00  INFO 18280 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-09T17:29:17.518+01:00  INFO 18280 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-09T17:29:17.612+01:00  INFO 18280 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-03-09T17:29:17.659+01:00  INFO 18280 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-09T17:29:17.990+01:00  INFO 18280 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-09T17:29:18.083+01:00  INFO 18280 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 2.3.232
@@ -128,13 +128,13 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-03-08T13:23:06.383+01:00  INFO 14012 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-08T13:23:06.387+01:00  INFO 14012 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-09T17:29:18.419+01:00  INFO 18280 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-09T17:29:18.424+01:00  INFO 18280 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
 Geladene Stationen: 129657
-2025-03-08T13:23:08.748+01:00  INFO 14012 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Stationen wurden geladen
-2025-03-08T13:23:08.846+01:00  WARN 14012 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-03-08T13:23:09.314+01:00  INFO 14012 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : Started DetermineStationsInRadiusIntegrationTest in 4.517 seconds (process running for 5.389)
-2025-03-08T13:23:09.902+01:00  INFO 14012 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-09T17:29:21.522+01:00  INFO 18280 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Stationen wurden geladen
+2025-03-09T17:29:21.761+01:00  WARN 18280 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-09T17:29:22.514+01:00  INFO 18280 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : Started DetermineStationsInRadiusIntegrationTest in 6.658 seconds (process running for 8.086)
+2025-03-09T17:29:23.470+01:00  INFO 18280 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
 Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
 Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
 Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
@@ -160,8 +160,8 @@ Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, d
 Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
 Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
 Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
-2025-03-08T13:23:10.448+01:00  INFO 14012 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
-2025-03-08T13:23:10.563+01:00  INFO 14012 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-09T17:29:24.331+01:00  INFO 18280 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
+2025-03-09T17:29:24.505+01:00  INFO 18280 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
 Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
 Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
 Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
@@ -187,8 +187,8 @@ Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, d
 Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
 Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
 Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
-2025-03-08T13:23:11.073+01:00  INFO 14012 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
-2025-03-08T13:23:11.145+01:00  INFO 14012 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-09T17:29:25.156+01:00  INFO 18280 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
+2025-03-09T17:29:25.273+01:00  INFO 18280 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
 Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
 Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
 Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
@@ -225,7 +225,7 @@ Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, di
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.4</a> at 08.03.2025, 13:23:11</p>
+<a href="http://www.gradle.org">Gradle 8.4</a> at 09.03.2025, 17:29:25</p>
 </div>
 </div>
 </body>
