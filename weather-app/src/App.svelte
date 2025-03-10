@@ -121,8 +121,8 @@ async function fetchStations() {
         const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}&limit=${limit}`);
         if (!response.ok) throw new Error("Failed to fetch stations");
         stations = await response.json();
-        selectedStation = null;  // Reset selected station
-        weatherData = null;      // Clear previous weather data
+        selectedStation = null;
+        weatherData = null;
         seasonalweatherData = null;
         console.log("Stations received:", stations);
         showStationMarkers();
@@ -171,11 +171,10 @@ function showStationMarkers() {
   filterMarkers();
 }
 
-  // Fetch weather data for a specific station
 async function fetchWeatherData(stationId) {
     showLoading = false;
     const timeout = setTimeout(() => {
-        showLoading = true; // Load-Display after 1 sec
+        showLoading = true; // Ladehinweis nach 1 sec
     }, 1000);
 
     try {
@@ -209,7 +208,7 @@ async function fetchSeasonalWeatherData(stationId) {
 
         await tick();
 
-        updateChart();  // Diagramm aktualisieren
+        updateChart();
     } catch (error) {
         console.error("Error fetching weather data:", error);
     }
@@ -233,8 +232,8 @@ const getSortedSeasons = () => {
         season,
         seasonName,
         year,
-        minTemp: seasonalweatherData.jahreszeiten[season].minTemp,
-        maxTemp: seasonalweatherData.jahreszeiten[season].maxTemp
+        minTemp: seasonalweatherData.jahreszeiten[season].avgMin,
+        maxTemp: seasonalweatherData.jahreszeiten[season].avgMax
       };
     })
     .filter(item => item !== null) // Nullwerte herausfiltern
@@ -270,6 +269,13 @@ async function updateChart() {
             monthTmaxData.push(parseFloat(item.maxTemp));
         });
     }
+        const years = Object.keys(weatherData.jahreswerte);
+            const tminData = years.map(year => {
+                return weatherData.jahreswerte[year].avgMin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMin).toFixed(2) : null;
+            });
+            const tmaxData = years.map(year => {
+                return weatherData.jahreswerte[year].avgMax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMax).toFixed(2) : null;
+            });
 
     // Jährliches Chart
     if (myChartAnnual) {
