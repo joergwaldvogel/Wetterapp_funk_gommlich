@@ -8,6 +8,7 @@
 
   let stations = [];
   let selectedStation = null;
+  let selectedStationName = null;
   let weatherData = null;
   let seasonalweatherData = null;
   let map;
@@ -181,7 +182,9 @@ async function fetchWeatherData(stationId) {
         const response = await fetch(`http://localhost:8080/api/get_weather_data?stationId=${stationId}&startYear=${startYear}&endYear=${endYear}`);
         if (!response.ok) throw new Error("Failed to fetch weather data");
         weatherData = await response.json();
-        selectedStation = stationId;  // Store selected station
+        const station = stations.find(s => s.id === stationId);
+        selectedStationName = station ? station.name : "Unbekannte Station";  // Name speichern oder Fallback
+        selectedStation = stationId;
         console.log("Weather data received:", weatherData);
 
         await tick();
@@ -417,6 +420,7 @@ async function updateChart() {
 
     {#if weatherData}
         <div class="overlay_right">
+            <h1>{selectedStationName}</h1>
             <div class="charts-container">
                 <!-- Canvas für das Jahresdiagramm -->
                 <div class="chart-container">
@@ -504,7 +508,7 @@ async function updateChart() {
         display: flex;
         flex-direction: row; /* Zeilenanordnung */
         justify-content: space-between; /* Abstand zwischen den Diagrammen */
-        gap: 20px; /* Abstand zwischen den Diagrammen */
+        gap: 0.1%; /* Abstand zwischen den Diagrammen */
         margin-bottom: 20px;
     }
 
@@ -512,9 +516,9 @@ async function updateChart() {
         flex: 1;
         min-width: 300px;
         min-width: 45%;
-        max-width: 45%;
+        max-width: 48%;
         height: 400px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     ul {
@@ -562,7 +566,7 @@ async function updateChart() {
     .overlay_right {
         position: absolute;
         top: 2%;
-        left: 83%;
+        left: 79%;
         transform: translateX(-50%);
         background: rgba(255, 255, 255, 0.9);
         padding: 1%;
@@ -577,14 +581,14 @@ async function updateChart() {
     .weather-tables {
         display: flex;
         justify-content: space-between;
-        gap: 20px;  /* Abstand zwischen den beiden Tabellen */
+        gap: 0.1%;  /* Abstand zwischen den beiden Tabellen */
         margin-top: 20px;
     }
 
     .weather-data,.seasonal-weather-data {
         max-height: 220px;
         overflow-y: auto;
-        width: 45%;
+        width: 46%;
         justify-content: left;
         align-items: center;
     }
