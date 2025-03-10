@@ -118,7 +118,7 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
 async function fetchStations() {
 
     try {
-        const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}&limit=${limit}`);
+        const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}&limit=${limit}&startYear=${startYear}&endYear=${endYear}`);
         if (!response.ok) throw new Error("Failed to fetch stations");
         stations = await response.json();
         selectedStation = null;
@@ -126,8 +126,9 @@ async function fetchStations() {
         seasonalweatherData = null;
         console.log("Stations received:", stations);
         showStationMarkers();
-        if (myChart) {
-            myChart.destroy();
+        if (myChartAnnual) {
+            myChartAnnual.destroy();
+            myChartSeasonal.destroy();
         }
     } catch (error) {
         console.error("Error fetching stations:", error);

@@ -34,10 +34,9 @@ public class WeatherAPIRESTController {
     }
 
     @GetMapping("/get_stations")
-    public String getStations(@RequestParam double lat, @RequestParam double lon, @RequestParam double radius, @RequestParam int limit) throws IOException {
+    public String getStations(@RequestParam double lat, @RequestParam double lon, @RequestParam double radius, @RequestParam int limit, @RequestParam int startYear, @RequestParam int endYear) throws IOException {
         logger.info("GET-Request auf /get_station empfangen");
-        return stationService.stationSearch(lat, lon, radius, limit).toString();
-
+        return stationService.stationSearch(lat, lon, radius, limit, startYear, endYear).toString();
         // Path path = Path.of("station_data_test.json");
         //String jsonContent = Files.readString(path);
 

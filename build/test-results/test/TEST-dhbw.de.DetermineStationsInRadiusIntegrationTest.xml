@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="dhbw.de.DetermineStationsInRadiusIntegrationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-03-09T18:53:26" hostname="RWLWIN234" time="2.181">
+<testsuite name="dhbw.de.DetermineStationsInRadiusIntegrationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-03-10T17:24:47" hostname="RWLWIN234" time="3.4">
   <properties/>
-  <testcase name="testFetchAndProcessWeatherDataByYear()" classname="dhbw.de.DetermineStationsInRadiusIntegrationTest" time="1.444"/>
-  <testcase name="testFetchAndProcessWeatherDataBySeasons()" classname="dhbw.de.DetermineStationsInRadiusIntegrationTest" time="0.664"/>
-  <testcase name="testStationSearch()" classname="dhbw.de.DetermineStationsInRadiusIntegrationTest" time="0.07"/>
-  <system-out><![CDATA[19:53:20.100 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dhbw.de.DetermineStationsInRadiusIntegrationTest]: DetermineStationsInRadiusIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-19:53:20.214 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dhbw.de.WeatherAPIApplication for test class dhbw.de.DetermineStationsInRadiusIntegrationTest
+  <testcase name="testFetchAndProcessWeatherDataByYear()" classname="dhbw.de.DetermineStationsInRadiusIntegrationTest" time="1.844"/>
+  <testcase name="testFetchAndProcessWeatherDataBySeasons()" classname="dhbw.de.DetermineStationsInRadiusIntegrationTest" time="1.053"/>
+  <testcase name="testStationSearch()" classname="dhbw.de.DetermineStationsInRadiusIntegrationTest" time="0.5"/>
+  <system-out><![CDATA[18:24:41.008 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dhbw.de.DetermineStationsInRadiusIntegrationTest]: DetermineStationsInRadiusIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:24:41.141 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dhbw.de.WeatherAPIApplication for test class dhbw.de.DetermineStationsInRadiusIntegrationTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -16,18 +16,18 @@
 
  :: Spring Boot ::                (v3.4.2)
 
-2025-03-09T19:53:20.542+01:00  INFO 20072 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : Starting DetermineStationsInRadiusIntegrationTest using Java 17.0.12 with PID 20072 (started by g.infantone in D:\workspaces\WetterAPI_funk_gommlich_dhbw)
-2025-03-09T19:53:20.544+01:00  INFO 20072 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : No active profile set, falling back to 1 default profile: "default"
-2025-03-09T19:53:21.001+01:00  INFO 20072 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-09T19:53:21.032+01:00  INFO 20072 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
-2025-03-09T19:53:21.325+01:00  INFO 20072 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-03-09T19:53:21.462+01:00  INFO 20072 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:ca0593ef-b914-4a4e-98e0-693f0a0480d6 user=SA
-2025-03-09T19:53:21.464+01:00  INFO 20072 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-03-09T19:53:21.575+01:00  INFO 20072 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-09T19:53:21.660+01:00  INFO 20072 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
-2025-03-09T19:53:21.693+01:00  INFO 20072 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-09T19:53:21.933+01:00  INFO 20072 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-09T19:53:22.014+01:00  INFO 20072 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-03-10T18:24:41.515+01:00  INFO 27652 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : Starting DetermineStationsInRadiusIntegrationTest using Java 17.0.12 with PID 27652 (started by g.infantone in D:\workspaces\WetterAPI_funk_gommlich_dhbw)
+2025-03-10T18:24:41.516+01:00  INFO 27652 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : No active profile set, falling back to 1 default profile: "default"
+2025-03-10T18:24:42.020+01:00  INFO 27652 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-10T18:24:42.042+01:00  INFO 27652 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
+2025-03-10T18:24:42.354+01:00  INFO 27652 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-10T18:24:42.508+01:00  INFO 27652 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:ef601902-f39c-4915-9242-ded632b40119 user=SA
+2025-03-10T18:24:42.509+01:00  INFO 27652 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-10T18:24:42.563+01:00  INFO 27652 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-10T18:24:42.637+01:00  INFO 27652 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-03-10T18:24:42.670+01:00  INFO 27652 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-10T18:24:42.932+01:00  INFO 27652 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-10T18:24:43.015+01:00  INFO 27652 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 2.3.232
@@ -35,92 +35,23 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-03-09T19:53:22.268+01:00  INFO 20072 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-09T19:53:22.271+01:00  INFO 20072 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-10T18:24:43.339+01:00  INFO 27652 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-10T18:24:43.342+01:00  INFO 27652 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
 Geladene Stationen: 129657
-2025-03-09T19:53:25.850+01:00  INFO 20072 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Stationen wurden geladen
-2025-03-09T19:53:26.015+01:00  WARN 20072 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-03-09T19:53:26.559+01:00  INFO 20072 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : Started DetermineStationsInRadiusIntegrationTest in 6.211 seconds (process running for 7.249)
-2025-03-09T19:53:27.261+01:00  INFO 20072 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
-Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
-Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
-Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
-Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
-Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
-Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
-Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
-Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
-Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
-Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
-Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
-Station[id=GME00127486, latitude=52.4578, longitude=13.3014, name=BERLIN-DAHLEM (LFAG), distance=9.850877900636672]
-Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
-Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
-Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
-Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
-Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
-Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
-Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
-Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
-Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
-Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
-Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
-Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
-Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
-2025-03-09T19:53:28.007+01:00  INFO 20072 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
-2025-03-09T19:53:28.136+01:00  INFO 20072 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
-Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
-Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
-Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
-Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
-Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
-Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
-Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
-Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
-Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
-Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
-Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
-Station[id=GME00127486, latitude=52.4578, longitude=13.3014, name=BERLIN-DAHLEM (LFAG), distance=9.850877900636672]
-Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
-Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
-Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
-Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
-Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
-Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
-Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
-Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
-Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
-Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
-Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
-Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
-Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
-2025-03-09T19:53:28.702+01:00  INFO 20072 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
-2025-03-09T19:53:28.772+01:00  INFO 20072 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
-Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
-Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
-Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
-Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
-Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
-Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
-Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
-Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
-Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
-Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
-Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
-Station[id=GME00127486, latitude=52.4578, longitude=13.3014, name=BERLIN-DAHLEM (LFAG), distance=9.850877900636672]
-Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
-Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
-Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
-Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
-Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
-Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
-Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
-Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
-Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
-Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
-Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
-Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
-Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
+2025-03-10T18:24:46.349+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Stationen wurden geladen
+2025-03-10T18:24:46.550+01:00  WARN 27652 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-10T18:24:47.201+01:00  INFO 27652 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : Started DetermineStationsInRadiusIntegrationTest in 5.908 seconds (process running for 7.193)
+2025-03-10T18:24:48.468+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-10T18:24:48.472+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000aufweisen
+2025-03-10T18:24:49.031+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
+2025-03-10T18:24:49.599+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-10T18:24:49.599+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000aufweisen
+2025-03-10T18:24:50.123+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
+2025-03-10T18:24:50.629+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-10T18:24:50.629+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000aufweisen
 ]]></system-out>
-  <system-err><![CDATA[]]></system-err>
+  <system-err><![CDATA[Fehler beim Laden der Inventardaten: For input string: "TMAX"
+Fehler beim Laden der Inventardaten: For input string: "TMAX"
+Fehler beim Laden der Inventardaten: For input string: "TMAX"
+]]></system-err>
 </testsuite>

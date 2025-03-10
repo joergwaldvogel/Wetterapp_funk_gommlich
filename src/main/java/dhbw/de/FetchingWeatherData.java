@@ -209,7 +209,7 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
     public static double getLatitudeByStationId(String stationId) {
         return sortedStations.stream()
                 .filter(station -> station.id().equals(stationId))
-                .map(LoadStationsFromNOAA.Station::latitude)
+                .map(LoadStationsAndInventory.Station::latitude)
                 .findFirst()
                 .orElse(Double.NaN);
     }
