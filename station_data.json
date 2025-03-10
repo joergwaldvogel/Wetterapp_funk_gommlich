@@ -1,61 +1,61 @@
 [ {
-  "id" : "GME00127850",
-  "latitude" : 52.5331,
-  "longitude" : 13.3831,
-  "name" : "BERLIN-MITTE",
-  "distance" : 2.0776921509980335
+  "id" : "GMM00010761",
+  "latitude" : 49.0203,
+  "longitude" : 10.9617,
+  "name" : "WEISSENBURG",
+  "distance" : 3.5914443329017107
 }, {
-  "id" : "GMW00035104",
-  "latitude" : 52.4833,
-  "longitude" : 13.4,
-  "name" : "TEMPELHOF",
-  "distance" : 4.094864049440625
+  "id" : "GME00131302",
+  "latitude" : 48.8778,
+  "longitude" : 11.1056,
+  "name" : "DOLLNSTEIN-BREITENFURT",
+  "distance" : 15.624491052636309
 }, {
-  "id" : "GME00111445",
-  "latitude" : 52.4683,
-  "longitude" : 13.4039,
-  "name" : "BERLIN-TEMPELHOF",
-  "distance" : 5.749260034137326
+  "id" : "GME00121582",
+  "latitude" : 48.8789,
+  "longitude" : 11.2358,
+  "name" : "EICHSTATT-LANDERSHOFEN",
+  "distance" : 21.861905714463838
 }, {
-  "id" : "GME00121150",
-  "latitude" : 52.5656,
-  "longitude" : 13.3106,
-  "name" : "BERLIN-TEGEL",
-  "distance" : 8.152487881738962
+  "id" : "GME00127942",
+  "latitude" : 49.2158,
+  "longitude" : 11.1025,
+  "name" : "ROTH",
+  "distance" : 25.12908322913264
 }, {
-  "id" : "GME00128126",
-  "latitude" : 52.4567,
-  "longitude" : 13.4717,
-  "name" : "BERLIN-TREPTOW",
-  "distance" : 8.362922272611476
+  "id" : "GMM00010765",
+  "latitude" : 49.218,
+  "longitude" : 11.1,
+  "name" : "ROTH",
+  "distance" : 25.309800773828
 }, {
-  "id" : "GMW00035110",
-  "latitude" : 52.5667,
-  "longitude" : 13.3,
-  "name" : "TEGEL",
-  "distance" : 8.796771318670672
+  "id" : "GME00130714",
+  "latitude" : 48.9458,
+  "longitude" : 11.3681,
+  "name" : "BOHMING",
+  "distance" : 27.535278191886782
 }, {
-  "id" : "GM000003319",
-  "latitude" : 52.4639,
-  "longitude" : 13.3017,
-  "name" : "BERLIN-DAHLEM",
-  "distance" : 9.371552904956935
+  "id" : "GME00127918",
+  "latitude" : 49.2519,
+  "longitude" : 11.0944,
+  "name" : "ROTH BEI NURNBERG",
+  "distance" : 28.839976133050126
 }, {
-  "id" : "GME00127486",
-  "latitude" : 52.4578,
-  "longitude" : 13.3014,
-  "name" : "BERLIN-DAHLEM (LFAG)",
-  "distance" : 9.850877900636672
+  "id" : "GME00124342",
+  "latitude" : 48.7708,
+  "longitude" : 10.7889,
+  "name" : "KAISHEIM-NEUHOF",
+  "distance" : 29.795550658203226
 }, {
-  "id" : "GME00127822",
-  "latitude" : 52.5458,
-  "longitude" : 13.5617,
-  "name" : "BERLIN-MARZAHN",
-  "distance" : 10.980647749546252
+  "id" : "GME00123382",
+  "latitude" : 48.7928,
+  "longitude" : 10.7075,
+  "name" : "HARBURG",
+  "distance" : 31.432858418548783
 }, {
-  "id" : "GME00128062",
-  "latitude" : 52.6056,
-  "longitude" : 13.2967,
-  "name" : "BERLIN-TEGELER FLIESSTAL",
-  "distance" : 12.007793478030722
+  "id" : "GME00122734",
+  "latitude" : 48.9489,
+  "longitude" : 11.43,
+  "name" : "GELBELSEE",
+  "distance" : 31.894937150809884
 } ]

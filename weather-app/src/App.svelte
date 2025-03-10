@@ -23,10 +23,8 @@
   let originMarker = null;
   let showLoading = false;
 
-  let chartCanvasAnnual;
-  let chartCanvasSeasonal;
-  let myChartAnnual = null;
-  let myChartSeasonal = null;
+  let chartCanvas;
+  let myChart = null;
 
    onMount(() => {
        if (!map) {
@@ -126,9 +124,7 @@ async function fetchStations() {
         seasonalweatherData = null;
         console.log("Stations received:", stations);
         showStationMarkers();
-        if (myChart) {
-            myChart.destroy();
-        }
+
     } catch (error) {
         console.error("Error fetching stations:", error);
     }
@@ -198,6 +194,7 @@ async function fetchWeatherData(stationId) {
 }
 
 async function fetchSeasonalWeatherData(stationId) {
+    seasonalweatherData = null;
     try {
         const response = await fetch(`http://localhost:8080/api/get_seasonal_weather_data?stationId=${stationId}&startYear=${startYear}&endYear=${endYear}`);
         if (!response.ok) throw new Error("Failed to fetch weather data");
@@ -249,33 +246,35 @@ const getSortedSeasons = () => {
 };
 
 async function updateChart() {
-    if (!weatherData || !weatherData.jahreswerte || !chartCanvasAnnual || !chartCanvasSeasonal) return;
+    if (!weatherData || !weatherData.jahreswerte || !chartCanvas) return;
 
-    // Jährliche Daten
     const years = Object.keys(weatherData.jahreswerte);
     const tminData = years.map(year => weatherData.jahreswerte[year].avgMin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMin) : null);
     const tmaxData = years.map(year => weatherData.jahreswerte[year].avgMax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMax) : null);
 
-    // Saisonale Daten
-    let monthLabels = [];
-    let monthTminData = [];
-    let monthTmaxData = [];
+    let seasonData = {
+        Winter: { min: Array(years.length).fill(null), max: Array(years.length).fill(null) },
+        Frühling: { min: Array(years.length).fill(null), max: Array(years.length).fill(null) },
+        Sommer: { min: Array(years.length).fill(null), max: Array(years.length).fill(null) },
+        Herbst: { min: Array(years.length).fill(null), max: Array(years.length).fill(null) }
+    };
 
     if (seasonalweatherData && seasonalweatherData.jahreszeiten) {
         const sortedSeasons = getSortedSeasons();
-        sortedSeasons.forEach(item => {
-            monthLabels.push(item.seasonName + ' ' + item.year);
-            monthTminData.push(parseFloat(item.minTemp));
-            monthTmaxData.push(parseFloat(item.maxTemp));
+        sortedSeasons.forEach(({ seasonName, year, minTemp, maxTemp }) => {
+            const index = years.indexOf(year.toString());
+            if (index !== -1) {
+                seasonData[seasonName].min[index] = parseFloat(minTemp);
+                seasonData[seasonName].max[index] = parseFloat(maxTemp);
+            }
         });
     }
 
-    // Jährliches Chart
-    if (myChartAnnual) {
-        myChartAnnual.destroy();
+    if (myChart) {
+        myChart.destroy();
     }
 
-    myChartAnnual = new Chart(chartCanvasAnnual, {
+    myChart = new Chart(chartCanvas, {
         type: "line",
         data: {
             labels: years,
@@ -284,7 +283,7 @@ async function updateChart() {
                     label: "Jährliche Min. Temperatur (°C)",
                     data: tminData,
                     borderColor: "blue",
-                    backgroundColor: "rgba(0, 0, 255, 0.2)",
+                    backgroundColor: "transparent",
                     fill: true,
                     tension: 0.3
                 },
@@ -292,8 +291,72 @@ async function updateChart() {
                     label: "Jährliche Max. Temperatur (°C)",
                     data: tmaxData,
                     borderColor: "red",
-                    backgroundColor: "rgba(255, 0, 0, 0.2)",
+                    backgroundColor: "transparent",
                     fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: "Winter Min. Temperatur (°C)",
+                    data: seasonData.Winter.min,
+                    borderColor: "darkblue",
+                    backgroundColor: "transparent",
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: "Winter Max. Temperatur (°C)",
+                    data: seasonData.Winter.max,
+                    borderColor: "lightblue",
+                    backgroundColor: "transparent",
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: "Frühling Min. Temperatur (°C)",
+                    data: seasonData.Frühling.min,
+                    borderColor: "green",
+                    backgroundColor: "transparent",
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: "Frühling Max. Temperatur (°C)",
+                    data: seasonData.Frühling.max,
+                    borderColor: "lightgreen",
+                    backgroundColor: "transparent",
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: "Sommer Min. Temperatur (°C)",
+                    data: seasonData.Sommer.min,
+                    borderColor: "orange",
+                    backgroundColor: "transparent",
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: "Sommer Max. Temperatur (°C)",
+                    data: seasonData.Sommer.max,
+                    borderColor: "yellow",
+                    backgroundColor: "transparent",
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: "Herbst Min. Temperatur (°C)",
+                    data: seasonData.Herbst.min,
+                    borderColor: "brown",
+                    backgroundColor: "transparent",
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: "Herbst Max. Temperatur (°C)",
+                    data: seasonData.Herbst.max,
+                    borderColor: "goldenrod",
+                    backgroundColor: "transparent",
+                    fill: false,
                     tension: 0.3
                 }
             ]
@@ -317,55 +380,8 @@ async function updateChart() {
             }
         }
     });
-
-    // Saisonales Chart
-    if (myChartSeasonal) {
-        myChartSeasonal.destroy();
-    }
-
-    myChartSeasonal = new Chart(chartCanvasSeasonal, {
-        type: "line",
-        data: {
-            labels: monthLabels,
-            datasets: [
-                {
-                    label: "Saisonale Min. Temperatur (°C)",
-                    data: monthTminData,
-                    borderColor: "green",
-                    backgroundColor: "rgba(0, 255, 0, 0.2)",
-                    fill: true,
-                    tension: 0.3
-                },
-                {
-                    label: "Saisonale Max. Temperatur (°C)",
-                    data: monthTmaxData,
-                    borderColor: "orange",
-                    backgroundColor: "rgba(255, 165, 0, 0.2)",
-                    fill: true,
-                    tension: 0.3
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: "Saison / Jahr"
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: "Temperatur (°C)"
-                    }
-                }
-            }
-        }
-    });
 }
+
 
 </script>
 
@@ -420,16 +436,8 @@ async function updateChart() {
     {#if weatherData}
         <div class="overlay_right">
             <h1>{selectedStationName}</h1>
-            <div class="charts-container">
-                <!-- Canvas für das Jahresdiagramm -->
-                <div class="chart-container">
-                    <canvas bind:this={chartCanvasAnnual}></canvas>
-                </div>
-
-                <!-- Canvas für das saisonale Diagramm -->
-                <div class="chart-container">
-                    <canvas bind:this={chartCanvasSeasonal}></canvas>
-                </div>
+            <div class="chart-container">
+                    <canvas bind:this={chartCanvas}></canvas>
             </div>
 
             <div class="weather-tables">
@@ -503,19 +511,11 @@ async function updateChart() {
         align-items: center;
     }
 
-    .charts-container {
-        display: flex;
-        flex-direction: row; /* Zeilenanordnung */
-        justify-content: space-between; /* Abstand zwischen den Diagrammen */
-        gap: 0.1%; /* Abstand zwischen den Diagrammen */
-        margin-bottom: 20px;
-    }
-
     .chart-container {
         flex: 1;
         min-width: 300px;
-        min-width: 45%;
-        max-width: 48%;
+        min-width: 90%;
+        max-width: 90%;
         height: 400px;
         margin-bottom: 15px;
     }
