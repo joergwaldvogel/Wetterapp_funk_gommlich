@@ -202,7 +202,7 @@ async function fetchSeasonalWeatherData(stationId) {
         const response = await fetch(`http://localhost:8080/api/get_seasonal_weather_data?stationId=${stationId}&startYear=${startYear}&endYear=${endYear}`);
         if (!response.ok) throw new Error("Failed to fetch weather data");
         seasonalweatherData = await response.json();
-        selectedStation = stationId;  // Store selected station
+        selectedStation = stationId;
         console.log("Weather data received:", seasonalweatherData);
         console.log("Weather data received:", JSON.stringify(seasonalweatherData, null, 2));
 
@@ -253,8 +253,8 @@ async function updateChart() {
 
     // Jährliche Daten
     const years = Object.keys(weatherData.jahreswerte);
-    const tminData = years.map(year => weatherData.jahreswerte[year].tmin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].tmin) : null);
-    const tmaxData = years.map(year => weatherData.jahreswerte[year].zmax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].zmax) : null);
+    const tminData = years.map(year => weatherData.jahreswerte[year].avgMin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMin) : null);
+    const tmaxData = years.map(year => weatherData.jahreswerte[year].avgMax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMax) : null);
 
     // Saisonale Daten
     let monthLabels = [];
@@ -269,13 +269,6 @@ async function updateChart() {
             monthTmaxData.push(parseFloat(item.maxTemp));
         });
     }
-        const years = Object.keys(weatherData.jahreswerte);
-            const tminData = years.map(year => {
-                return weatherData.jahreswerte[year].avgMin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMin).toFixed(2) : null;
-            });
-            const tmaxData = years.map(year => {
-                return weatherData.jahreswerte[year].avgMax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMax).toFixed(2) : null;
-            });
 
     // Jährliches Chart
     if (myChartAnnual) {
@@ -452,12 +445,12 @@ async function updateChart() {
                         </thead>
                         <tbody>
                             {#each Object.keys(weatherData.jahreswerte).filter(year =>
-                                weatherData.jahreswerte[year].tmin !== "NaN" && weatherData.jahreswerte[year].zmax !== "NaN"
+                                weatherData.jahreswerte[year].avgMin !== "NaN" && weatherData.jahreswerte[year].avgMax !== "NaN"
                             ) as year}
                                 <tr>
                                     <td>{year}</td>
-                                    <td>{parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C</td>
-                                    <td>{parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C</td>
+                                    <td>{parseFloat(weatherData.jahreswerte[year].avgMin).toFixed(1)}°C</td>
+                                    <td>{parseFloat(weatherData.jahreswerte[year].avgMax).toFixed(1)}°C</td>
                                 </tr>
                             {/each}
                         </tbody>
@@ -478,8 +471,8 @@ async function updateChart() {
                               {#if minTemp !== "NaN" && maxTemp !== "NaN"}
                                 <tr>
                                   <td>{season}</td>
-                                  <td>{minTemp.toFixed(2)}°C</td>
-                                  <td>{maxTemp.toFixed(2)}°C</td>
+                                  <td>{minTemp.toFixed(1)}°C</td>
+                                  <td>{maxTemp.toFixed(1)}°C</td>
                                 </tr>
                               {/if}
                             {/each}

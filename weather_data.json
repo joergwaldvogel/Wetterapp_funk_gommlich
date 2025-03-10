@@ -1,212 +1,48 @@
 {
-  "station" : "GME00127850",
-  "zeitraum" : "1949-2000",
+  "station" : "GMW00035104",
+  "zeitraum" : "1949-1959",
   "jahreswerte" : {
     "1949" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "avgMin" : 6.546153846153847,
+      "avgMax" : 14.225274725274724
     },
     "1950" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "avgMin" : 6.150413223140496,
+      "avgMax" : 13.320661157024793
     },
     "1951" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "avgMin" : 6.649041095890412,
+      "avgMax" : 13.78109589041096
     },
     "1952" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "avgMin" : 5.890983606557377,
+      "avgMax" : 12.32295081967213
     },
     "1953" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "avgMin" : 7.069972451790634,
+      "avgMax" : 14.51322314049587
     },
     "1954" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "avgMin" : 5.5750684931506855,
+      "avgMax" : 12.338904109589041
     },
     "1955" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
+      "avgMin" : 1.9265193370165745,
+      "avgMax" : 9.195027624309391
     },
     "1956" : {
-      "avgMin" : 4.814207650273224,
-      "avgMax" : 11.766939890710383
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
     },
     "1957" : {
-      "avgMin" : 6.240821917808219,
-      "avgMax" : 13.748767123287672
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
     },
     "1958" : {
-      "avgMin" : 6.058904109589041,
-      "avgMax" : 13.176438356164383
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
     },
     "1959" : {
-      "avgMin" : 6.53041095890411,
-      "avgMax" : 14.69205479452055
-    },
-    "1960" : {
-      "avgMin" : 6.258196721311475,
-      "avgMax" : 13.329234972677595
-    },
-    "1961" : {
-      "avgMin" : 6.823561643835617,
-      "avgMax" : 14.095342465753426
-    },
-    "1962" : {
-      "avgMin" : 5.076164383561644,
-      "avgMax" : 12.122739726027397
-    },
-    "1963" : {
-      "avgMin" : 5.35041095890411,
-      "avgMax" : 12.741917808219178
-    },
-    "1964" : {
-      "avgMin" : 5.846448087431694,
-      "avgMax" : 13.130601092896175
-    },
-    "1965" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1966" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1967" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1968" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1969" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1970" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1971" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1972" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1973" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1974" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1975" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1976" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1977" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1978" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1979" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1980" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1981" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1982" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1983" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1984" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1985" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1986" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1987" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1988" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1989" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1990" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1991" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1992" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1993" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1994" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1995" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1996" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1997" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1998" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "1999" : {
-      "avgMin" : "NaN",
-      "avgMax" : "NaN"
-    },
-    "2000" : {
       "avgMin" : "NaN",
       "avgMax" : "NaN"
     }
