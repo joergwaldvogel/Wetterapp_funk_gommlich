@@ -1,214 +1,30 @@
 {
-  "station" : "GME00127850",
-  "zeitraum" : "1949-2000",
+  "station" : "GMW00035110",
+  "zeitraum" : "1949-1954",
   "jahreswerte" : {
     "1949" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
+      "avgMin" : 7.244390243902439,
+      "avgMax" : 16.126341463414633
     },
     "1950" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
     },
     "1951" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
     },
     "1952" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
     },
     "1953" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
     },
     "1954" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1955" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1956" : {
-      "tmin" : 4.814207650273224,
-      "zmax" : 11.766939890710383
-    },
-    "1957" : {
-      "tmin" : 6.240821917808219,
-      "zmax" : 13.748767123287672
-    },
-    "1958" : {
-      "tmin" : 6.058904109589041,
-      "zmax" : 13.176438356164383
-    },
-    "1959" : {
-      "tmin" : 6.53041095890411,
-      "zmax" : 14.69205479452055
-    },
-    "1960" : {
-      "tmin" : 6.258196721311475,
-      "zmax" : 13.329234972677595
-    },
-    "1961" : {
-      "tmin" : 6.823561643835617,
-      "zmax" : 14.095342465753426
-    },
-    "1962" : {
-      "tmin" : 5.076164383561644,
-      "zmax" : 12.122739726027397
-    },
-    "1963" : {
-      "tmin" : 5.35041095890411,
-      "zmax" : 12.741917808219178
-    },
-    "1964" : {
-      "tmin" : 5.846448087431694,
-      "zmax" : 13.130601092896175
-    },
-    "1965" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1966" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1967" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1968" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1969" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1970" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1971" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1972" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1973" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1974" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1975" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1976" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1977" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1978" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1979" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1980" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1981" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1982" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1983" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1984" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1985" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1986" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1987" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1988" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1989" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1990" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1991" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1992" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1993" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1994" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1995" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1996" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1997" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1998" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "1999" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
-    },
-    "2000" : {
-      "tmin" : "NaN",
-      "zmax" : "NaN"
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
     }
   }
 }

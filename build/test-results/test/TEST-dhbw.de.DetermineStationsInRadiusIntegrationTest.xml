@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dhbw.de.DetermineStationsInRadiusIntegrationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-03-10T17:24:47" hostname="RWLWIN234" time="3.4">
+  <properties/>
+  <testcase name="testFetchAndProcessWeatherDataByYear()" classname="dhbw.de.DetermineStationsInRadiusIntegrationTest" time="1.844"/>
+  <testcase name="testFetchAndProcessWeatherDataBySeasons()" classname="dhbw.de.DetermineStationsInRadiusIntegrationTest" time="1.053"/>
+  <testcase name="testStationSearch()" classname="dhbw.de.DetermineStationsInRadiusIntegrationTest" time="0.5"/>
+  <system-out><![CDATA[18:24:41.008 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dhbw.de.DetermineStationsInRadiusIntegrationTest]: DetermineStationsInRadiusIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:24:41.141 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dhbw.de.WeatherAPIApplication for test class dhbw.de.DetermineStationsInRadiusIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.2)
+
+2025-03-10T18:24:41.515+01:00  INFO 27652 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : Starting DetermineStationsInRadiusIntegrationTest using Java 17.0.12 with PID 27652 (started by g.infantone in D:\workspaces\WetterAPI_funk_gommlich_dhbw)
+2025-03-10T18:24:41.516+01:00  INFO 27652 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : No active profile set, falling back to 1 default profile: "default"
+2025-03-10T18:24:42.020+01:00  INFO 27652 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-10T18:24:42.042+01:00  INFO 27652 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
+2025-03-10T18:24:42.354+01:00  INFO 27652 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-10T18:24:42.508+01:00  INFO 27652 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:ef601902-f39c-4915-9242-ded632b40119 user=SA
+2025-03-10T18:24:42.509+01:00  INFO 27652 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-10T18:24:42.563+01:00  INFO 27652 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-10T18:24:42.637+01:00  INFO 27652 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-03-10T18:24:42.670+01:00  INFO 27652 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-10T18:24:42.932+01:00  INFO 27652 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-10T18:24:43.015+01:00  INFO 27652 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-10T18:24:43.339+01:00  INFO 27652 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-10T18:24:43.342+01:00  INFO 27652 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+Geladene Stationen: 129657
+2025-03-10T18:24:46.349+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Stationen wurden geladen
+2025-03-10T18:24:46.550+01:00  WARN 27652 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-10T18:24:47.201+01:00  INFO 27652 --- [    Test worker] DetermineStationsInRadiusIntegrationTest : Started DetermineStationsInRadiusIntegrationTest in 5.908 seconds (process running for 7.193)
+2025-03-10T18:24:48.468+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-10T18:24:48.472+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000aufweisen
+2025-03-10T18:24:49.031+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
+2025-03-10T18:24:49.599+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-10T18:24:49.599+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000aufweisen
+2025-03-10T18:24:50.123+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
+2025-03-10T18:24:50.629+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-10T18:24:50.629+01:00  INFO 27652 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000aufweisen
+]]></system-out>
+  <system-err><![CDATA[Fehler beim Laden der Inventardaten: For input string: "TMAX"
+Fehler beim Laden der Inventardaten: For input string: "TMAX"
+Fehler beim Laden der Inventardaten: For input string: "TMAX"
+]]></system-err>
+</testsuite>

@@ -41,21 +41,21 @@
   "name" : "BERLIN-DAHLEM",
   "distance" : 9.371552904956935
 }, {
-  "id" : "GME00127486",
-  "latitude" : 52.4578,
-  "longitude" : 13.3014,
-  "name" : "BERLIN-DAHLEM (LFAG)",
-  "distance" : 9.850877900636672
+  "id" : "GME00127798",
+  "latitude" : 52.4156,
+  "longitude" : 13.3053,
+  "name" : "BERLIN-LICHTERFELDE (SUD)",
+  "distance" : 13.430419802024636
 }, {
-  "id" : "GME00127822",
-  "latitude" : 52.5458,
-  "longitude" : 13.5617,
-  "name" : "BERLIN-MARZAHN",
-  "distance" : 10.980647749546252
+  "id" : "GME00124586",
+  "latitude" : 52.405,
+  "longitude" : 13.2333,
+  "name" : "KLEINMACHNOW",
+  "distance" : 17.286770634273548
 }, {
-  "id" : "GME00128062",
-  "latitude" : 52.6056,
-  "longitude" : 13.2967,
-  "name" : "BERLIN-TEGELER FLIESSTAL",
-  "distance" : 12.007793478030722
+  "id" : "GMM00010385",
+  "latitude" : 52.38,
+  "longitude" : 13.523,
+  "name" : "SCHONEFELD",
+  "distance" : 17.501044607493778
 } ]

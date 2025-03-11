@@ -1,0 +1,50 @@
+{
+  "station" : "GME00128062",
+  "zeitraum" : "1949-1959",
+  "jahreswerte" : {
+    "1949" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1950" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1951" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1952" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1953" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1954" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1955" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1956" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1957" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1958" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1959" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    }
+  }
+}

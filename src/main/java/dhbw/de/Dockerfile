@@ -1,11 +1,10 @@
-# Backend Dockerfile
-FROM eclipse-temurin:17-jdk AS build
-WORKDIR /app
-COPY ../../../../.. .
-RUN ./gradlew build -x tes
 
-FROM eclipse-temurin:17-jre
+FROM openjdk:17-jdk-slim
+
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+
+COPY build/libs/WetterAPI_funk_gommlich_dhbw-1.0-SNAPSHOT.jar app.jar
+
 EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
+
+ENTRYPOINT ["java", "-jar", "/app/WetterAPI_funk_gommlich_dhbw-1.0-SNAPSHOT.jar"]

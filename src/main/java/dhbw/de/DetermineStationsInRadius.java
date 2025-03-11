@@ -7,38 +7,43 @@ import org.locationtech.jts.index.strtree.STRtree;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import static dhbw.de.FetchingWeatherData.fetchAndProcessWeatherDataBySeasons;
-import static dhbw.de.FetchingWeatherData.fetchAndProcessWeatherDataByYear;
 import static dhbw.de.WeatherAPIRESTController.logger;
 
-
-
 @Service
-public class DetermineStationsInRadius extends LoadStationsFromNOAA {
+public class DetermineStationsInRadius extends LoadStationsAndInventory {
+    public static Map<String, BitSet> inventoryData = new HashMap<>();
+    static List<LoadStationsAndInventory.Station> sortedStations;
 
-    static List<LoadStationsFromNOAA.Station> sortedStations;
+    public static String stationSearch(double lat, double lon, double radius, int limit, int startYear, int endYear) {
 
-    public static String stationSearch(double lat, double lon, double radius, int limit) {
 
-        List<LoadStationsFromNOAA.Station> stations = LoadStationsFromNOAA.getNOAAStations();
+        inventoryData = getInventoryData();
+
+        List<LoadStationsAndInventory.Station> stations = LoadStationsAndInventory.getNOAAStations();
         STRtree stRtree = buildRTree(stations);
 
-        List<LoadStationsFromNOAA.Station> nearbyStations = findStationsInRadius(stRtree, lat, lon, radius);
-        sortedStations = sortStationsByDistance(nearbyStations);
+        List<LoadStationsAndInventory.Station> nearbyStations = findStationsInRadius(stRtree, lat, lon, radius);
+        List<LoadStationsAndInventory.Station> filteredStations = filterStationsByDataAvailability(nearbyStations, startYear, endYear);
+
+        sortedStations = sortStationsByDistance(filteredStations);
 
         if (sortedStations.size() > limit) {
             sortedStations = sortedStations.subList(0, limit);
         }
 
         logger.info(nearbyStations.size() + " Stationen innerhalb von " + radius + " km um Koordinaten (" + lat + ", " + lon + "):");
-        for (LoadStationsFromNOAA.Station station : nearbyStations) {
-            System.out.println(station);
+        logger.info(filteredStations.size() + " Stationen innerhalb von " + radius + " km um Koordinaten (" + lat + ", " + lon + "), " +
+                "                           die Daten im Zeitraum von " + startYear + " und " + endYear + "baufweisen");
+
+        for (LoadStationsAndInventory.Station station : nearbyStations) {
+            System.out.println("Unfiltered: " + station);
+        }
+
+        for (LoadStationsAndInventory.Station station : filteredStations) {
+            System.out.println("Filtered: " + station);
         }
 
         return saveStationsToJson(sortedStations);
@@ -46,25 +51,24 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
     }
 
 
-    //  R-Tree erstellen
-    private static STRtree buildRTree(List<LoadStationsFromNOAA.Station> stations) {
+    private static STRtree buildRTree(List<LoadStationsAndInventory.Station> stations) {
+
         STRtree rTree = new STRtree();
-        for (LoadStationsFromNOAA.Station station : stations) {
+        for (LoadStationsAndInventory.Station station : stations) {
             rTree.insert(new Envelope(station.longitude(), station.longitude(),
                     station.latitude(), station.latitude()), station);
         }
         return rTree;
     }
 
-    // R-Tree durchsuchen
-    private static List<LoadStationsFromNOAA.Station> findStationsInRadius(STRtree rTree, double lat, double lon, double radius) {
-        double degreeMargin = radius / 111.32; // Convert km to degrees
+    private static List<LoadStationsAndInventory.Station> findStationsInRadius(STRtree rTree, double lat, double lon, double radius) {
+
+        double degreeMargin = radius / 111.32;
         Envelope searchEnvelope = new Envelope(lon - degreeMargin, lon + degreeMargin, lat - degreeMargin, lat + degreeMargin);
 
         @SuppressWarnings("unchecked")
-        List<LoadStationsFromNOAA.Station> nearbyStations = rTree.query(searchEnvelope);
+        List<LoadStationsAndInventory.Station> nearbyStations = rTree.query(searchEnvelope);
 
-        // Haversine filtering
         return nearbyStations.stream()
                 .filter(station -> {
                     double distance = haversine(lat, lon, station.latitude(), station.longitude());
@@ -72,7 +76,7 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
                 })
                 .map(station -> {
                     double distance = haversine(lat, lon, station.latitude(), station.longitude());
-                    return new LoadStationsFromNOAA.Station(
+                    return new LoadStationsAndInventory.Station(
                             station.id(),
                             station.latitude(),
                             station.longitude(),
@@ -82,15 +86,33 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
                 })
                 .collect(Collectors.toList());
     }
-        private static List<LoadStationsFromNOAA.Station> sortStationsByDistance(List<LoadStationsFromNOAA.Station> stations) {
+    private static List<LoadStationsAndInventory.Station> filterStationsByDataAvailability(List<LoadStationsAndInventory.Station> stations, int startYear, int endYear) {
+
         return stations.stream()
-                .sorted(Comparator.comparingDouble(LoadStationsFromNOAA.Station::distance))
+                .filter(station -> {
+                    BitSet yearsAvailable = inventoryData.get(station.id());
+                    if (yearsAvailable == null) return false; // Keine Daten verfügbar
+
+                    int stationStartYear = yearsAvailable.nextSetBit(0);  // Erstes verfügbares Jahr
+                    int stationEndYear = yearsAvailable.length() - 1;      // Letztes verfügbares Jahr
+
+                    return !(stationEndYear < startYear || stationStartYear > endYear);
+
+                })
+                .collect(Collectors.toList());
+
+    }
+        private static List<LoadStationsAndInventory.Station> sortStationsByDistance(List<LoadStationsAndInventory.Station> stations) {
+
+        return stations.stream()
+                .sorted(Comparator.comparingDouble(LoadStationsAndInventory.Station::distance))
                 .collect(Collectors.toList());
 
     }
 
     private static double haversine(double lat1, double lon1, double lat2, double lon2) {
-        final int R = 6371; // Erdradius in km
+
+        final int R = 6371;
         double dLat = Math.toRadians(lat2 - lat1);
         double dLon = Math.toRadians(lon2 - lon1);
         double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -100,40 +122,19 @@ public class DetermineStationsInRadius extends LoadStationsFromNOAA {
         return R * c;
     }
 
-    private static String saveStationsToJson(List<LoadStationsFromNOAA.Station> stations) {
+    private static String saveStationsToJson(List<LoadStationsAndInventory.Station> stations) {
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             objectMapper.writeValue(new File("station_data.json"), stations);
+
             return objectMapper.writeValueAsString(stations);
+
         } catch (Exception e) {
-            System.err.println("Fehler beim Erstellen der JSON-Daten: " + e.getMessage());
-            return "[]"; // Leeres JSON-Array als Fallback
+            System.err.println("Fehler beim Erstellen der Json der Stationenliste: " + e.getMessage());
+            return "{}";
         }
     }
-/*
-    public static void main(String[] args) {
-        double searchLatitude = 52.52;
-        double searchLongitude = 13.405;
-        double searchRadius = 50.0;
-        int limit = 10;
-        stationSearch(searchLatitude, searchLongitude, searchRadius, limit);
-
-        String stationId = "GME00127850"; // beispieldaten zum direkt testen
-        int startYear = 1949;
-        int endYear = 2000;
-
-        String DataByYear = fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
-        String DataBySeason = fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear);
-
-        Map<String, Object> WeatherDataResponse = new HashMap<>();
-        WeatherDataResponse.put("DataByYear", DataByYear);
-        WeatherDataResponse.put("DataBySeason", DataBySeason);
-
-        System.out.println(WeatherDataResponse);
-
-
-    }
- */
 }
 

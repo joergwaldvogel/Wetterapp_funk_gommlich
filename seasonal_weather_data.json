@@ -1,154 +1,18 @@
 {
-  "station" : "GME00127850",
-  "zeitraum" : "1949-2000",
+  "station" : "GMW00035110",
+  "zeitraum" : "1949-1954",
   "jahreszeiten" : {
-    "Winter_1961_1962" : {
-      "minTemp" : -15.2,
-      "maxTemp" : 15.5
+    "Winter_1949" : {
+      "avgMin" : -0.5777777777777777,
+      "avgMax" : 5.066666666666667
     },
-    "Winter_1964_1965" : {
-      "minTemp" : -7.8,
-      "maxTemp" : 12.6
+    "Sommer_1949" : {
+      "avgMin" : 12.322988505747125,
+      "avgMax" : 21.891954022988504
     },
-    "Sommer_1956" : {
-      "minTemp" : 8.2,
-      "maxTemp" : 28.9
-    },
-    "Frühling_1960" : {
-      "minTemp" : -7.0,
-      "maxTemp" : 24.5
-    },
-    "Herbst_1957" : {
-      "minTemp" : -2.7,
-      "maxTemp" : 26.3
-    },
-    "Winter_1955_1956" : {
-      "minTemp" : -21.7,
-      "maxTemp" : 8.4
-    },
-    "Herbst_1956" : {
-      "minTemp" : -6.0,
-      "maxTemp" : 28.5
-    },
-    "Frühling_1963" : {
-      "minTemp" : -8.4,
-      "maxTemp" : 26.3
-    },
-    "Herbst_1959" : {
-      "minTemp" : -3.0,
-      "maxTemp" : 26.0
-    },
-    "Frühling_1964" : {
-      "minTemp" : -10.2,
-      "maxTemp" : 29.1
-    },
-    "Winter_1958_1959" : {
-      "minTemp" : -9.7,
-      "maxTemp" : 15.5
-    },
-    "Herbst_1958" : {
-      "minTemp" : -1.5,
-      "maxTemp" : 29.9
-    },
-    "Frühling_1961" : {
-      "minTemp" : -2.2,
-      "maxTemp" : 26.5
-    },
-    "Frühling_1962" : {
-      "minTemp" : -6.0,
-      "maxTemp" : 28.8
-    },
-    "Winter_1962_1963" : {
-      "minTemp" : -17.5,
-      "maxTemp" : 6.5
-    },
-    "Sommer_1961" : {
-      "minTemp" : 8.5,
-      "maxTemp" : 33.5
-    },
-    "Sommer_1960" : {
-      "minTemp" : 7.5,
-      "maxTemp" : 33.0
-    },
-    "Sommer_1963" : {
-      "minTemp" : 7.8,
-      "maxTemp" : 35.3
-    },
-    "Sommer_1962" : {
-      "minTemp" : 4.0,
-      "maxTemp" : 30.8
-    },
-    "Sommer_1964" : {
-      "minTemp" : 7.6,
-      "maxTemp" : 33.9
-    },
-    "Winter_1956_1957" : {
-      "minTemp" : -9.7,
-      "maxTemp" : 12.4
-    },
-    "Sommer_1958" : {
-      "minTemp" : 7.3,
-      "maxTemp" : 32.8
-    },
-    "Sommer_1957" : {
-      "minTemp" : 8.8,
-      "maxTemp" : 34.7
-    },
-    "Sommer_1959" : {
-      "minTemp" : 7.0,
-      "maxTemp" : 37.7
-    },
-    "Winter_1960_1961" : {
-      "minTemp" : -14.9,
-      "maxTemp" : 15.0
-    },
-    "Winter_1963_1964" : {
-      "minTemp" : -11.2,
-      "maxTemp" : 9.0
-    },
-    "Winter_1957_1958" : {
-      "minTemp" : -12.6,
-      "maxTemp" : 16.2
-    },
-    "Frühling_1956" : {
-      "minTemp" : -4.2,
-      "maxTemp" : 30.8
-    },
-    "Frühling_1957" : {
-      "minTemp" : -3.5,
-      "maxTemp" : 26.6
-    },
-    "Herbst_1960" : {
-      "minTemp" : -0.9,
-      "maxTemp" : 25.2
-    },
-    "Herbst_1962" : {
-      "minTemp" : -3.5,
-      "maxTemp" : 25.7
-    },
-    "Winter_1959_1960" : {
-      "minTemp" : -14.2,
-      "maxTemp" : 11.5
-    },
-    "Herbst_1961" : {
-      "minTemp" : -4.0,
-      "maxTemp" : 30.5
-    },
-    "Herbst_1964" : {
-      "minTemp" : -1.8,
-      "maxTemp" : 29.5
-    },
-    "Frühling_1958" : {
-      "minTemp" : -7.0,
-      "maxTemp" : 30.7
-    },
-    "Herbst_1963" : {
-      "minTemp" : 1.0,
-      "maxTemp" : 26.8
-    },
-    "Frühling_1959" : {
-      "minTemp" : -2.2,
-      "maxTemp" : 25.5
+    "Frühling_1949" : {
+      "avgMin" : 4.70989010989011,
+      "avgMax" : 13.895604395604396
     }
   }
 }

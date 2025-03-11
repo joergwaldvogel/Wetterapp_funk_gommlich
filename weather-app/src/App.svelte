@@ -5,9 +5,12 @@
   import L from "leaflet";
   import Chart from "chart.js/auto";
 
+
   let stations = [];
   let selectedStation = null;
+  let selectedStationName = null;
   let weatherData = null;
+  let seasonalweatherData = null;
   let map;
   let searchCircle = null;
   let lat = 52.52;
@@ -18,9 +21,12 @@
   let startYear = 1949;
   let endYear = 1959;
   let originMarker = null;
+  let showLoading = false;
 
-  let chartCanvas;
-  let myChart = null;
+  let chartCanvasAnnual;
+  let chartCanvasSeasonal;
+  let myChartAnnual = null;
+  let myChartSeasonal = null;
 
    onMount(() => {
        if (!map) {
@@ -33,27 +39,35 @@
                maxZoom: 19
            }).addTo(map);
        }
-       //fetchStations(); //Gibt es einen bestimmten grund weshalb das hier ist? Das sorgt nämlich dafür das bei jedem neuladen der Seite
-   });                    // Der code für die stationssuche komplett neu ausgeführt wird ohne das der User den knopf drückt
+   });
 
-function updateLimit() {
+function updateLimitStations() {
     if (limit > 10) {
         limit = 10;  // Setzt den Wert auf 10, falls er höher ist
     }
 }
 
+function updateLimitRadius() {
+    if (radius > 100) {
+        radius = 100;  // Setzt den Wert auf 100, falls er höher ist
+    }
+}
 
+function handleRadiusChange() {
+    updateLimitRadius();
+    updateCircle();
+}
 
-   function filterMarkers() {
-       markers.forEach(marker => {
-           const position = marker.getLatLng();
-           const distance = haversine(lat, lon, position.lat, position.lng);
-           if (distance > radius * 1000) {
-               map.removeLayer(marker);
-           }
-       });
-       markers = markers.filter(marker => map.hasLayer(marker)); // Liste bereinigen
-   }
+function filterMarkers() {
+   markers.forEach(marker => {
+       const position = marker.getLatLng();
+       const distance = haversine(lat, lon, position.lat, position.lng);
+       if (distance > radius * 1000) {
+           map.removeLayer(marker);
+       }
+   });
+   markers = markers.filter(marker => map.hasLayer(marker)); // Liste bereinigen
+}
 
 function updateCircle() {
     if (searchCircle) {
@@ -102,18 +116,20 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
 
 // Fetch stations from backend
 async function fetchStations() {
+
     try {
-        const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}&limit=${limit}`);
+        const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}&limit=${limit}&startYear=${startYear}&endYear=${endYear}`);
         if (!response.ok) throw new Error("Failed to fetch stations");
         stations = await response.json();
-        selectedStation = null;  // Reset selected station
-        weatherData = null;      // Clear previous weather data
+        selectedStation = null;
+        weatherData = null;
+        seasonalweatherData = null;
         console.log("Stations received:", stations);
         showStationMarkers();
-        if (myChart) {
-            myChart.destroy();
+        if (myChartAnnual) {
+            myChartAnnual.destroy();
+            myChartSeasonal.destroy();
         }
-
     } catch (error) {
         console.error("Error fetching stations:", error);
     }
@@ -142,10 +158,12 @@ function showStationMarkers() {
     stations.slice(0, 10).forEach(station => {
         const { latitude, longitude } = station;
         const marker = L.marker([latitude, longitude], { icon: smallIcon }).addTo(map);
-        marker.bindPopup(`<b>${station.id}</b><br>(${latitude}, ${longitude})`);
+        marker.bindPopup(`<b>${station.name}</b><br>(${latitude}, ${longitude})`);
+
 
         marker.on('click', () => {
             fetchWeatherData(station.id); // Lade die Wetterdaten für die Station
+            fetchSeasonalWeatherData(station.id);
             map.setView([latitude, longitude], 10);
         });
 
@@ -154,80 +172,209 @@ function showStationMarkers() {
   filterMarkers();
 }
 
-  // Fetch weather data for a specific station
-  async function fetchWeatherData(stationId) {
-      try {
-          const response = await fetch(`http://localhost:8080/api/get_weather_data?stationId=${stationId}&startYear=${startYear}&endYear=${endYear}`);
-          if (!response.ok) throw new Error("Failed to fetch weather data");
-          weatherData = await response.json();
-          selectedStation = stationId;  // Store selected station
-          console.log("Weather data received:", weatherData);
+async function fetchWeatherData(stationId) {
+    showLoading = false;
+    const timeout = setTimeout(() => {
+        showLoading = true; // Ladehinweis nach 1 sec
+    }, 1000);
 
-          await tick();
+    try {
+        const response = await fetch(`http://localhost:8080/api/get_weather_data?stationId=${stationId}&startYear=${startYear}&endYear=${endYear}`);
+        if (!response.ok) throw new Error("Failed to fetch weather data");
+        weatherData = await response.json();
+        const station = stations.find(s => s.id === stationId);
+        selectedStationName = station ? station.name : "Unbekannte Station";  // Name speichern oder Fallback
+        selectedStation = stationId;
+        console.log("Weather data received:", weatherData);
 
-          updateChart();  // Diagramm aktualisieren
-      } catch (error) {
-          console.error("Error fetching weather data:", error);
-      }
+        await tick();
+
+        updateChart();  // Diagramm aktualisieren
+    } catch (error) {
+        console.error("Error fetching weather data:", error);
+    } finally {
+        clearTimeout(timeout);
+        showLoading = false;
+    }
+}
+
+async function fetchSeasonalWeatherData(stationId) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/get_seasonal_weather_data?stationId=${stationId}&startYear=${startYear}&endYear=${endYear}`);
+        if (!response.ok) throw new Error("Failed to fetch weather data");
+        seasonalweatherData = await response.json();
+        selectedStation = stationId;
+        console.log("Weather data received:", seasonalweatherData);
+        console.log("Weather data received:", JSON.stringify(seasonalweatherData, null, 2));
+
+        await tick();
+
+        updateChart();
+    } catch (error) {
+        console.error("Error fetching weather data:", error);
+    }
+}
+
+const getSortedSeasons = () => {
+  // Sicherstellen, dass seasonalweatherData und jahreszeiten existieren
+  if (!seasonalweatherData || !seasonalweatherData.jahreszeiten) {
+    console.error("No seasonal data found.");
+    return [];  // Rückgabe eines leeren Arrays, wenn die Daten fehlen
   }
-  function updateChart() {
-      if (!weatherData || !weatherData.jahreswerte || !chartCanvas) return;
 
-        const years = Object.keys(weatherData.jahreswerte);
-            const tminData = years.map(year => {
-                return weatherData.jahreswerte[year].tmin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2) : null;
-            });
-            const tmaxData = years.map(year => {
-                return weatherData.jahreswerte[year].zmax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2) : null;
-            });
+  const seasonOrder = ['Winter', 'Frühling', 'Sommer', 'Herbst'];
 
-      if (myChart) {
-          myChart.destroy();
+  return Object.keys(seasonalweatherData.jahreszeiten)
+    .map(season => {
+      const seasonYears = season.split("_");
+      const seasonName = seasonYears[0];  // Saisonname (z.B. Winter, Frühling)
+      const year = parseInt(seasonYears[1]);  // Jahr extrahieren
+
+      // Nur Jahre im Bereich zwischen startYear und endYear berücksichtigen
+      if (year < startYear || year > endYear) {
+        return null;  // Rückgabe von null für Jahre außerhalb des Bereichs
       }
 
-      myChart = new Chart(chartCanvas, {
-          type: "line",
-          data: {
-              labels: years,
-              datasets: [
-                  {
-                      label: "Min. Temperatur (°C)",
-                      data: tminData,
-                      borderColor: "blue",
-                      backgroundColor: "rgba(0, 0, 255, 0.2)",
-                      fill: true,
-                      tension: 0.3
-                  },
-                  {
-                      label: "Max. Temperatur (°C)",
-                      data: tmaxData,
-                      borderColor: "red",
-                      backgroundColor: "rgba(255, 0, 0, 0.2)",
-                      fill: true,
-                      tension: 0.3
-                  }
-              ]
-          },
-          options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                  x: {
-                      title: {
-                          display: true,
-                          text: "Jahr"
-                      }
-                  },
-                  y: {
-                      title: {
-                          display: true,
-                          text: "Temperatur (°C)"
-                      }
-                  }
-              }
-          }
-      });
-  }
+      return {
+        season,
+        seasonName,
+        year,
+        minTemp: seasonalweatherData.jahreszeiten[season].avgMin,
+        maxTemp: seasonalweatherData.jahreszeiten[season].avgMax
+      };
+    })
+    .filter(item => item !== null) // Nullwerte herausfiltern
+    .sort((a, b) => {
+      // Zuerst nach Jahr sortieren
+      if (a.year !== b.year) {
+        return a.year - b.year;
+      }
+
+      // Wenn Jahre gleich sind, nach Saison innerhalb des Jahres sortieren (Winter, Frühling, Sommer, Herbst)
+      return seasonOrder.indexOf(a.seasonName) - seasonOrder.indexOf(b.seasonName);
+    });
+};
+
+async function updateChart() {
+    console.log("Updating chart");
+    if (!weatherData || !weatherData.jahreswerte || !chartCanvasAnnual || !chartCanvasSeasonal) return;
+    console.log("Test log 1");
+    // Jährliche Daten
+    const years = Object.keys(weatherData.jahreswerte);
+    const tminData = years.map(year => weatherData.jahreswerte[year].avgMin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMin) : null);
+    const tmaxData = years.map(year => weatherData.jahreswerte[year].avgMax !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMax) : null);
+
+    // Saisonale Daten
+    let monthLabels = [];
+    let monthTminData = [];
+    let monthTmaxData = [];
+
+    if (seasonalweatherData && seasonalweatherData.jahreszeiten) {
+        const sortedSeasons = getSortedSeasons();
+        sortedSeasons.forEach(item => {
+            monthLabels.push(item.seasonName + ' ' + item.year);
+            monthTminData.push(parseFloat(item.minTemp));
+            monthTmaxData.push(parseFloat(item.maxTemp));
+        });
+    }
+
+    // Jährliches Chart
+    if (myChartAnnual) {
+        myChartAnnual.destroy();
+    }
+
+    myChartAnnual = new Chart(chartCanvasAnnual, {
+        type: "line",
+        data: {
+            labels: years,
+            datasets: [
+                {
+                    label: "Jährliche Min. Temperatur (°C)",
+                    data: tminData,
+                    borderColor: "blue",
+                    backgroundColor: "rgba(0, 0, 255, 0.2)",
+                    fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: "Jährliche Max. Temperatur (°C)",
+                    data: tmaxData,
+                    borderColor: "red",
+                    backgroundColor: "rgba(255, 0, 0, 0.2)",
+                    fill: true,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: "Jahr"
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: "Temperatur (°C)"
+                    }
+                }
+            }
+        }
+    });
+
+    // Saisonales Chart
+    if (myChartSeasonal) {
+        myChartSeasonal.destroy();
+    }
+
+    myChartSeasonal = new Chart(chartCanvasSeasonal, {
+        type: "line",
+        data: {
+            labels: monthLabels,
+            datasets: [
+                {
+                    label: "Saisonale Min. Temperatur (°C)",
+                    data: monthTminData,
+                    borderColor: "green",
+                    backgroundColor: "rgba(0, 255, 0, 0.2)",
+                    fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: "Saisonale Max. Temperatur (°C)",
+                    data: monthTmaxData,
+                    borderColor: "orange",
+                    backgroundColor: "rgba(255, 165, 0, 0.2)",
+                    fill: true,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: "Saison / Jahr"
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: "Temperatur (°C)"
+                    }
+                }
+            }
+        }
+    });
+}
+
 </script>
 
 <main>
@@ -238,8 +385,8 @@ function showStationMarkers() {
         <div class="search-controls">
             <label>Latitude: <input type="number" bind:value={lat} on:change={updateCircle} /></label>
             <label>Longitude: <input type="number" bind:value={lon} on:change={updateCircle} /></label>
-            <label>Radius (km): <input type="number" bind:value={radius} on:change={updateCircle} /></label>
-            <label>Maximale Anzeige an Stationen: <input type="number" bind:value={limit} min="1" max="10" on:change={updateLimit} /></label>
+            <label>Radius (km): <input type="number" bind:value={radius} min="1" max="100" on:change={handleRadiusChange} /></label>
+            <label>Max Display at Stations: <input type="number" bind:value={limit} min="1" max="10" on:change={updateLimitStations} /></label>
         </div>
 
         <div class="year-controls">
@@ -252,46 +399,94 @@ function showStationMarkers() {
         </button>
 
     <!-- Station List -->
-    {#if stations.length > 0}
-        <h2>Available Stations:</h2>
-        <ul>
-            {#each stations as station}
-                <li>
-                    <button on:click={() => fetchWeatherData(station.id)}>
-                        {station.id}  ({station.latitude}, {station.longitude})
-                    </button>
-                     </li>
-            {/each}
-        </ul>
-    {/if}
+        {#if stations.length > 0}
+            <h2>Available Stations:</h2>
+            <ul>
+                {#each stations as station}
+                    <li>
+                        <button on:click={() => {
+                            fetchWeatherData(station.id);
+                            fetchSeasonalWeatherData(station.id);
+                        }}>
+                         {station.name}
+                        </button>
+                         </li>
+                {/each}
+            </ul>
+        {/if}
     </div>
+
+    {#if showLoading}
+      <div class="loading-modal">
+          <div class="loading-content">
+              <p>Lade Daten...</p>
+              <progress></progress>
+          </div>
+      </div>
+    {/if}
+
     {#if weatherData}
         <div class="overlay_right">
-            <div class="chart-container">
-                <canvas bind:this={chartCanvas}></canvas>
+            <h1>{selectedStationName}</h1>
+            <div class="charts-container">
+                <!-- Canvas für das Jahresdiagramm -->
+                <div class="chart-container">
+                    <canvas bind:this={chartCanvasAnnual}></canvas>
+                </div>
+
+                <!-- Canvas für das saisonale Diagramm -->
+                <div class="chart-container">
+                    <canvas bind:this={chartCanvasSeasonal}></canvas>
+                </div>
             </div>
 
-            <div class="weather-data">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Year</th>
-                            <th>Minimum Temperature</th>
-                            <th>Maximum Temperature</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {#each Object.keys(weatherData.jahreswerte).filter(year =>
-                            weatherData.jahreswerte[year].tmin !== "NaN" && weatherData.jahreswerte[year].zmax !== "NaN"
-                        ) as year}
+            <div class="weather-tables">
+                <!-- Beide Tabellen nebeneinander -->
+                <div class="weather-data">
+                    <table>
+                        <thead>
                             <tr>
-                                <td>{year}</td>
-                                <td>{parseFloat(weatherData.jahreswerte[year].tmin).toFixed(2)}°C</td>
-                                <td>{parseFloat(weatherData.jahreswerte[year].zmax).toFixed(2)}°C</td>
+                                <th>Year</th>
+                                <th>Minimum Temperature</th>
+                                <th>Maximum Temperature</th>
                             </tr>
-                        {/each}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {#each Object.keys(weatherData.jahreswerte).filter(year =>
+                                weatherData.jahreswerte[year].avgMin !== "NaN" && weatherData.jahreswerte[year].avgMax !== "NaN"
+                            ) as year}
+                                <tr>
+                                    <td>{year}</td>
+                                    <td>{parseFloat(weatherData.jahreswerte[year].avgMin).toFixed(1)}°C</td>
+                                    <td>{parseFloat(weatherData.jahreswerte[year].avgMax).toFixed(1)}°C</td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="seasonal-weather-data">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Minimum Temperature</th>
+                                <th>Maximum Temperature</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#each getSortedSeasons() as { season, minTemp, maxTemp }}
+                              {#if minTemp !== "NaN" && maxTemp !== "NaN"}
+                                <tr>
+                                  <td>{season}</td>
+                                  <td>{minTemp.toFixed(1)}°C</td>
+                                  <td>{maxTemp.toFixed(1)}°C</td>
+                                </tr>
+                              {/if}
+                            {/each}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     {/if}
@@ -307,16 +502,30 @@ function showStationMarkers() {
         margin-bottom: 10px;
     }
 
+    .year-controls {
+        display: flex;
+    }
+
     .year-controls label {
         flex-direction: column;
         align-items: center;
     }
 
+    .charts-container {
+        display: flex;
+        flex-direction: row; /* Zeilenanordnung */
+        justify-content: space-between; /* Abstand zwischen den Diagrammen */
+        gap: 0.1%; /* Abstand zwischen den Diagrammen */
+        margin-bottom: 20px;
+    }
+
     .chart-container {
-        width: 100%;
-        max-width: 600px;
+        flex: 1;
+        min-width: 300px;
+        min-width: 45%;
+        max-width: 48%;
         height: 400px;
-        margin: 20px auto;
+        margin-bottom: 15px;
     }
 
     ul {
@@ -333,7 +542,7 @@ function showStationMarkers() {
         cursor: pointer;
         padding: 5px 10px;
         border: none;
-        background-color: #615F5F;
+        background-color: #757474;
         color: white;
         border-radius: 5px;
     }
@@ -349,11 +558,11 @@ function showStationMarkers() {
 
     .overlay {
         position: absolute;
-        top: 5%;
+        top: 2%;
         left: 15%;
         transform: translateX(-50%);
         background: rgba(255, 255, 255, 0.9);
-        padding: 15px;
+        padding: 0.5%;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 1000;
@@ -363,32 +572,41 @@ function showStationMarkers() {
 
     .overlay_right {
         position: absolute;
-        top: 5%;
-        left: 88%;
+        top: 2%;
+        left: 79%;
         transform: translateX(-50%);
         background: rgba(255, 255, 255, 0.9);
-        padding: 15px;
+        padding: 1%;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 1000;
         text-align: center;
+        max-width: 90%;
+        overflow: auto;
     }
 
-    .weather-data {
-        max-height: 300px;
+    .weather-tables {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.1%;  /* Abstand zwischen den beiden Tabellen */
+        margin-top: 20px;
+    }
+
+    .weather-data,.seasonal-weather-data {
+        max-height: 220px;
         overflow-y: auto;
-        margin-top: 10px;
+        width: 46%;
         justify-content: left;
         align-items: center;
     }
 
-    .weather-data table {
+    .weather-data table, .seasonal-weather-data table {
         width: 100%;
         border-collapse: collapse;
         border: 2px solid #A49E9E;
     }
 
-    .weather-data th, .weather-data td {
+    .weather-data th, .weather-data td, .seasonal-weather-data th, .seasonal-weather-data td {
         padding: 10px;
         text-align: left;
         border-bottom: 1px solid #ddd;
@@ -396,10 +614,35 @@ function showStationMarkers() {
 
     }
 
-    .weather-data th {
+    .weather-data th , .seasonal-weather-data th {
         position: sticky;
         top: 0;
         background-color: #f0f0f0;
         z-index: 2;
+    }
+
+    .loading-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loading-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    progress {
+        width: 100%;
+        height: 10px;
     }
 </style>
