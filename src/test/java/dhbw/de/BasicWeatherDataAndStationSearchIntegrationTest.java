@@ -190,6 +190,52 @@ class UnitandIntegrationtests{
         // Möglicherweise "{}" oder die Saisons sind alle "Unbekannt"
         // (Code lauft evtl. weiter, lat=NaN => isSouthernHemisphere = false => "Winter_xxxx"...)
     }
+    @Test
+    void testHaversine_BerlinDistances() {
+        // Beispielkoordinaten:
+        double latBerlin = 52.520008;
+        double lonBerlin = 13.404954;
+
+        double latBrandenburgGate = 52.516275;
+        double lonBrandenburgGate = 13.377704;
+
+        // Erwartete Distanz (aus Online-Distanzrechner) ~3.0 km (Beispiel)
+        double expectedDistanceKm = 1.889;
+
+        double actualDistance = haversine(latBerlin, lonBerlin, latBrandenburgGate, lonBrandenburgGate);
+        // Wir erlauben z. B. ±0.5 km Toleranz
+        Assertions.assertTrue(Math.abs(actualDistance - expectedDistanceKm) < 0.5,
+                "Erwartete Distanz ~3 km, bekam: " + actualDistance);
+    }
+
+    @Test
+    void testHaversine_FarDistance() {
+        // Koordinaten von Berlin (DE) und Sydney (AUS)
+        double latBerlin = 52.520008;
+        double lonBerlin = 13.404954;
+        double latSydney = -33.8688;
+        double lonSydney = 151.2093;
+
+        // Online-Rechner: ~16.000 km
+        double expectedDistanceKm = 16000.0;
+
+        double actualDistance = haversine(latBerlin, lonBerlin, latSydney, lonSydney);
+        // ±300 km Toleranz
+        Assertions.assertTrue(Math.abs(actualDistance - expectedDistanceKm) < 300,
+                "Erwartete Distanz ~16.000 km, bekam: " + actualDistance);
+    }
+
+    // Kopie oder direkter Zugriff auf deine haversine(...)
+    private double haversine(double lat1, double lon1, double lat2, double lon2) {
+        final int R = 6371; // Erdradius in km
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
 
 }
 

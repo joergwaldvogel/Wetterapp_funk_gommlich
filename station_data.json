@@ -1,10 +1,4 @@
 [ {
-  "id" : "GME00127850",
-  "latitude" : 52.5331,
-  "longitude" : 13.3831,
-  "name" : "BERLIN-MITTE",
-  "distance" : 2.0776921509980335
-}, {
   "id" : "GMW00035104",
   "latitude" : 52.4833,
   "longitude" : 13.4,
@@ -28,4 +22,28 @@
   "longitude" : 13.4717,
   "name" : "BERLIN-TREPTOW",
   "distance" : 8.362922272611476
+}, {
+  "id" : "GM000003319",
+  "latitude" : 52.4639,
+  "longitude" : 13.3017,
+  "name" : "BERLIN-DAHLEM",
+  "distance" : 9.371552904956935
+}, {
+  "id" : "GME00127798",
+  "latitude" : 52.4156,
+  "longitude" : 13.3053,
+  "name" : "BERLIN-LICHTERFELDE (SUD)",
+  "distance" : 13.430419802024636
+}, {
+  "id" : "GM000003342",
+  "latitude" : 52.3833,
+  "longitude" : 13.0639,
+  "name" : "POTSDAM",
+  "distance" : 27.664853857458986
+}, {
+  "id" : "GME00121526",
+  "latitude" : 52.8253,
+  "longitude" : 13.7994,
+  "name" : "EBERSWALDE",
+  "distance" : 43.12307586534306
 } ]
