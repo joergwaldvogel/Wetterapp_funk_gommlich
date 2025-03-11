@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - UnitandIntegrationtests</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>UnitandIntegrationtests</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/dhbw.de.html">dhbw.de</a> &gt; UnitandIntegrationtests</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">10</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">4.439s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+<li>
+<a href="#tab2">Standard error</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testFetchAndProcessWeatherDataBySeasons()</td>
+<td class="success">0.569s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFetchAndProcessWeatherDataByYear()</td>
+<td class="success">0.578s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFetchWeatherDataBySeasonsShortRange()</td>
+<td class="success">0.606s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFetchWeatherDataInvalidStationId()</td>
+<td class="success">0.462s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFetchWeatherDataSeasonsStationNotInRadius()</td>
+<td class="success">0.580s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFetchWeatherDataYearRangeInverted()</td>
+<td class="success">0.673s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testStationSearch()</td>
+<td class="success">0.068s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testStationSearchInvalidCoordinates()</td>
+<td class="success">0.083s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testStationSearchNegativeLimit_shouldThrowException()</td>
+<td class="success">0.087s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testStationSearchRadiusZero()</td>
+<td class="success">0.733s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>15:40:05.706 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dhbw.de.UnitandIntegrationtests]: UnitandIntegrationtests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:40:05.868 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dhbw.de.WeatherAPIApplication for test class dhbw.de.UnitandIntegrationtests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.2)
+
+2025-03-11T15:40:06.279+01:00  INFO 20192 --- [    Test worker] dhbw.de.UnitandIntegrationtests          : Starting UnitandIntegrationtests using Java 17.0.12 with PID 20192 (started by g.infantone in D:\workspaces\WetterAPI_funk_gommlich_dhbw)
+2025-03-11T15:40:06.281+01:00  INFO 20192 --- [    Test worker] dhbw.de.UnitandIntegrationtests          : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-03-11T15:40:06.842+01:00  INFO 20192 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-11T15:40:06.862+01:00  INFO 20192 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
+2025-03-11T15:40:07.198+01:00  INFO 20192 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-11T15:40:07.349+01:00  INFO 20192 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:fc89e96d-e471-4a80-a994-02f56aa59ba3 user=SA
+2025-03-11T15:40:07.351+01:00  INFO 20192 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-11T15:40:07.417+01:00  INFO 20192 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-11T15:40:07.517+01:00  INFO 20192 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-03-11T15:40:07.547+01:00  INFO 20192 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-11T15:40:07.827+01:00  INFO 20192 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-11T15:40:07.911+01:00  INFO 20192 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-11T15:40:08.156+01:00  INFO 20192 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-11T15:40:08.159+01:00  INFO 20192 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+Inventardaten geladen: 40578 Stationen mit Temperaturwerten.
+2025-03-11T15:40:12.906+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Inventory-Daten wurden geladen 40578
+Geladene Stationen: 129657
+2025-03-11T15:40:15.288+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Stationen wurden geladen 129657
+2025-03-11T15:40:15.449+01:00  WARN 20192 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-11T15:40:15.984+01:00  INFO 20192 --- [    Test worker] dhbw.de.UnitandIntegrationtests          : Started UnitandIntegrationtests in 9.927 seconds (process running for 11.197)
+2025-03-11T15:40:16.712+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 0.0 km um Koordinaten (52.52, 13.405):
+2025-03-11T15:40:16.715+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 0.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+2025-03-11T15:40:16.826+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-11T15:40:16.826+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 9 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 2020 und 2000baufweisen
+Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
+Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
+Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
+Unfiltered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Unfiltered: Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
+Unfiltered: Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
+Unfiltered: Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
+Unfiltered: Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
+Unfiltered: Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
+Unfiltered: Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
+Unfiltered: Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
+Unfiltered: Station[id=GME00127486, latitude=52.4578, longitude=13.3014, name=BERLIN-DAHLEM (LFAG), distance=9.850877900636672]
+Unfiltered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Unfiltered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Unfiltered: Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
+Unfiltered: Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
+Unfiltered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
+Unfiltered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Unfiltered: Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
+Unfiltered: Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
+Unfiltered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
+Unfiltered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
+Unfiltered: Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
+Unfiltered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
+Unfiltered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
+Filtered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
+Filtered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
+Filtered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Filtered: Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
+Filtered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Filtered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Filtered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
+Filtered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Filtered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
+2025-03-11T15:40:17.409+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
+2025-03-11T15:40:17.570+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-11T15:40:17.571+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 13 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 2000 und 2010baufweisen
+Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
+Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
+Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
+Unfiltered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Unfiltered: Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
+Unfiltered: Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
+Unfiltered: Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
+Unfiltered: Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
+Unfiltered: Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
+Unfiltered: Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
+Unfiltered: Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
+Unfiltered: Station[id=GME00127486, latitude=52.4578, longitude=13.3014, name=BERLIN-DAHLEM (LFAG), distance=9.850877900636672]
+Unfiltered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Unfiltered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Unfiltered: Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
+Unfiltered: Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
+Unfiltered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
+Unfiltered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Unfiltered: Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
+Unfiltered: Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
+Unfiltered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
+Unfiltered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
+Unfiltered: Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
+Unfiltered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
+Unfiltered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
+Filtered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
+Filtered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
+Filtered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
+Filtered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Filtered: Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
+Filtered: Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
+Filtered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Filtered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Filtered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
+Filtered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Filtered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
+Filtered: Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
+Filtered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
+2025-03-11T15:40:17.965+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für FAKE12345678 konnten nicht gesammelt werden
+2025-03-11T15:40:18.026+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-11T15:40:18.027+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 22 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
+Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
+Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
+Unfiltered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Unfiltered: Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
+Unfiltered: Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
+Unfiltered: Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
+Unfiltered: Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
+Unfiltered: Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
+Unfiltered: Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
+Unfiltered: Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
+Unfiltered: Station[id=GME00127486, latitude=52.4578, longitude=13.3014, name=BERLIN-DAHLEM (LFAG), distance=9.850877900636672]
+Unfiltered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Unfiltered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Unfiltered: Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
+Unfiltered: Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
+Unfiltered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
+Unfiltered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Unfiltered: Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
+Unfiltered: Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
+Unfiltered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
+Unfiltered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
+Unfiltered: Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
+Unfiltered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
+Unfiltered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
+Filtered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
+Filtered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
+Filtered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Filtered: Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
+Filtered: Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
+Filtered: Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
+Filtered: Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
+Filtered: Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
+Filtered: Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
+Filtered: Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
+Filtered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Filtered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Filtered: Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
+Filtered: Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
+Filtered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
+Filtered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Filtered: Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
+Filtered: Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
+Filtered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
+Filtered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
+Filtered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
+Filtered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
+2025-03-11T15:40:18.532+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
+2025-03-11T15:40:18.627+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (9999.0, 9999.0):
+2025-03-11T15:40:18.627+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (9999.0, 9999.0),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+2025-03-11T15:40:18.694+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (-89.0, 0.0):
+2025-03-11T15:40:18.695+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (-89.0, 0.0),                            die Daten im Zeitraum von 1949 und 1950baufweisen
+2025-03-11T15:40:19.205+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
+2025-03-11T15:40:19.273+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-11T15:40:19.273+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 22 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
+Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
+Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
+Unfiltered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Unfiltered: Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
+Unfiltered: Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
+Unfiltered: Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
+Unfiltered: Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
+Unfiltered: Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
+Unfiltered: Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
+Unfiltered: Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
+Unfiltered: Station[id=GME00127486, latitude=52.4578, longitude=13.3014, name=BERLIN-DAHLEM (LFAG), distance=9.850877900636672]
+Unfiltered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Unfiltered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Unfiltered: Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
+Unfiltered: Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
+Unfiltered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
+Unfiltered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Unfiltered: Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
+Unfiltered: Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
+Unfiltered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
+Unfiltered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
+Unfiltered: Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
+Unfiltered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
+Unfiltered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
+Filtered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
+Filtered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
+Filtered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Filtered: Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
+Filtered: Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
+Filtered: Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
+Filtered: Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
+Filtered: Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
+Filtered: Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
+Filtered: Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
+Filtered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Filtered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Filtered: Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
+Filtered: Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
+Filtered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
+Filtered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Filtered: Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
+Filtered: Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
+Filtered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
+Filtered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
+Filtered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
+Filtered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
+2025-03-11T15:40:19.777+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
+2025-03-11T15:40:19.843+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-11T15:40:19.843+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 22 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
+Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
+Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
+Unfiltered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Unfiltered: Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
+Unfiltered: Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
+Unfiltered: Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
+Unfiltered: Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
+Unfiltered: Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
+Unfiltered: Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
+Unfiltered: Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
+Unfiltered: Station[id=GME00127486, latitude=52.4578, longitude=13.3014, name=BERLIN-DAHLEM (LFAG), distance=9.850877900636672]
+Unfiltered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Unfiltered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Unfiltered: Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
+Unfiltered: Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
+Unfiltered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
+Unfiltered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Unfiltered: Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
+Unfiltered: Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
+Unfiltered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
+Unfiltered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
+Unfiltered: Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
+Unfiltered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
+Unfiltered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
+Filtered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
+Filtered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
+Filtered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Filtered: Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
+Filtered: Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
+Filtered: Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
+Filtered: Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
+Filtered: Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
+Filtered: Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
+Filtered: Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
+Filtered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Filtered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Filtered: Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
+Filtered: Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
+Filtered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
+Filtered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Filtered: Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
+Filtered: Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
+Filtered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
+Filtered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
+Filtered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
+Filtered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
+2025-03-11T15:40:19.957+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-11T15:40:19.957+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 8 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1950 und 1951baufweisen
+Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
+Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
+Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
+Unfiltered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Unfiltered: Station[id=GME00124586, latitude=52.405, longitude=13.2333, name=KLEINMACHNOW, distance=17.286770634273548]
+Unfiltered: Station[id=GME00127882, latitude=52.4056, longitude=13.4856, name=BERLIN-RUDOW, distance=13.843173913835017]
+Unfiltered: Station[id=GME00127642, latitude=52.4056, longitude=13.7328, name=BERLIN-KANISWALL, distance=25.59310363709808]
+Unfiltered: Station[id=GME00127762, latitude=52.4081, longitude=13.4142, name=BERLIN-LICHTENRADE, distance=12.458312542352322]
+Unfiltered: Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
+Unfiltered: Station[id=GME00128146, latitude=52.4303, longitude=13.2342, name=BERLIN-ZEHLENDORF, distance=15.274393801355734]
+Unfiltered: Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
+Unfiltered: Station[id=GME00127486, latitude=52.4578, longitude=13.3014, name=BERLIN-DAHLEM (LFAG), distance=9.850877900636672]
+Unfiltered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Unfiltered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Unfiltered: Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
+Unfiltered: Station[id=GME00127850, latitude=52.5331, longitude=13.3831, name=BERLIN-MITTE, distance=2.0776921509980335]
+Unfiltered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
+Unfiltered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Unfiltered: Station[id=GMW00035110, latitude=52.5667, longitude=13.3, name=TEGEL, distance=8.796771318670672]
+Unfiltered: Station[id=GME00127990, latitude=52.5681, longitude=13.1708, name=BERLIN-SPANDAU, distance=16.716120541285903]
+Unfiltered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERLIN-TEGELER FLIESSTAL, distance=12.007793478030722]
+Unfiltered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
+Unfiltered: Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
+Unfiltered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
+Unfiltered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
+Filtered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTSDAM, distance=27.664853857458986]
+Filtered: Station[id=GME00127798, latitude=52.4156, longitude=13.3053, name=BERLIN-LICHTERFELDE (SUD), distance=13.430419802024636]
+Filtered: Station[id=GME00128126, latitude=52.4567, longitude=13.4717, name=BERLIN-TREPTOW, distance=8.362922272611476]
+Filtered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
+Filtered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
+Filtered: Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
+Filtered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
+Filtered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
+2025-03-11T15:40:20.453+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
+</pre>
+</span>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>java.io.FileNotFoundException: https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/by_station/FAKE12345678.csv.gz
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:2017)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1610)
+	at java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:224)
+	at dhbw.de.FetchingWeatherData.fetchAndProcessWeatherDataByYear(FetchingWeatherData.java:29)
+	at dhbw.de.UnitandIntegrationtests.testFetchWeatherDataInvalidStationId(BasicWeatherDataAndStationSearchIntegrationTest.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:767)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$8(TestMethodTestDescriptor.java:217)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:124)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:99)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:94)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:63)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92)
+	at jdk.proxy1/jdk.proxy1.$Proxy4.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:200)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:132)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:121)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.10</a> at 11.03.2025, 15:40:25</p>
+</div>
+</div>
+</body>
+</html>

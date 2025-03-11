@@ -161,10 +161,10 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
         if (latitude < 0) {  //Südliche Hemisphäre bei negativer Latitude
             switch (month) {
                 case 12:
-                    return "Sommer_" + year; //Beachtung sommer nächstes jahr //return "Sommer_" + year + "_" + (year + 1);
+                    return "Sommer_" + year;
                 case 1:
                 case 2:
-                    return "Sommer_" + year; //Beachtung sommer vorjahr // "Sommer_" + (year - 1) + "_" + year;
+                    return "Sommer_" + year;
                 case 3:
                 case 4:
                 case 5:
@@ -183,10 +183,10 @@ public class FetchingWeatherData extends DetermineStationsInRadius {
         } else {
             switch (month) {
                 case 12:
-                    return "Winter_" + year; //"Winter_" + year + "_" + (year + 1)
+                    return "Winter_" + year;
                 case 1:
                 case 2:
-                    return "Winter_" +  year; //"Winter_" + (year - 1) + "_" + year
+                    return "Winter_" +  year;
                 case 3:
                 case 4:
                 case 5:

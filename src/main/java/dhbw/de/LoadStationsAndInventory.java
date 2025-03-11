@@ -72,9 +72,8 @@ public class LoadStationsAndInventory {
             String line;
             while ((line = br.readLine()) != null) {
                 String stationId = line.substring(0, 11).trim();
-                String element = line.substring(31, 35).trim();  // TMAX, TMIN, PRCP, etc.
+                String element = line.substring(31, 35).trim();  // TMAX, TMIN, PRCP, etc,
 
-                // **Nur Temperaturdaten verarbeiten**
                 if (!element.equals("TMAX") && !element.equals("TMIN")) {
                     continue;
                 }
@@ -82,7 +81,6 @@ public class LoadStationsAndInventory {
                 int startYear = Integer.parseInt(line.substring(36, 40).trim());
                 int endYear = Integer.parseInt(line.substring(41, 45).trim());
 
-                // Falls Station noch nicht in der Map ist, neues BitSet erstellen
                 inventory.computeIfAbsent(stationId, k -> new BitSet()).set(startYear, endYear + 1);
             }
             System.out.println("Inventardaten geladen: " + inventory.size() + " Stationen mit Temperaturwerten.");

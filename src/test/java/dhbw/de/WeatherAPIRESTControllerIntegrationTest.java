@@ -81,7 +81,7 @@ class WeatherAPIRESTControllerIntegrationTest {
 
     /**
      * Test: Negativer radius => ggf. 400 oder leeres Array,
-     * abhängig davon, wie dein Code es handhabt.
+     * abhängig davon, wie Code es handhabt.
      */
     @Test
     void testGetStations_negativeRadius() throws Exception {

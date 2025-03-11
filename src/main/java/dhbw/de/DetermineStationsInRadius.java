@@ -93,8 +93,8 @@ public class DetermineStationsInRadius extends LoadStationsAndInventory {
                     BitSet yearsAvailable = inventoryData.get(station.id());
                     if (yearsAvailable == null) return false; // Keine Daten verfügbar
 
-                    int stationStartYear = yearsAvailable.nextSetBit(0);  // Erstes verfügbares Jahr
-                    int stationEndYear = yearsAvailable.length() - 1;      // Letztes verfügbares Jahr
+                    int stationStartYear = yearsAvailable.nextSetBit(0);  // erstes verfügbares Jahr
+                    int stationEndYear = yearsAvailable.length() - 1;      // letztes verfügbares Jahr
 
                     return !(stationEndYear < startYear || stationStartYear > endYear);
 
