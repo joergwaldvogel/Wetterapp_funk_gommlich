@@ -116,7 +116,7 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
 async function fetchStations() {
 
     try {
-        const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}&limit=${limit}`);
+        const response = await fetch(`http://localhost:8080/api/get_stations?lat=${lat}&lon=${lon}&radius=${radius}&limit=${limit}&startYear=${startYear}&endYear=${endYear}`);
         if (!response.ok) throw new Error("Failed to fetch stations");
         stations = await response.json();
         selectedStation = null;
@@ -184,7 +184,7 @@ async function fetchWeatherData(stationId) {
 
         await tick();
 
-        updateChart();  // Diagramm aktualisieren
+        updateChart();
     } catch (error) {
         console.error("Error fetching weather data:", error);
     } finally {
@@ -200,20 +200,16 @@ async function fetchSeasonalWeatherData(stationId) {
         if (!response.ok) throw new Error("Failed to fetch weather data");
         seasonalweatherData = await response.json();
         selectedStation = stationId;
-        console.log("Weather data received:", seasonalweatherData);
-        console.log("Weather data received:", JSON.stringify(seasonalweatherData, null, 2));
-
-        await tick();
-
-        updateChart();
+        console.log("Seasonal Weather data received:", seasonalweatherData);
+        //console.log("Weather data received:", JSON.stringify(seasonalweatherData, null, 2));
     } catch (error) {
         console.error("Error fetching weather data:", error);
     }
 }
 
 const getSortedSeasons = () => {
-  const seasonOrder = ['Winter', 'Frühling', 'Sommer', 'Herbst'];
-
+const seasonOrder = ['Winter', 'Frühling', 'Sommer', 'Herbst'];
+console.log("Log 4");
   return Object.keys(seasonalweatherData.jahreszeiten)
     .map(season => {
       const seasonYears = season.split("_");
@@ -246,7 +242,9 @@ const getSortedSeasons = () => {
 };
 
 async function updateChart() {
-    if (!weatherData || !weatherData.jahreswerte || !chartCanvas) return;
+    console.log("Updating Chart");
+    if (!weatherData || !weatherData.jahreswerte || !chartCanvas || !seasonalweatherData) return;
+    console.log("Log 1");
 
     const years = Object.keys(weatherData.jahreswerte);
     const tminData = years.map(year => weatherData.jahreswerte[year].avgMin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMin) : null);
@@ -260,7 +258,9 @@ async function updateChart() {
     };
 
     if (seasonalweatherData && seasonalweatherData.jahreszeiten) {
+    console.log("Log 2");
         const sortedSeasons = getSortedSeasons();
+        console.log("Log 3");
         sortedSeasons.forEach(({ seasonName, year, minTemp, maxTemp }) => {
             const index = years.indexOf(year.toString());
             if (index !== -1) {
