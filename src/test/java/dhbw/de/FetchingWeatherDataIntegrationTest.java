@@ -8,7 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UnitandIntegrationtests{
 
     // --- Bereits vorhandene Tests ---
-
+    int startYear = 1949;
+    int endYear = 2000;
     @Test
     void testStationSearch() {
         double lat = 52.52;
@@ -16,7 +17,9 @@ class UnitandIntegrationtests{
         double radius = 50.0;
         int limit = 10;
 
-        String result = DetermineStationsInRadius.stationSearch(lat, lon, radius, limit);
+
+
+        String result = DetermineStationsInRadius.stationSearch(lat, lon, radius, limit, startYear, endYear);
         Assertions.assertNotNull(result, "Das Ergebnis sollte nicht null sein.");
         Assertions.assertFalse(result.isEmpty(), "Das Ergebnis sollte nicht leer sein.");
         // Optional: JSON parsen, überprüfen ob Stationen enthalten sind
@@ -25,11 +28,9 @@ class UnitandIntegrationtests{
     @Test
     void testFetchAndProcessWeatherDataByYear() {
         // StationSearch zuerst, damit sortedStations nicht null ist
-        DetermineStationsInRadius.stationSearch(52.52, 13.405, 50.0, 10);
+        DetermineStationsInRadius.stationSearch(52.52, 13.405, 50.0, 10, startYear, endYear);
 
         String stationId = "GME00127850"; // Beispiel-Station
-        int startYear = 1949;
-        int endYear = 2000;
 
         String jsonResult = FetchingWeatherData.fetchAndProcessWeatherDataByYear(stationId, startYear, endYear);
         Assertions.assertNotNull(jsonResult, "JSON-Ergebnis sollte nicht null sein");
@@ -40,11 +41,9 @@ class UnitandIntegrationtests{
 
     @Test
     void testFetchAndProcessWeatherDataBySeasons() {
-        DetermineStationsInRadius.stationSearch(52.52, 13.405, 50.0, 10);
+        DetermineStationsInRadius.stationSearch(52.52, 13.405, 50.0, 10, startYear, endYear);
 
         String stationId = "GME00127850";
-        int startYear = 1949;
-        int endYear = 2000;
 
         String seasonJson = FetchingWeatherData.fetchAndProcessWeatherDataBySeasons(stationId, startYear, endYear);
         Assertions.assertNotNull(seasonJson);
@@ -64,7 +63,7 @@ class UnitandIntegrationtests{
         double radius = 0.0;
         int limit = 10;
 
-        String result = DetermineStationsInRadius.stationSearch(lat, lon, radius, limit);
+        String result = DetermineStationsInRadius.stationSearch(lat, lon, radius, limit, startYear, endYear);
 
         // Evtl. bekommst du ein leeres Array, wenn keine Station exakt auf 52.52, 13.405 liegt
         Assertions.assertNotNull(result);
@@ -88,7 +87,7 @@ class UnitandIntegrationtests{
 
         // Variante: Wir erwarten, dass subList(0, -1) eine IllegalArgumentException wirft.
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            DetermineStationsInRadius.stationSearch(lat, lon, radius, limit);
+            DetermineStationsInRadius.stationSearch(lat, lon, radius, limit, endYear, startYear);
         });
     }
 
@@ -103,10 +102,10 @@ class UnitandIntegrationtests{
         double radius = 10.0;
         int limit = 5;
 
-        String result = DetermineStationsInRadius.stationSearch(lat, lon, radius, limit);
+        String result = DetermineStationsInRadius.stationSearch(lat, lon, radius, limit, startYear, endYear);
         Assertions.assertNotNull(result);
         // Erwartung: Vermutlich "[]" oder leere JSON-Liste, weil dort keine Stationen gefunden werden.
-        Assertions.assertTrue(result.contains("[]") || result.isEmpty(),
+        Assertions.assertTrue(result.contains("[ ]") || result.isEmpty(),
                 "Erwartung: Keine gültigen Stationen für absurde Koordinaten.");
     }
 
@@ -116,7 +115,8 @@ class UnitandIntegrationtests{
      */
     @Test
     void testFetchWeatherDataInvalidStationId() {
-        DetermineStationsInRadius.stationSearch(52.52, 13.405, 50.0, 10);
+
+        DetermineStationsInRadius.stationSearch(52.52, 13.405, 50.0, 10, 2000, 2010);
 
         String stationId = "FAKE12345678";
         int startYear = 2000;
@@ -137,7 +137,7 @@ class UnitandIntegrationtests{
      */
     @Test
     void testFetchWeatherDataYearRangeInverted() {
-        DetermineStationsInRadius.stationSearch(52.52, 13.405, 50.0, 10);
+        DetermineStationsInRadius.stationSearch(52.52, 13.405, 50.0, 10, 2020, 2000);
 
         String stationId = "GME00127850";
         int startYear = 2020;
@@ -148,7 +148,7 @@ class UnitandIntegrationtests{
 
         // Euer Code geht Zeile für Zeile durch und ignoriert, wenn year < startYear ODER year > endYear
         // => Alle Datensätze werden ignoriert => JSON wohl "{}"
-        Assertions.assertTrue(jsonResult.contains("{}") || jsonResult.equals("{}"),
+        Assertions.assertTrue(jsonResult.contains("{ }") || jsonResult.equals("{ }"),
                 "Erwartung: Keine Daten, da 'startYear' > 'endYear'");
     }
 
@@ -158,7 +158,7 @@ class UnitandIntegrationtests{
      */
     @Test
     void testFetchWeatherDataBySeasonsShortRange() {
-        DetermineStationsInRadius.stationSearch(52.52, 13.405, 50.0, 10);
+        DetermineStationsInRadius.stationSearch(52.52, 13.405, 50.0, 10, 1950, 1951);
 
         String stationId = "GME00127850";
         int startYear = 1950;
@@ -184,7 +184,7 @@ class UnitandIntegrationtests{
     void testFetchWeatherDataSeasonsStationNotInRadius() {
         // Suchen wir Stationen in ganz anderer Region (Südpol?),
         // so dass GME00127850 NICHT in sortedStations landet:
-        DetermineStationsInRadius.stationSearch(-89.0, 0.0, 10.0, 5);
+        DetermineStationsInRadius.stationSearch(-89.0, 0.0, 10.0, 5, 1949, 1950);
 
         // Station existiert, taucht aber nicht in sortedStations auf => getLatitudeByStationId => NaN
         String stationId = "GME00127850";

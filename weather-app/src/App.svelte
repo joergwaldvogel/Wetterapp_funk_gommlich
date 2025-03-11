@@ -201,7 +201,11 @@ async function fetchSeasonalWeatherData(stationId) {
         seasonalweatherData = await response.json();
         selectedStation = stationId;
         console.log("Seasonal Weather data received:", seasonalweatherData);
-        //console.log("Weather data received:", JSON.stringify(seasonalweatherData, null, 2));
+        console.log("Weather data received:", JSON.stringify(seasonalweatherData, null, 2));
+
+         await tick();
+
+         updateChart();
     } catch (error) {
         console.error("Error fetching weather data:", error);
     }
@@ -433,7 +437,7 @@ async function updateChart() {
       </div>
     {/if}
 
-    {#if weatherData}
+    {#if weatherData && seasonalweatherData}
         <div class="overlay_right">
             <h1>{selectedStationName}</h1>
             <div class="chart-container">
