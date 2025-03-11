@@ -1,14 +1,30 @@
 {
-  "station" : "GMW00035104",
-  "zeitraum" : "1949-1950",
+  "station" : "GMW00035110",
+  "zeitraum" : "1949-1954",
   "jahreswerte" : {
     "1949" : {
-      "avgMin" : 6.546153846153847,
-      "avgMax" : 14.225274725274724
+      "avgMin" : 7.244390243902439,
+      "avgMax" : 16.126341463414633
     },
     "1950" : {
-      "avgMin" : 6.150413223140496,
-      "avgMax" : 13.320661157024793
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1951" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1952" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1953" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
+    },
+    "1954" : {
+      "avgMin" : "NaN",
+      "avgMax" : "NaN"
     }
   }
 }

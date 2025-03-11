@@ -216,13 +216,19 @@ async function fetchSeasonalWeatherData(stationId) {
 }
 
 const getSortedSeasons = () => {
+  // Sicherstellen, dass seasonalweatherData und jahreszeiten existieren
+  if (!seasonalweatherData || !seasonalweatherData.jahreszeiten) {
+    console.error("No seasonal data found.");
+    return [];  // Rückgabe eines leeren Arrays, wenn die Daten fehlen
+  }
+
   const seasonOrder = ['Winter', 'Frühling', 'Sommer', 'Herbst'];
 
   return Object.keys(seasonalweatherData.jahreszeiten)
     .map(season => {
       const seasonYears = season.split("_");
-      const seasonName = seasonYears[0];  // Saisonname (z.B. Frühling, Sommer, Herbst, Winter)
-      const year = parseInt(seasonYears[seasonYears.length - 1]);  // Jahr extrahieren
+      const seasonName = seasonYears[0];  // Saisonname (z.B. Winter, Frühling)
+      const year = parseInt(seasonYears[1]);  // Jahr extrahieren
 
       // Nur Jahre im Bereich zwischen startYear und endYear berücksichtigen
       if (year < startYear || year > endYear) {
@@ -244,14 +250,15 @@ const getSortedSeasons = () => {
         return a.year - b.year;
       }
 
-      // Wenn Jahre gleich sind, nach Saison innerhalb des Jahres sortieren (Frühling, Sommer, Herbst, Winter)
+      // Wenn Jahre gleich sind, nach Saison innerhalb des Jahres sortieren (Winter, Frühling, Sommer, Herbst)
       return seasonOrder.indexOf(a.seasonName) - seasonOrder.indexOf(b.seasonName);
     });
 };
 
 async function updateChart() {
+    console.log("Updating chart");
     if (!weatherData || !weatherData.jahreswerte || !chartCanvasAnnual || !chartCanvasSeasonal) return;
-
+    console.log("Test log 1");
     // Jährliche Daten
     const years = Object.keys(weatherData.jahreswerte);
     const tminData = years.map(year => weatherData.jahreswerte[year].avgMin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMin) : null);

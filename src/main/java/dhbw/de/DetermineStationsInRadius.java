@@ -35,7 +35,7 @@ public class DetermineStationsInRadius extends LoadStationsAndInventory {
         }
 
         logger.info(nearbyStations.size() + " Stationen innerhalb von " + radius + " km um Koordinaten (" + lat + ", " + lon + "):");
-        logger.info(nearbyStations.size() + " Stationen innerhalb von " + radius + " km um Koordinaten (" + lat + ", " + lon + "), " +
+        logger.info(filteredStations.size() + " Stationen innerhalb von " + radius + " km um Koordinaten (" + lat + ", " + lon + "), " +
                 "                           die Daten im Zeitraum von " + startYear + " und " + endYear + "baufweisen");
 
         for (LoadStationsAndInventory.Station station : nearbyStations) {
