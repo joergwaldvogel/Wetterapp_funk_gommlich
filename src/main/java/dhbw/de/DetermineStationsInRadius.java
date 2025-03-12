@@ -90,17 +90,10 @@ public class DetermineStationsInRadius extends LoadStationsAndInventory {
 
         return stations.stream()
                 .filter(station -> {
-                    BitSet yearsAvailable = inventoryData.get(station.id());
-                    if (yearsAvailable == null) return false; // Keine Daten verfügbar
-
-                    int stationStartYear = yearsAvailable.nextSetBit(0);  // erstes verfügbares Jahr
-                    int stationEndYear = yearsAvailable.length() - 1;      // letztes verfügbares Jahr
-
-                    return !(stationEndYear < startYear || stationStartYear > endYear);
-
+                    BitSet years = inventoryData.get(station.id());
+                    return years != null && years.get(startYear) && years.get(endYear);
                 })
                 .collect(Collectors.toList());
-
     }
         private static List<LoadStationsAndInventory.Station> sortStationsByDistance(List<LoadStationsAndInventory.Station> stations) {
 

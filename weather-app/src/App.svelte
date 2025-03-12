@@ -498,7 +498,7 @@ async function updateChart() {
     .weather-tables {
         display: flex;
         justify-content: space-between;
-        gap: 0.1%;
+        //gap: 0.1%;
         margin-top: 20px;
     }
 
