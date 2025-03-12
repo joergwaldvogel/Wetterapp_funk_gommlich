@@ -271,14 +271,14 @@ async function updateChart() {
            datasets: [
                { label: "Jährliche AvgMin. Temp (°C)", data: tminData, borderColor: "blue", backgroundColor: "transparent", fill: true, tension: 0.3 },
                { label: "Jährliche AvgMax. Temp (°C)", data: tmaxData, borderColor: "red", backgroundColor: "transparent", fill: true, tension: 0.3 },
-               { label: "Winter AvgMin. Temp (°C)", data: seasonData.Winter.min, borderColor: "darkblue", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Winter AvgMax. Temp (°C)", data: seasonData.Winter.max, borderColor: "lightblue", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Frühling AvgMin. Temp (°C)", data: seasonData.Frühling.min, borderColor: "green", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Frühling AvgMax. Temp (°C)", data: seasonData.Frühling.max, borderColor: "lightgreen", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Sommer AvgMin. Temp (°C)", data: seasonData.Sommer.min, borderColor: "orange", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Sommer AvgMax. Temp (°C)", data: seasonData.Sommer.max, borderColor: "yellow", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Herbst AvgMin. Temp (°C)", data: seasonData.Herbst.min, borderColor: "brown", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Herbst AvgMax. Temp (°C)", data: seasonData.Herbst.max, borderColor: "goldenrod", backgroundColor: "transparent", fill: false, tension: 0.3 }
+               { label: "Winter AvgMin. Temp (°C)", data: seasonData.Winter.min, borderColor: "darkblue", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Winter AvgMax. Temp (°C)", data: seasonData.Winter.max, borderColor: "lightblue", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Frühling AvgMin. Temp (°C)", data: seasonData.Frühling.min, borderColor: "green", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Frühling AvgMax. Temp (°C)", data: seasonData.Frühling.max, borderColor: "lightgreen", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Sommer AvgMin. Temp (°C)", data: seasonData.Sommer.min, borderColor: "orange", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Sommer AvgMax. Temp (°C)", data: seasonData.Sommer.max, borderColor: "yellow", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Herbst AvgMin. Temp (°C)", data: seasonData.Herbst.min, borderColor: "brown", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Herbst AvgMax. Temp (°C)", data: seasonData.Herbst.max, borderColor: "goldenrod", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true }
            ]
        },
        options: {
