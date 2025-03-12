@@ -12,8 +12,8 @@ import static dhbw.de.WeatherAPIRESTController.logger;
 
 @Service
 public class LoadStationsAndInventory {
-    private static final String NOAA_STATIONS_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt";
-    private static final String INVENTORY_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd-inventory.txt";
+    private static final String NOAA_STATIONS_URL = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt";
+    private static final String INVENTORY_URL = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-inventory.txt";
     private static List<Station> stationList;
     public static Map<String, BitSet> inventoryData = new HashMap<>();
     public record Station(String id, double latitude, double longitude, String name, double distance) {}

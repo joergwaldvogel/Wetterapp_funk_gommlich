@@ -14,7 +14,7 @@ import static dhbw.de.WeatherAPIRESTController.logger;
 
 @Service
 public class FetchingWeatherData extends DetermineStationsInRadius {
-    private static final String BASE_URL = "https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/by_station/";
+    private static final String BASE_URL = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_station/";
 
     public static String fetchAndProcessWeatherDataByYear(String stationId, int startYear, int endYear) {
 
