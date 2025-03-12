@@ -41,13 +41,13 @@
 
 function updateLimitStations() {
     if (limit > 10) {
-        limit = 10;  // Setzt den Wert auf 10, falls er höher ist
+        limit = 10;
     }
 }
 
 function updateLimitRadius() {
     if (radius > 100) {
-        radius = 100;  // Setzt den Wert auf 100, falls er höher ist
+        radius = 100;
     }
 }
 
@@ -64,7 +64,7 @@ function filterMarkers() {
            map.removeLayer(marker);
        }
    });
-   markers = markers.filter(marker => map.hasLayer(marker)); // Liste bereinigen
+   markers = markers.filter(marker => map.hasLayer(marker));
 }
 
 function updateCircle() {
@@ -73,13 +73,11 @@ function updateCircle() {
     }
     if (originMarker) { map.removeLayer(originMarker); }
 
-    // Entferne alle Marker
     markers.forEach(marker => map.removeLayer(marker));
-    markers = []; // Leere die Marker-Liste
+    markers = [];
 
     searchCircle = createGeodesicCircle(lat, lon, radius * 1000);
 
-    // Ursprungspunkt setzen
      originMarker = L.marker([lat, lon], {
         icon: L.icon({
         iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
@@ -92,12 +90,12 @@ function updateCircle() {
 }
 
 function zoomToCoordinates() {
-    map.setView([lat, lon], 10); // Zoomt auf die gesetzten Koordinaten
+    map.setView([lat, lon], 10);
 }
 
 function createGeodesicCircle(lat, lon, radius, steps = 64) {
         let coords = [];
-        let earthRadius = 6371000; // Erdradius in Metern
+        let earthRadius = 6371000;
 
         for (let i = 0; i < steps; i++) {
             let angle = (i / steps) * 2 * Math.PI;
@@ -112,7 +110,6 @@ function createGeodesicCircle(lat, lon, radius, steps = 64) {
         return L.polygon(coords, { color: 'red', fillColor: 'red', fillOpacity: 0.1 }).addTo(map);
 }
 
-// Fetch stations from backend
 async function fetchStations() {
 
     try {
@@ -130,26 +127,22 @@ async function fetchStations() {
     }
 }
 
-// Funktion, um Marker und roten Kreis für Stationen anzuzeigen
 function showStationMarkers() {
     if (searchCircle) {
         map.removeLayer(searchCircle);
     }
     searchCircle = createGeodesicCircle(lat, lon, radius * 1000);
 
-     // Definiere ein kleineres Icon
     const smallIcon = L.icon({
-        iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png", // Standard Leaflet-Icon
-        iconSize: [16, 26], // Kleinere Größe (Breite, Höhe)
-        iconAnchor: [8, 26], // Ankerpunkt unten mittig
-        popupAnchor: [1, -24] // Position des Popups relativ zum Icon
+        iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
+        iconSize: [16, 26],
+        iconAnchor: [8, 26],
+        popupAnchor: [1, -24]
     });
 
-    // Entferne alte Marker
     markers.forEach(marker => map.removeLayer(marker));
     markers = [];
 
-    // Füge Marker für die ersten 10 Stationen hinzu
     stations.slice(0, 10).forEach(station => {
         const { latitude, longitude } = station;
         const marker = L.marker([latitude, longitude], { icon: smallIcon }).addTo(map);
@@ -157,7 +150,7 @@ function showStationMarkers() {
 
 
         marker.on('click', () => {
-            fetchWeatherData(station.id); // Lade die Wetterdaten für die Station
+            fetchWeatherData(station.id);
             fetchSeasonalWeatherData(station.id);
             map.setView([latitude, longitude], 10);
         });
@@ -178,7 +171,7 @@ async function fetchWeatherData(stationId) {
         if (!response.ok) throw new Error("Failed to fetch weather data");
         weatherData = await response.json();
         const station = stations.find(s => s.id === stationId);
-        selectedStationName = station ? station.name : "Unbekannte Station";  // Name speichern oder Fallback
+        selectedStationName = station ? station.name : "Unbekannte Station";
         selectedStation = stationId;
         console.log("Weather data received:", weatherData);
 
@@ -213,16 +206,14 @@ async function fetchSeasonalWeatherData(stationId) {
 
 const getSortedSeasons = () => {
 const seasonOrder = ['Winter', 'Frühling', 'Sommer', 'Herbst'];
-console.log("Log 4");
   return Object.keys(seasonalweatherData.jahreszeiten)
     .map(season => {
       const seasonYears = season.split("_");
       const seasonName = seasonYears[0];  // Saisonname (z.B. Frühling, Sommer, Herbst, Winter)
-      const year = parseInt(seasonYears[seasonYears.length - 1]);  // Jahr extrahieren
+      const year = parseInt(seasonYears[seasonYears.length - 1]);
 
-      // Nur Jahre im Bereich zwischen startYear und endYear berücksichtigen
       if (year < startYear || year > endYear) {
-        return null;  // Rückgabe von null für Jahre außerhalb des Bereichs
+        return null;
       }
 
       return {
@@ -233,14 +224,12 @@ console.log("Log 4");
         maxTemp: seasonalweatherData.jahreszeiten[season].avgMax
       };
     })
-    .filter(item => item !== null) // Nullwerte herausfiltern
+    .filter(item => item !== null)
     .sort((a, b) => {
-      // Zuerst nach Jahr sortieren
+
       if (a.year !== b.year) {
         return a.year - b.year;
       }
-
-      // Wenn Jahre gleich sind, nach Saison innerhalb des Jahres sortieren (Frühling, Sommer, Herbst, Winter)
       return seasonOrder.indexOf(a.seasonName) - seasonOrder.indexOf(b.seasonName);
     });
 };
@@ -248,7 +237,6 @@ console.log("Log 4");
 async function updateChart() {
     console.log("Updating Chart");
     if (!weatherData || !weatherData.jahreswerte || !chartCanvas || !seasonalweatherData) return;
-    console.log("Log 1");
 
     const years = Object.keys(weatherData.jahreswerte);
     const tminData = years.map(year => weatherData.jahreswerte[year].avgMin !== "NaN" ? parseFloat(weatherData.jahreswerte[year].avgMin) : null);
@@ -262,9 +250,7 @@ async function updateChart() {
     };
 
     if (seasonalweatherData && seasonalweatherData.jahreszeiten) {
-    console.log("Log 2");
         const sortedSeasons = getSortedSeasons();
-        console.log("Log 3");
         sortedSeasons.forEach(({ seasonName, year, minTemp, maxTemp }) => {
             const index = years.indexOf(year.toString());
             if (index !== -1) {
@@ -278,114 +264,42 @@ async function updateChart() {
         myChart.destroy();
     }
 
-    myChart = new Chart(chartCanvas, {
-        type: "line",
-        data: {
-            labels: years,
-            datasets: [
-                {
-                    label: "Jährliche AvgMin. Temp (°C)",
-                    data: tminData,
-                    borderColor: "blue",
-                    backgroundColor: "transparent",
-                    fill: true,
-                    tension: 0.3
-                },
-                {
-                    label: "Jährliche AvgMax. Temp (°C)",
-                    data: tmaxData,
-                    borderColor: "red",
-                    backgroundColor: "transparent",
-                    fill: true,
-                    tension: 0.3
-                },
-                {
-                    label: "Winter AvgMin. Temp (°C)",
-                    data: seasonData.Winter.min,
-                    borderColor: "darkblue",
-                    backgroundColor: "transparent",
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: "Winter AvgMax. Temp (°C)",
-                    data: seasonData.Winter.max,
-                    borderColor: "lightblue",
-                    backgroundColor: "transparent",
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: "Frühling AvgMin. Temp (°C)",
-                    data: seasonData.Frühling.min,
-                    borderColor: "green",
-                    backgroundColor: "transparent",
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: "Frühling AvgMax. Temp (°C)",
-                    data: seasonData.Frühling.max,
-                    borderColor: "lightgreen",
-                    backgroundColor: "transparent",
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: "Sommer AvgMin. Temp (°C)",
-                    data: seasonData.Sommer.min,
-                    borderColor: "orange",
-                    backgroundColor: "transparent",
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: "Sommer AvgMax. Temp (°C)",
-                    data: seasonData.Sommer.max,
-                    borderColor: "yellow",
-                    backgroundColor: "transparent",
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: "Herbst AvgMin. Tem (°C)",
-                    data: seasonData.Herbst.min,
-                    borderColor: "brown",
-                    backgroundColor: "transparent",
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: "Herbst AvgMax. Temp (°C)",
-                    data: seasonData.Herbst.max,
-                    borderColor: "goldenrod",
-                    backgroundColor: "transparent",
-                    fill: false,
-                    tension: 0.3
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: "Jahr"
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: "Temperatur (°C)"
-                    }
-                }
-            }
-        }
-    });
-}
-
+   myChart = new Chart(chartCanvas, {
+       type: "line",
+       data: {
+           labels: years,
+           datasets: [
+               { label: "Jährliche AvgMin. Temp (°C)", data: tminData, borderColor: "blue", backgroundColor: "transparent", fill: true, tension: 0.3 },
+               { label: "Jährliche AvgMax. Temp (°C)", data: tmaxData, borderColor: "red", backgroundColor: "transparent", fill: true, tension: 0.3 },
+               { label: "Winter AvgMin. Temp (°C)", data: seasonData.Winter.min, borderColor: "darkblue", backgroundColor: "transparent", fill: false, tension: 0.3 },
+               { label: "Winter AvgMax. Temp (°C)", data: seasonData.Winter.max, borderColor: "lightblue", backgroundColor: "transparent", fill: false, tension: 0.3 },
+               { label: "Frühling AvgMin. Temp (°C)", data: seasonData.Frühling.min, borderColor: "green", backgroundColor: "transparent", fill: false, tension: 0.3 },
+               { label: "Frühling AvgMax. Temp (°C)", data: seasonData.Frühling.max, borderColor: "lightgreen", backgroundColor: "transparent", fill: false, tension: 0.3 },
+               { label: "Sommer AvgMin. Temp (°C)", data: seasonData.Sommer.min, borderColor: "orange", backgroundColor: "transparent", fill: false, tension: 0.3 },
+               { label: "Sommer AvgMax. Temp (°C)", data: seasonData.Sommer.max, borderColor: "yellow", backgroundColor: "transparent", fill: false, tension: 0.3 },
+               { label: "Herbst AvgMin. Temp (°C)", data: seasonData.Herbst.min, borderColor: "brown", backgroundColor: "transparent", fill: false, tension: 0.3 },
+               { label: "Herbst AvgMax. Temp (°C)", data: seasonData.Herbst.max, borderColor: "goldenrod", backgroundColor: "transparent", fill: false, tension: 0.3 }
+           ]
+       },
+       options: {
+           responsive: true,
+           maintainAspectRatio: false,
+           plugins: {
+               legend: {
+                   position: 'top',
+                   labels: {
+                        boxWidth: 15,
+                        padding: 10,
+                   }
+               }
+           },
+           scales: {
+               x: { title: { display: true, text: "Jahr" } },
+               y: { title: { display: true, text: "Temperatur (°C)" } }
+           }
+       }
+   });
+   }
 
 </script>
 
@@ -555,7 +469,7 @@ async function updateChart() {
     .overlay {
         position: absolute;
         top: 2%;
-        left: 15%;
+        left: 12%;
         transform: translateX(-50%);
         background: rgba(255, 255, 255, 0.9);
         padding: 0.5%;
@@ -569,7 +483,7 @@ async function updateChart() {
     .overlay_right {
         position: absolute;
         top: 2%;
-        left: 79%;
+        right:-20%;
         transform: translateX(-50%);
         background: rgba(255, 255, 255, 0.9);
         padding: 1%;
@@ -584,14 +498,14 @@ async function updateChart() {
     .weather-tables {
         display: flex;
         justify-content: space-between;
-        gap: 0.1%;  /* Abstand zwischen den beiden Tabellen */
+        gap: 0.1%;
         margin-top: 20px;
     }
 
     .weather-data,.seasonal-weather-data {
         max-height: 220px;
         overflow-y: auto;
-        width: 46%;
+        width: 49%;
         justify-content: left;
         align-items: center;
     }
@@ -640,5 +554,18 @@ async function updateChart() {
     progress {
         width: 100%;
         height: 10px;
+    }
+
+    .chart-legend .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .chart-legend .legend-color-box {
+        width: 30px;
+        height: 15px;
+        display: inline-block;
+        border-radius: 3px;
     }
 </style>
