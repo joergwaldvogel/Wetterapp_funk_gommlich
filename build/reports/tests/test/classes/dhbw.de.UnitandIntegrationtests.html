@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">10</div>
+<div class="counter">12</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">4.439s</div>
+<div class="counter">6.622s</div>
 <p>duration</p>
 </div>
 </td>
@@ -82,52 +82,62 @@
 </thead>
 <tr>
 <td class="success">testFetchAndProcessWeatherDataBySeasons()</td>
-<td class="success">0.569s</td>
+<td class="success">0.784s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testFetchAndProcessWeatherDataByYear()</td>
-<td class="success">0.578s</td>
+<td class="success">0.952s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testFetchWeatherDataBySeasonsShortRange()</td>
-<td class="success">0.606s</td>
+<td class="success">1.012s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testFetchWeatherDataInvalidStationId()</td>
-<td class="success">0.462s</td>
+<td class="success">0.562s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testFetchWeatherDataSeasonsStationNotInRadius()</td>
-<td class="success">0.580s</td>
+<td class="success">0.833s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testFetchWeatherDataYearRangeInverted()</td>
-<td class="success">0.673s</td>
+<td class="success">1.124s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testHaversine_BerlinDistances()</td>
+<td class="success">0.738s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testHaversine_FarDistance()</td>
+<td class="success">0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testStationSearch()</td>
-<td class="success">0.068s</td>
+<td class="success">0.151s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testStationSearchInvalidCoordinates()</td>
-<td class="success">0.083s</td>
+<td class="success">0.096s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testStationSearchNegativeLimit_shouldThrowException()</td>
-<td class="success">0.087s</td>
+<td class="success">0.119s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testStationSearchRadiusZero()</td>
-<td class="success">0.733s</td>
+<td class="success">0.244s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -135,8 +145,8 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>15:40:05.706 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dhbw.de.UnitandIntegrationtests]: UnitandIntegrationtests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-15:40:05.868 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dhbw.de.WeatherAPIApplication for test class dhbw.de.UnitandIntegrationtests
+<pre>10:54:21.717 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dhbw.de.UnitandIntegrationtests]: UnitandIntegrationtests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+10:54:21.921 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dhbw.de.WeatherAPIApplication for test class dhbw.de.UnitandIntegrationtests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -147,18 +157,18 @@
 
  :: Spring Boot ::                (v3.4.2)
 
-2025-03-11T15:40:06.279+01:00  INFO 20192 --- [    Test worker] dhbw.de.UnitandIntegrationtests          : Starting UnitandIntegrationtests using Java 17.0.12 with PID 20192 (started by g.infantone in D:\workspaces\WetterAPI_funk_gommlich_dhbw)
-2025-03-11T15:40:06.281+01:00  INFO 20192 --- [    Test worker] dhbw.de.UnitandIntegrationtests          : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2025-03-11T15:40:06.842+01:00  INFO 20192 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-11T15:40:06.862+01:00  INFO 20192 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
-2025-03-11T15:40:07.198+01:00  INFO 20192 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-03-11T15:40:07.349+01:00  INFO 20192 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:fc89e96d-e471-4a80-a994-02f56aa59ba3 user=SA
-2025-03-11T15:40:07.351+01:00  INFO 20192 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-03-11T15:40:07.417+01:00  INFO 20192 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-11T15:40:07.517+01:00  INFO 20192 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
-2025-03-11T15:40:07.547+01:00  INFO 20192 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-11T15:40:07.827+01:00  INFO 20192 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-11T15:40:07.911+01:00  INFO 20192 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-03-12T10:54:22.422+01:00  INFO 3908 --- [    Test worker] dhbw.de.UnitandIntegrationtests          : Starting UnitandIntegrationtests using Java 17.0.12 with PID 3908 (started by g.infantone in D:\workspaces\WetterAPI_funk_gommlich_dhbw)
+2025-03-12T10:54:22.424+01:00  INFO 3908 --- [    Test worker] dhbw.de.UnitandIntegrationtests          : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-03-12T10:54:23.194+01:00  INFO 3908 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-12T10:54:23.231+01:00  INFO 3908 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 0 JPA repository interfaces.
+2025-03-12T10:54:23.673+01:00  INFO 3908 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-12T10:54:23.861+01:00  INFO 3908 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:a96b6a26-d940-452b-8676-65b3f638c0f1 user=SA
+2025-03-12T10:54:23.863+01:00  INFO 3908 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-12T10:54:23.960+01:00  INFO 3908 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-12T10:54:24.076+01:00  INFO 3908 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-03-12T10:54:24.123+01:00  INFO 3908 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-12T10:54:24.458+01:00  INFO 3908 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-12T10:54:24.568+01:00  INFO 3908 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 2.3.232
@@ -166,18 +176,18 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-03-11T15:40:08.156+01:00  INFO 20192 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-11T15:40:08.159+01:00  INFO 20192 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-12T10:54:24.890+01:00  INFO 3908 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-12T10:54:24.896+01:00  INFO 3908 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
 Inventardaten geladen: 40578 Stationen mit Temperaturwerten.
-2025-03-11T15:40:12.906+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Inventory-Daten wurden geladen 40578
+2025-03-12T10:54:41.652+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Inventory-Daten wurden geladen 40578
 Geladene Stationen: 129657
-2025-03-11T15:40:15.288+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Stationen wurden geladen 129657
-2025-03-11T15:40:15.449+01:00  WARN 20192 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-03-11T15:40:15.984+01:00  INFO 20192 --- [    Test worker] dhbw.de.UnitandIntegrationtests          : Started UnitandIntegrationtests in 9.927 seconds (process running for 11.197)
-2025-03-11T15:40:16.712+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 0.0 km um Koordinaten (52.52, 13.405):
-2025-03-11T15:40:16.715+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 0.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
-2025-03-11T15:40:16.826+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
-2025-03-11T15:40:16.826+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 9 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 2020 und 2000baufweisen
+2025-03-12T10:54:50.296+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Stationen wurden geladen 129657
+2025-03-12T10:54:50.516+01:00  WARN 3908 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-12T10:54:51.357+01:00  INFO 3908 --- [    Test worker] dhbw.de.UnitandIntegrationtests          : Started UnitandIntegrationtests in 29.239 seconds (process running for 30.81)
+2025-03-12T10:54:52.339+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 0.0 km um Koordinaten (52.52, 13.405):
+2025-03-12T10:54:52.343+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 0.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+2025-03-12T10:54:52.496+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-12T10:54:52.497+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 9 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 2020 und 2000baufweisen
 Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
 Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
 Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
@@ -212,9 +222,9 @@ Filtered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERL
 Filtered: Station[id=GME00127822, latitude=52.5458, longitude=13.5617, name=BERLIN-MARZAHN, distance=10.980647749546252]
 Filtered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
 Filtered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
-2025-03-11T15:40:17.409+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
-2025-03-11T15:40:17.570+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
-2025-03-11T15:40:17.571+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 13 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 2000 und 2010baufweisen
+2025-03-12T10:54:53.474+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
+2025-03-12T10:54:53.723+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-12T10:54:53.723+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 13 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 2000 und 2010baufweisen
 Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
 Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
 Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
@@ -253,9 +263,9 @@ Filtered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERL
 Filtered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
 Filtered: Station[id=GME00132130, latitude=52.7458, longitude=13.8419, name=HECKELBERG, distance=38.72655562382661]
 Filtered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
-2025-03-11T15:40:17.965+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für FAKE12345678 konnten nicht gesammelt werden
-2025-03-11T15:40:18.026+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
-2025-03-11T15:40:18.027+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 22 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+2025-03-12T10:54:54.182+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für FAKE12345678 konnten nicht gesammelt werden
+2025-03-12T10:54:54.285+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-12T10:54:54.285+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 22 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
 Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
 Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
 Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
@@ -303,14 +313,14 @@ Filtered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERL
 Filtered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
 Filtered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
 Filtered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
-2025-03-11T15:40:18.532+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
-2025-03-11T15:40:18.627+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (9999.0, 9999.0):
-2025-03-11T15:40:18.627+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (9999.0, 9999.0),                            die Daten im Zeitraum von 1949 und 2000baufweisen
-2025-03-11T15:40:18.694+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (-89.0, 0.0):
-2025-03-11T15:40:18.695+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (-89.0, 0.0),                            die Daten im Zeitraum von 1949 und 1950baufweisen
-2025-03-11T15:40:19.205+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
-2025-03-11T15:40:19.273+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
-2025-03-11T15:40:19.273+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 22 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+2025-03-12T10:54:55.110+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
+2025-03-12T10:54:55.235+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (9999.0, 9999.0):
+2025-03-12T10:54:55.236+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (9999.0, 9999.0),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+2025-03-12T10:54:55.320+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (-89.0, 0.0):
+2025-03-12T10:54:55.321+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von 10.0 km um Koordinaten (-89.0, 0.0),                            die Daten im Zeitraum von 1949 und 1950baufweisen
+2025-03-12T10:54:56.064+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
+2025-03-12T10:54:56.148+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-12T10:54:56.149+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 22 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
 Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
 Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
 Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
@@ -358,9 +368,9 @@ Filtered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERL
 Filtered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
 Filtered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
 Filtered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
-2025-03-11T15:40:19.777+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
-2025-03-11T15:40:19.843+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
-2025-03-11T15:40:19.843+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 22 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+2025-03-12T10:54:56.851+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
+2025-03-12T10:54:57.004+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-12T10:54:57.004+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 22 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
 Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
 Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
 Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
@@ -408,8 +418,8 @@ Filtered: Station[id=GME00128062, latitude=52.6056, longitude=13.2967, name=BERL
 Filtered: Station[id=GME00127438, latitude=52.6325, longitude=13.5039, name=BERLIN-BUCH, distance=14.18269241368554]
 Filtered: Station[id=GME00131014, latitude=52.78, longitude=13.7606, name=MELCHOW-SCHONHOLZ, distance=37.56702804632367]
 Filtered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
-2025-03-11T15:40:19.957+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
-2025-03-11T15:40:19.957+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 8 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1950 und 1951baufweisen
+2025-03-12T10:54:57.094+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-12T10:54:57.095+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 8 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1950 und 1951baufweisen
 Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
 Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
 Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
@@ -443,7 +453,7 @@ Filtered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERL
 Filtered: Station[id=GMW00035104, latitude=52.4833, longitude=13.4, name=TEMPELHOF, distance=4.094864049440625]
 Filtered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
 Filtered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBERSWALDE, distance=43.12307586534306]
-2025-03-11T15:40:20.453+01:00  INFO 20192 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
+2025-03-12T10:54:58.017+01:00  INFO 3908 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahreszeit für GME00127850 gesammelt
 </pre>
 </span>
 </div>
@@ -552,7 +562,7 @@ Filtered: Station[id=GME00121526, latitude=52.8253, longitude=13.7994, name=EBER
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.10</a> at 11.03.2025, 15:40:25</p>
+<a href="http://www.gradle.org">Gradle 8.10</a> at 12.03.2025, 10:55:04</p>
 </div>
 </div>
 </body>

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Wetterapp_funk_gommlich_3.iml" filepath="$PROJECT_DIR$/.idea/modules/Wetterapp_funk_gommlich_3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Wetterapp_funk_gommlich_3.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Wetterapp_funk_gommlich_3.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Wetterapp_funk_gommlich_3.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Wetterapp_funk_gommlich_3.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WetterAPI_funk_gommlich_dhbw.iml" filepath="$PROJECT_DIR$/.idea/modules/WetterAPI_funk_gommlich_dhbw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WetterAPI_funk_gommlich_dhbw.main.iml" filepath="$PROJECT_DIR$/.idea/modules/WetterAPI_funk_gommlich_dhbw.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WetterAPI_funk_gommlich_dhbw.test.iml" filepath="$PROJECT_DIR$/.idea/modules/WetterAPI_funk_gommlich_dhbw.test.iml" />
     </modules>
   </component>
 </project>
