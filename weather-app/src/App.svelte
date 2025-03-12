@@ -284,7 +284,7 @@ async function updateChart() {
             labels: years,
             datasets: [
                 {
-                    label: "Jährliche Min. Temperatur (°C)",
+                    label: "Jährliche AvgMin. Temp (°C)",
                     data: tminData,
                     borderColor: "blue",
                     backgroundColor: "transparent",
@@ -292,7 +292,7 @@ async function updateChart() {
                     tension: 0.3
                 },
                 {
-                    label: "Jährliche Max. Temperatur (°C)",
+                    label: "Jährliche AvgMax. Temp (°C)",
                     data: tmaxData,
                     borderColor: "red",
                     backgroundColor: "transparent",
@@ -300,7 +300,7 @@ async function updateChart() {
                     tension: 0.3
                 },
                 {
-                    label: "Winter Min. Temperatur (°C)",
+                    label: "Winter AvgMin. Temp (°C)",
                     data: seasonData.Winter.min,
                     borderColor: "darkblue",
                     backgroundColor: "transparent",
@@ -308,7 +308,7 @@ async function updateChart() {
                     tension: 0.3
                 },
                 {
-                    label: "Winter Max. Temperatur (°C)",
+                    label: "Winter AvgMax. Temp (°C)",
                     data: seasonData.Winter.max,
                     borderColor: "lightblue",
                     backgroundColor: "transparent",
@@ -316,7 +316,7 @@ async function updateChart() {
                     tension: 0.3
                 },
                 {
-                    label: "Frühling Min. Temperatur (°C)",
+                    label: "Frühling AvgMin. Temp (°C)",
                     data: seasonData.Frühling.min,
                     borderColor: "green",
                     backgroundColor: "transparent",
@@ -324,7 +324,7 @@ async function updateChart() {
                     tension: 0.3
                 },
                 {
-                    label: "Frühling Max. Temperatur (°C)",
+                    label: "Frühling AvgMax. Temp (°C)",
                     data: seasonData.Frühling.max,
                     borderColor: "lightgreen",
                     backgroundColor: "transparent",
@@ -332,7 +332,7 @@ async function updateChart() {
                     tension: 0.3
                 },
                 {
-                    label: "Sommer Min. Temperatur (°C)",
+                    label: "Sommer AvgMin. Temp (°C)",
                     data: seasonData.Sommer.min,
                     borderColor: "orange",
                     backgroundColor: "transparent",
@@ -340,7 +340,7 @@ async function updateChart() {
                     tension: 0.3
                 },
                 {
-                    label: "Sommer Max. Temperatur (°C)",
+                    label: "Sommer AvgMax. Temp (°C)",
                     data: seasonData.Sommer.max,
                     borderColor: "yellow",
                     backgroundColor: "transparent",
@@ -348,7 +348,7 @@ async function updateChart() {
                     tension: 0.3
                 },
                 {
-                    label: "Herbst Min. Temperatur (°C)",
+                    label: "Herbst AvgMin. Tem (°C)",
                     data: seasonData.Herbst.min,
                     borderColor: "brown",
                     backgroundColor: "transparent",
@@ -356,7 +356,7 @@ async function updateChart() {
                     tension: 0.3
                 },
                 {
-                    label: "Herbst Max. Temperatur (°C)",
+                    label: "Herbst AvgMax. Temp (°C)",
                     data: seasonData.Herbst.max,
                     borderColor: "goldenrod",
                     backgroundColor: "transparent",
@@ -451,8 +451,8 @@ async function updateChart() {
                         <thead>
                             <tr>
                                 <th>Year</th>
-                                <th>Minimum Temperature</th>
-                                <th>Maximum Temperature</th>
+                                <th>AvgMin. Temperatur</th>
+                                <th>AvgMax. Temperatur</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -474,8 +474,8 @@ async function updateChart() {
                         <thead>
                             <tr>
                                 <th>Year</th>
-                                <th>Minimum Temperature</th>
-                                <th>Maximum Temperature</th>
+                                <th>AvgMin. Temperatur</th>
+                                <th>AvgMax. Temperatur</th>
                             </tr>
                         </thead>
                         <tbody>
