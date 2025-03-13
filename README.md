@@ -19,6 +19,7 @@ Stelle sicher, dass folgenden Programme auf deinem System installiert sind:
 3. **PowerShell**
    
 5. **WSL-Installation**
+
    Falls eventuell noch nicht vorhanden, muss noch eine WSL-Installation gemacht werden. Geschieht dann einfach mit:
    
  ```powershell
