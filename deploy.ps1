@@ -19,11 +19,6 @@ if (Test-Path $repoPath) {
     Set-Location $repoPath
 }
 
-if (-not (docker info | Out-Null)) {
-    Write-Host "Docker-Daemon läuft nicht. Bitte starte Docker und versuche es erneut." -ForegroundColor Red
-    Read-Host "Druecke Enter, um das Skript zu beenden"
-    exit 1
-}
 
 Write-Host "Baue und starte die Docker-Container..." -ForegroundColor Green
 docker compose up --build -d
