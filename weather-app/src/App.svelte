@@ -271,14 +271,14 @@ async function updateChart() {
            datasets: [
                { label: "Jährliche AvgMin. Temp (°C)", data: tminData, borderColor: "blue", backgroundColor: "transparent", fill: true, tension: 0.3 },
                { label: "Jährliche AvgMax. Temp (°C)", data: tmaxData, borderColor: "red", backgroundColor: "transparent", fill: true, tension: 0.3 },
-               { label: "Winter AvgMin. Temp (°C)", data: seasonData.Winter.min, borderColor: "darkblue", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Winter AvgMax. Temp (°C)", data: seasonData.Winter.max, borderColor: "lightblue", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Frühling AvgMin. Temp (°C)", data: seasonData.Frühling.min, borderColor: "green", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Frühling AvgMax. Temp (°C)", data: seasonData.Frühling.max, borderColor: "lightgreen", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Sommer AvgMin. Temp (°C)", data: seasonData.Sommer.min, borderColor: "orange", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Sommer AvgMax. Temp (°C)", data: seasonData.Sommer.max, borderColor: "yellow", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Herbst AvgMin. Temp (°C)", data: seasonData.Herbst.min, borderColor: "brown", backgroundColor: "transparent", fill: false, tension: 0.3 },
-               { label: "Herbst AvgMax. Temp (°C)", data: seasonData.Herbst.max, borderColor: "goldenrod", backgroundColor: "transparent", fill: false, tension: 0.3 }
+               { label: "Winter AvgMin. Temp (°C)", data: seasonData.Winter.min, borderColor: "darkblue", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Winter AvgMax. Temp (°C)", data: seasonData.Winter.max, borderColor: "lightblue", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Frühling AvgMin. Temp (°C)", data: seasonData.Frühling.min, borderColor: "green", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Frühling AvgMax. Temp (°C)", data: seasonData.Frühling.max, borderColor: "lightgreen", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Sommer AvgMin. Temp (°C)", data: seasonData.Sommer.min, borderColor: "orange", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Sommer AvgMax. Temp (°C)", data: seasonData.Sommer.max, borderColor: "yellow", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Herbst AvgMin. Temp (°C)", data: seasonData.Herbst.min, borderColor: "brown", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true },
+               { label: "Herbst AvgMax. Temp (°C)", data: seasonData.Herbst.max, borderColor: "goldenrod", backgroundColor: "transparent", fill: false, tension: 0.3, hidden: true }
            ]
        },
        options: {
@@ -295,7 +295,7 @@ async function updateChart() {
            },
            scales: {
                x: { title: { display: true, text: "Jahr" } },
-               y: { title: { display: true, text: "Temperatur (°C)" } }
+               y: { title: { display: true, text: "Temperature (°C)" } }
            }
        }
    });
@@ -365,8 +365,8 @@ async function updateChart() {
                         <thead>
                             <tr>
                                 <th>Year</th>
-                                <th>AvgMin. Temperatur</th>
-                                <th>AvgMax. Temperatur</th>
+                                <th>AvgMin. Temperature</th>
+                                <th>AvgMax. Temperature</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -388,8 +388,8 @@ async function updateChart() {
                         <thead>
                             <tr>
                                 <th>Year</th>
-                                <th>AvgMin. Temperatur</th>
-                                <th>AvgMax. Temperatur</th>
+                                <th>AvgMin. Temperature</th>
+                                <th>AvgMax. Temperature</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -481,9 +481,9 @@ async function updateChart() {
     }
 
     .overlay_right {
-        position: absolute;
+        position: relative;
         top: 2%;
-        right:-20%;
+        left: 75%;
         transform: translateX(-50%);
         background: rgba(255, 255, 255, 0.9);
         padding: 1%;
@@ -491,7 +491,7 @@ async function updateChart() {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 1000;
         text-align: center;
-        max-width: 90%;
+        max-width: 35%;
         overflow: auto;
     }
 
@@ -518,7 +518,7 @@ async function updateChart() {
 
     .weather-data th, .weather-data td, .seasonal-weather-data th, .seasonal-weather-data td {
         padding: 10px;
-        text-align: left;
+        text-align: right;
         border-bottom: 1px solid #ddd;
         color: black;
 
@@ -526,6 +526,7 @@ async function updateChart() {
 
     .weather-data th , .seasonal-weather-data th {
         position: sticky;
+        text-align: left;
         top: 0;
         background-color: #f0f0f0;
         z-index: 2;

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="dhbw.de.WeatherAPIRESTControllerIntegrationTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2025-03-12T15:23:03" hostname="RWLWIN234" time="3.895">
+<testsuite name="dhbw.de.WeatherAPIRESTControllerIntegrationTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2025-03-13T11:53:30" hostname="RWLWIN234" time="4.422">
   <properties/>
-  <testcase name="testGetStations_missingLon()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.112"/>
-  <testcase name="testGetWeatherData_largeYearRange()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.873"/>
-  <testcase name="testGetStations_negativeRadius()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.102"/>
-  <testcase name="testGetWeatherData_invalidYearRange()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.683"/>
-  <testcase name="testGetWeatherData_invertedYearRange()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.611"/>
-  <testcase name="testGetWeatherData_emptyStationId()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.507"/>
+  <testcase name="testGetStations_missingLon()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.138"/>
+  <testcase name="testGetWeatherData_largeYearRange()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.837"/>
+  <testcase name="testGetStations_negativeRadius()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.123"/>
+  <testcase name="testGetWeatherData_invalidYearRange()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.859"/>
+  <testcase name="testGetWeatherData_invertedYearRange()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.817"/>
+  <testcase name="testGetWeatherData_emptyStationId()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.601"/>
   <testcase name="testGetWeatherData_missingStationId()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.01"/>
-  <testcase name="testGetStations_zeroLimit()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.116"/>
-  <testcase name="testGetWeatherData_successful()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.702"/>
-  <testcase name="testGetStations_missingEndYear()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.01"/>
-  <testcase name="testGetStations_successful()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.156"/>
-  <system-out><![CDATA[2025-03-12T16:23:01.672+01:00  INFO 5028 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dhbw.de.WeatherAPIRESTControllerIntegrationTest]: WeatherAPIRESTControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-03-12T16:23:01.689+01:00  INFO 5028 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dhbw.de.WeatherAPIApplication for test class dhbw.de.WeatherAPIRESTControllerIntegrationTest
+  <testcase name="testGetStations_zeroLimit()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.1"/>
+  <testcase name="testGetWeatherData_successful()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.823"/>
+  <testcase name="testGetStations_missingEndYear()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.007"/>
+  <testcase name="testGetStations_successful()" classname="dhbw.de.WeatherAPIRESTControllerIntegrationTest" time="0.093"/>
+  <system-out><![CDATA[2025-03-13T12:53:29.223+01:00  INFO 10032 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dhbw.de.WeatherAPIRESTControllerIntegrationTest]: WeatherAPIRESTControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-13T12:53:29.241+01:00  INFO 10032 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dhbw.de.WeatherAPIApplication for test class dhbw.de.WeatherAPIRESTControllerIntegrationTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -24,22 +24,22 @@
 
  :: Spring Boot ::                (v3.4.2)
 
-2025-03-12T16:23:01.732+01:00  INFO 5028 --- [    Test worker] .WeatherAPIRESTControllerIntegrationTest : Starting WeatherAPIRESTControllerIntegrationTest using Java 17.0.12 with PID 5028 (started by g.infantone in D:\workspaces\WetterAPI_funk_gommlich_dhbw)
-2025-03-12T16:23:01.732+01:00  INFO 5028 --- [    Test worker] .WeatherAPIRESTControllerIntegrationTest : No active profile set, falling back to 1 default profile: "default"
-2025-03-12T16:23:01.918+01:00  INFO 5028 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-12T16:23:01.923+01:00  INFO 5028 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 JPA repository interfaces.
-2025-03-12T16:23:02.372+01:00  INFO 5028 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-12T16:23:02.420+01:00  INFO 5028 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-12T16:23:02.421+01:00  INFO 5028 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
-2025-03-12T16:23:02.541+01:00  INFO 5028 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-12T16:23:02.542+01:00  INFO 5028 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 807 ms
-2025-03-12T16:23:02.685+01:00  INFO 5028 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2025-03-12T16:23:02.690+01:00  INFO 5028 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:492282f7-55b1-4354-957b-2baadd8d990d user=SA
-2025-03-12T16:23:02.690+01:00  INFO 5028 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2025-03-12T16:23:02.697+01:00  INFO 5028 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-12T16:23:02.700+01:00  INFO 5028 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-12T16:23:02.717+01:00  INFO 5028 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-12T16:23:02.719+01:00  INFO 5028 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-03-13T12:53:29.285+01:00  INFO 10032 --- [    Test worker] .WeatherAPIRESTControllerIntegrationTest : Starting WeatherAPIRESTControllerIntegrationTest using Java 17.0.12 with PID 10032 (started by g.infantone in D:\workspaces\WetterAPI_funk_gommlich_dhbw)
+2025-03-13T12:53:29.285+01:00  INFO 10032 --- [    Test worker] .WeatherAPIRESTControllerIntegrationTest : No active profile set, falling back to 1 default profile: "default"
+2025-03-13T12:53:29.458+01:00  INFO 10032 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-13T12:53:29.463+01:00  INFO 10032 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 JPA repository interfaces.
+2025-03-13T12:53:29.847+01:00  INFO 10032 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-13T12:53:29.883+01:00  INFO 10032 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-13T12:53:29.884+01:00  INFO 10032 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-03-13T12:53:30.008+01:00  INFO 10032 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-13T12:53:30.010+01:00  INFO 10032 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 722 ms
+2025-03-13T12:53:30.111+01:00  INFO 10032 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-03-13T12:53:30.114+01:00  INFO 10032 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:cc92a5f3-33e3-451f-b34b-4fc83009db38 user=SA
+2025-03-13T12:53:30.114+01:00  INFO 10032 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-03-13T12:53:30.119+01:00  INFO 10032 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-13T12:53:30.121+01:00  INFO 10032 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-13T12:53:30.137+01:00  INFO 10032 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-13T12:53:30.139+01:00  INFO 10032 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
 	Database driver: undefined/unknown
 	Database version: 2.3.232
@@ -47,30 +47,30 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-03-12T16:23:02.740+01:00  INFO 5028 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-12T16:23:02.741+01:00  INFO 5028 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-12T16:23:02.763+01:00  WARN 5028 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-03-12T16:23:02.932+01:00  INFO 5028 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
-2025-03-12T16:23:02.933+01:00  INFO 5028 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2025-03-12T16:23:02.934+01:00  INFO 5028 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2025-03-12T16:23:03.072+01:00  INFO 5028 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-12T16:23:03.076+01:00  INFO 5028 --- [    Test worker] .WeatherAPIRESTControllerIntegrationTest : Started WeatherAPIRESTControllerIntegrationTest in 1.379 seconds (process running for 66.627)
-2025-03-12T16:23:03.180+01:00  WARN 5028 --- [    Test worker] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'lon' for method parameter type double is not present]
-2025-03-12T16:23:03.207+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_weather_data empfangen
-2025-03-12T16:23:04.029+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
-2025-03-12T16:23:04.073+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_station empfangen
-2025-03-12T16:23:04.163+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von -10.0 km um Koordinaten (52.52, 13.405):
-2025-03-12T16:23:04.163+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von -10.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
-2025-03-12T16:23:04.174+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_weather_data empfangen
-2025-03-12T16:23:04.846+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
-2025-03-12T16:23:04.862+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_weather_data empfangen
-2025-03-12T16:23:05.458+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
-2025-03-12T16:23:05.474+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_weather_data empfangen
-2025-03-12T16:23:05.968+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für  konnten nicht gesammelt werden
-2025-03-12T16:23:05.983+01:00  WARN 5028 --- [    Test worker] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'stationId' for method parameter type String is not present]
-2025-03-12T16:23:05.993+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_station empfangen
-2025-03-12T16:23:06.096+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
-2025-03-12T16:23:06.096+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 4 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+2025-03-13T12:53:30.157+01:00  INFO 10032 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-13T12:53:30.158+01:00  INFO 10032 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-13T12:53:30.179+01:00  WARN 10032 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-13T12:53:30.375+01:00  INFO 10032 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2025-03-13T12:53:30.375+01:00  INFO 10032 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-03-13T12:53:30.376+01:00  INFO 10032 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-03-13T12:53:30.507+01:00  INFO 10032 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-03-13T12:53:30.510+01:00  INFO 10032 --- [    Test worker] .WeatherAPIRESTControllerIntegrationTest : Started WeatherAPIRESTControllerIntegrationTest in 1.263 seconds (process running for 22.739)
+2025-03-13T12:53:30.638+01:00  WARN 10032 --- [    Test worker] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'lon' for method parameter type double is not present]
+2025-03-13T12:53:30.664+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_weather_data empfangen
+2025-03-13T12:53:31.447+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
+2025-03-13T12:53:31.494+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_station empfangen
+2025-03-13T12:53:31.589+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von -10.0 km um Koordinaten (52.52, 13.405):
+2025-03-13T12:53:31.589+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 0 Stationen innerhalb von -10.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+2025-03-13T12:53:31.617+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_weather_data empfangen
+2025-03-13T12:53:32.467+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
+2025-03-13T12:53:32.480+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_weather_data empfangen
+2025-03-13T12:53:33.285+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
+2025-03-13T12:53:33.298+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_weather_data empfangen
+2025-03-13T12:53:33.891+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für  konnten nicht gesammelt werden
+2025-03-13T12:53:33.902+01:00  WARN 10032 --- [    Test worker] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'stationId' for method parameter type String is not present]
+2025-03-13T12:53:33.911+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_station empfangen
+2025-03-13T12:53:33.998+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-13T12:53:33.998+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 4 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
 Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
 Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
 Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
@@ -100,12 +100,12 @@ Filtered: Station[id=GM000003342, latitude=52.3833, longitude=13.0639, name=POTS
 Filtered: Station[id=GM000003319, latitude=52.4639, longitude=13.3017, name=BERLIN-DAHLEM, distance=9.371552904956935]
 Filtered: Station[id=GME00111445, latitude=52.4683, longitude=13.4039, name=BERLIN-TEMPELHOF, distance=5.749260034137326]
 Filtered: Station[id=GME00121150, latitude=52.5656, longitude=13.3106, name=BERLIN-TEGEL, distance=8.152487881738962]
-2025-03-12T16:23:06.108+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_weather_data empfangen
-2025-03-12T16:23:06.796+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
-2025-03-12T16:23:06.814+01:00  WARN 5028 --- [    Test worker] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'endYear' for method parameter type int is not present]
-2025-03-12T16:23:06.823+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_station empfangen
-2025-03-12T16:23:06.967+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
-2025-03-12T16:23:06.967+01:00  INFO 5028 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 4 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
+2025-03-13T12:53:34.012+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_weather_data empfangen
+2025-03-13T12:53:34.825+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : Wetterdaten pro Jahr für GME00127850 gesammelt
+2025-03-13T12:53:34.839+01:00  WARN 10032 --- [    Test worker] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'endYear' for method parameter type int is not present]
+2025-03-13T12:53:34.846+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : GET-Request auf /get_station empfangen
+2025-03-13T12:53:34.930+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 25 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405):
+2025-03-13T12:53:34.931+01:00  INFO 10032 --- [    Test worker] dhbw.de.WeatherAPIRESTController         : 4 Stationen innerhalb von 50.0 km um Koordinaten (52.52, 13.405),                            die Daten im Zeitraum von 1949 und 2000baufweisen
 Unfiltered: Station[id=GMM00010376, latitude=52.117, longitude=13.617, name=BARUTH, distance=47.071325755958036]
 Unfiltered: Station[id=GMM00010385, latitude=52.38, longitude=13.523, name=SCHONEFELD, distance=17.501044607493778]
 Unfiltered: Station[id=GME00127930, latitude=52.3819, longitude=13.5325, name=BERLIN-SCHONEFELD, distance=17.619904608054995]
