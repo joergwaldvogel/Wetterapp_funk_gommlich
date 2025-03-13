@@ -17,7 +17,14 @@ Stelle sicher, dass folgenden Programme auf deinem System installiert sind:
     - Prüfe die Installation mit `git --version`.
 
 3. **PowerShell**
-    - Das Skript wurde für **PowerShell 5+/PowerShell Core** geschrieben.
+   
+5. **WSL-Installation**
+   Falls eventuell noch nicht vorhanden, muss noch eine WSL-Installation gemacht werden. Geschieht dann einfach mit:
+   
+ ```powershell
+wsl --install
+````
+    
 
 ##  Installation & Verwendung
 
@@ -48,10 +55,10 @@ Set-ExecutionPolicy Unrestricted -Scope Process
 
 2. Falls nicht, zeigt es eine Fehlermeldung.
 
-3. Klont das GitHub-Repository in den Benutzerordner ($HOME\Wetterapp_funk_gommlich).
+3. Klont das GitHub-Repo in den Benutzerordner ($HOME\Wetterapp_funk_gommlich).
 
 4. Falls das Verzeichnis bereits existiert, wird es gelöscht und neu erstellt.
 
-5. Baut die Docker-Container mit docker compose build.
+5. Baut die Docker-Container für Front- und Backend (docker compose build).
 
-6. Startet die Container im Hintergrund mit docker compose up -d. 
+6. Startet die Container im Hintergrund (docker compose up -d). 
