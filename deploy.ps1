@@ -5,7 +5,7 @@ $repoPath = "$env:USERPROFILE\Wetterapp_funk_gommlich"
 
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Host "Git ist nicht installiert, Bitte installiere Git und versuche es erneut." -ForegroundColor Red
-    Read-Host "Drücke Enter, um das Skript zu beenden"
+    Read-Host "Druecke Enter, um das Skript zu beenden"
     exit 1
 }
 
