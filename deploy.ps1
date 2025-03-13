@@ -1,21 +1,27 @@
-$repoPath = Split-Path -Parent $MyInvocation.MyCommand.Path
-Set-Location $repoPath
 
-Write-Host "Baue den Docker-Container für Front- und Backend..."
-docker compose build
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Fehler beim Bauen des Containers!" -ForegroundColor Red
-    exit 1
+$repoUrl = "https://github.com/joergwaldvogel/Wetterapp_funk_gommlich.git"
+$repoPath = "$env:USERPROFILE\Wetterapp_funk_gommlich"
+
+
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    Write-Host "Git ist nicht installiert, Bitte installiere Git und versuche es erneut." -ForegroundColor Red
 }
 
-Write-Host "Starte die Docker-Container..."
-docker compose up -d
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Fehler beim Starten der Container" -ForegroundColor Red
-    exit 1
+if (Test-Path $repoPath) {
+    Write-Host "Repository existiert bereits. Pulling latest changes..." -ForegroundColor Cyan
+    Set-Location $repoPath
+    git pull
+} else {
+    Write-Host "Klone Repository nach $repoPath ..." -ForegroundColor Green
+    git clone $repoUrl $repoPath
+    Set-Location $repoPath
 }
 
-Write-Host "Laufende Container:"
-docker ps
+if (-not (docker info | Out-Null)) {
+    Write-Host "Docker-Daemon läuft nicht. Bitte starte Docker und versuche es erneut." -ForegroundColor Red
+}
 
-Write-Host "Deployment erfolgreich" -ForegroundColor Green
+Write-Host "Baue und starte die Docker-Container..." -ForegroundColor Green
+docker compose up --build -d
+
+Write-Host "Deployment abgeschlossen, Frontend nun erreichbar unter http://localhost:5173" -ForegroundColor Green
